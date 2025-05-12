@@ -10,9 +10,6 @@ public class StrainerGameplay : MonoBehaviour
     public void FilterPlaced()
     {
         _hasFilterAttached = true;
-        var filter = filterSocket.GetOldestInteractableSelected();
-        filter.transform.SetParent(filterSocket.transform, false);
-        filter.transform.localPosition = Vector3.zero;
         Debug.Log("Filter attached");
     }
 

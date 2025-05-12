@@ -7,31 +7,32 @@ public class TubeGameplay : MonoBehaviour
     [SerializeField] private XRSocketInteractor strainerSocket;
     [Header("Press")]
     [SerializeField] private XRSocketInteractor pressSocket;
+    [Header("Coffee")]
+    [SerializeField] private XRSocketInteractor coffeSocket;
     
     private bool _hasStrainerAttached;
     private bool _hasPressAttached;
-    
+    private bool _hasCoffe;
+
     public void StrainerPlaced()
     {
         _hasStrainerAttached = true;
-        var strainer = strainerSocket.GetOldestInteractableSelected();
-        strainer.transform.SetParent(strainerSocket.transform, false);
-        strainer.transform.localPosition = Vector3.zero;
         Debug.Log("Strainer attached");
+        coffeSocket.gameObject.SetActive(true);
+        Debug.Log(coffeSocket.gameObject.activeSelf);
     }
 
     public void StrainerRemoved()
     {
         _hasStrainerAttached = false;
+        coffeSocket.gameObject.SetActive(false);
         Debug.Log("Strainer removed");
     }
     
     public void PressPlaced()
     {
         _hasPressAttached = true;
-        var press = pressSocket.GetOldestInteractableSelected();
-        press.transform.SetParent(pressSocket.transform, false);
-        press.transform.localPosition = Vector3.zero;
+       
         Debug.Log("Press attached");
     }
 
@@ -40,4 +41,18 @@ public class TubeGameplay : MonoBehaviour
         _hasPressAttached = false;
         Debug.Log("Press removed");
     }
+
+    public void CoffePlaced()
+    {
+        var coffee = coffeSocket.GetOldestInteractableSelected();
+        coffee.transform.GetComponent<Animator>().Play("Coffee");
+        _hasCoffe = true;
+    }
+
+    public void ActivatePressSocket()
+    {
+        pressSocket.gameObject.SetActive(true);
+    }
+
+    
 }
