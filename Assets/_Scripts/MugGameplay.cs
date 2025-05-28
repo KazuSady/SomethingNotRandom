@@ -1,11 +1,9 @@
-using System.Collections;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class MugGameplay : MonoBehaviour
 {
-    [SerializeField] private GameObject liquidHolder;
+    [SerializeField] private LiquidBehaviour liquid;
     [Header("Aeropress")]
     [SerializeField] private XRSocketInteractor aeropressSocket;
     [Header("Kettle")]
@@ -14,6 +12,7 @@ public class MugGameplay : MonoBehaviour
     private bool _hasAeropress;
     private bool _hasWater;
     private GameObject _aeropress;
+    private GameObject _kettle;
     
     public void AeropressPlaced()
     {
@@ -28,7 +27,7 @@ public class MugGameplay : MonoBehaviour
     public void AeropressRemoved()
     {
         _hasAeropress = false;
-        
+        _aeropress = null;
         kettleSocket.gameObject.SetActive(false);
         Debug.Log("Aeropress removed");
     }
@@ -36,7 +35,8 @@ public class MugGameplay : MonoBehaviour
     public void KettlePlaced()
     {
         var kettle = kettleSocket.GetOldestInteractableSelected();
-        kettle.transform.GetComponent<Animator>().Play("Kettle");
+        _kettle = kettle.transform.gameObject;
+        _kettle.transform.GetComponent<Animator>().Play("Kettle");
         _hasWater = true;
         _aeropress.GetComponent<TubeGameplay>().ActivatePressSocket();
     }
@@ -49,13 +49,7 @@ public class MugGameplay : MonoBehaviour
 
     private void HandlePressedCoffee()
     {
-        StartCoroutine(PressCoffee());
-    }
-
-    private IEnumerator PressCoffee()
-    {
-        var coffeWater = liquidHolder.transform.GetChild(0);
-        var tween = coffeWater.transform.DOScaleY(0.0f, 3.5f);
-        yield return tween.WaitForCompletion();
+        _kettle.GetComponentInChildren<LiquidBehaviour>().PressLiquid(3.5f);
+        liquid.PourLiquid();
     }
 }
