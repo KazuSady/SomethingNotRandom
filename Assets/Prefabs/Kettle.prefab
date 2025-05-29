@@ -567,8 +567,11 @@ MonoBehaviour:
   oldParent: {fileID: 5998993953578601839}
   liquidMaterial: {fileID: 2100000, guid: ff835c4e4722ba44397c27ccf6bff27c, type: 2}
   minCutoff: -0.5
-  topCutoff: 1
+  topCutoff: 0.25
   duration: 1
+  maxWobble: 0.1
+  wobbleSpeed: 1
+  recovery: 1
 --- !u!1 &6055723968472237020
 GameObject:
   m_ObjectHideFlags: 0

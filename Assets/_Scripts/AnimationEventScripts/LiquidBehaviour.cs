@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,8 +9,50 @@ public class LiquidBehaviour : MonoBehaviour
     [SerializeField] private Transform oldParent;
     [SerializeField] private Material liquidMaterial;
     [SerializeField] private float minCutoff = -0.5f;
-    [SerializeField] private float topCutoff = 1.0f;
+    [SerializeField] private float topCutoff = 0.8f;
     [SerializeField] private float duration = 3.5f;
+    
+    [Header("For liquid movement")]
+    [SerializeField] private float maxWobble = 0.03f;
+    [SerializeField] private float wobbleSpeed = 1.0f;
+    [SerializeField] private float recovery = 1.0f;
+    private float _time = 0.5f;
+    private Vector3 _lastPos;
+    private Vector3 _lastRot;
+    private Vector3 _velocity;
+    private Vector3 _angularVelocity;
+    private float _wobbleAmountX;
+    private float _wobbleAmountZ;
+    private float _wobbleAmountToAddX;
+    private float _wobbleAmountToAddZ;
+    private float _pulse;
+
+    private void Update()
+    {
+        if (liquidObject.activeSelf)
+        {
+            _time += Time.deltaTime;
+            
+            _wobbleAmountToAddX = Mathf.Lerp(_wobbleAmountToAddX, 0, Time.deltaTime * (recovery));
+            _wobbleAmountToAddZ = Mathf.Lerp(_wobbleAmountToAddZ, 0, Time.deltaTime * (recovery));
+            
+            _pulse = 2 * Mathf.PI * wobbleSpeed;
+            _wobbleAmountX = _wobbleAmountToAddX * Mathf.Sin(_pulse * _time);
+            _wobbleAmountZ = _wobbleAmountToAddZ * Mathf.Sin(_pulse * _time);
+            
+            liquidMaterial.SetFloat("_WobbleX", _wobbleAmountX);
+            liquidMaterial.SetFloat("_WobbleZ", _wobbleAmountZ);
+            
+            _velocity = (_lastPos - transform.position) / Time.deltaTime;
+            _angularVelocity = transform.rotation.eulerAngles - _lastRot;
+            
+            _wobbleAmountToAddX += Mathf.Clamp((_velocity.x + (_angularVelocity.z * 0.2f)) * maxWobble, -maxWobble, maxWobble);
+            _wobbleAmountToAddZ += Mathf.Clamp((_velocity.z + (_angularVelocity.x * 0.2f)) * maxWobble, -maxWobble, maxWobble);
+            
+            _lastPos = transform.position;
+            _lastRot = transform.rotation.eulerAngles;
+        }
+    }
 
     public void PourLiquid()
     {

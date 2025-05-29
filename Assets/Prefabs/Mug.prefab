@@ -127,7 +127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7511060229428476305
 Transform:
   m_ObjectHideFlags: 0
@@ -514,8 +514,11 @@ MonoBehaviour:
   oldParent: {fileID: 0}
   liquidMaterial: {fileID: 2100000, guid: 87078eca9338d674c9186b5461297d98, type: 2}
   minCutoff: -0.5
-  topCutoff: 1
+  topCutoff: 0.25
   duration: 3.5
+  maxWobble: 0.1
+  wobbleSpeed: 1
+  recovery: 1
 --- !u!1 &8675137542529021422
 GameObject:
   m_ObjectHideFlags: 0
