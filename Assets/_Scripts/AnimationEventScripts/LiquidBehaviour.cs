@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class LiquidBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject liquidObject;
+    [SerializeField] private Renderer liquidRenderer;
     [SerializeField] private Transform newParent;
     [SerializeField] private Transform oldParent;
-    [SerializeField] private Material liquidMaterial;
     [SerializeField] private float minCutoff = -0.5f;
     [SerializeField] private float topCutoff = 0.8f;
     [SerializeField] private float duration = 3.5f;
@@ -40,8 +41,8 @@ public class LiquidBehaviour : MonoBehaviour
             _wobbleAmountX = _wobbleAmountToAddX * Mathf.Sin(_pulse * _time);
             _wobbleAmountZ = _wobbleAmountToAddZ * Mathf.Sin(_pulse * _time);
             
-            liquidMaterial.SetFloat("_WobbleX", _wobbleAmountX);
-            liquidMaterial.SetFloat("_WobbleZ", _wobbleAmountZ);
+            liquidRenderer.material.SetFloat("_WobbleX", _wobbleAmountX);
+            liquidRenderer.material.SetFloat("_WobbleZ", _wobbleAmountZ);
             
             _velocity = (_lastPos - transform.position) / Time.deltaTime;
             _angularVelocity = transform.rotation.eulerAngles - _lastRot;
@@ -56,6 +57,10 @@ public class LiquidBehaviour : MonoBehaviour
 
     public void PourLiquid()
     {
+        if (liquidRenderer.material == GameManager.Instance.MilkCoffeeMaterial)
+        {
+            liquidRenderer.material = GameManager.Instance.BasicCoffeeMaterial;
+        }
         liquidObject.SetActive(true);
         StartCoroutine(SimulateLiquid());
     }
@@ -63,6 +68,12 @@ public class LiquidBehaviour : MonoBehaviour
     public void PressLiquid(float disappearingDuration)
     {
         StartCoroutine(SimulateDisappearingLiquid(disappearingDuration));
+    }
+
+    public void HandleMilk()
+    {
+        liquidObject.transform.DOScaleY(0.02f, 3.0f);
+        liquidRenderer.material = GameManager.Instance.MilkCoffeeMaterial;
     }
     
     private IEnumerator SimulateLiquid()
@@ -72,7 +83,7 @@ public class LiquidBehaviour : MonoBehaviour
         {
             var t = time / duration;
             var cutoff = Mathf.Lerp(minCutoff, topCutoff, t);
-            liquidMaterial.SetFloat("_Cutoff", cutoff);
+            liquidRenderer.material.SetFloat("_Cutoff", cutoff);
             time += Time.deltaTime;
             yield return null;
         }
@@ -90,7 +101,7 @@ public class LiquidBehaviour : MonoBehaviour
         {
             var t = time / disappearingDuration;
             var cutoff = Mathf.Lerp(topCutoff, minCutoff, t);
-            liquidMaterial.SetFloat("_Cutoff", cutoff);
+            liquidRenderer.material.SetFloat("_Cutoff", cutoff);
             time += Time.deltaTime;
             yield return null;
         }
