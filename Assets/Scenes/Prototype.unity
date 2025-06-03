@@ -795,7 +795,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1543,7 +1543,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1917084519}
-  - component: {fileID: 1917084518}
   - component: {fileID: 1917084520}
   m_Layer: 0
   m_Name: Manager
@@ -1552,29 +1551,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1917084518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917084517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4bf81877c06ff3469eb7cee0a882132, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterPrefab: {fileID: 7571270122975196033, guid: ec585055d9576884b935c0653928c129, type: 3}
-  monsterPlacement: {fileID: 1215930228}
-  monsterLook:
-  - {fileID: 5108732889448363403, guid: ed389429ede9f164784f29f254119c32, type: 3}
-  availableCoffees:
-  - {fileID: 11400000, guid: 8b77055ff6d59fd42a30bd5eab92b6b4, type: 2}
-  - {fileID: 11400000, guid: 87ce3e803524ffa42bddabff1d808ef5, type: 2}
-  - {fileID: 11400000, guid: 540ebab1e4f9b864f805e94cf810901d, type: 2}
-  - {fileID: 11400000, guid: 84cb31bbcec03054d88a2a1ffe5a8994, type: 2}
-  textBubble: {fileID: 1937406797}
-  canvas: {fileID: 1248188735}
 --- !u!4 &1917084519
 Transform:
   m_ObjectHideFlags: 0
@@ -1603,8 +1579,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90814966da710704787954888e11d997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ingredientTolerance: 0.1
+  availableCoffees: []
+  mug: {fileID: 8822747381729104299}
+  monsterPrefab: {fileID: 7571270122975196033, guid: ec585055d9576884b935c0653928c129, type: 3}
+  monsterPlacement: {fileID: 1215930228}
+  monsterLook:
+  - {fileID: 5108732889448363403, guid: ed389429ede9f164784f29f254119c32, type: 3}
   basicCoffeeMaterial: {fileID: 2100000, guid: 87078eca9338d674c9186b5461297d98, type: 2}
   milkCoffeeMaterial: {fileID: 2100000, guid: 7577f11274c5eae4287b6e0824ae0280, type: 2}
+  textBubble: {fileID: 1937406797}
+  canvas: {fileID: 1248188735}
 --- !u!1 &1937406794
 GameObject:
   m_ObjectHideFlags: 0
@@ -2444,6 +2429,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 933310238}
   m_SourcePrefab: {fileID: 100100000, guid: c69357a7f4a9a1641a5568a0a840785a, type: 3}
+--- !u!114 &8822747381729104299 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2766929750471047087, guid: c69357a7f4a9a1641a5568a0a840785a, type: 3}
+  m_PrefabInstance: {fileID: 8822747381729104298}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734a4965a332afd49ac4214250eadc54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8975921263447405785
 PrefabInstance:
   m_ObjectHideFlags: 0

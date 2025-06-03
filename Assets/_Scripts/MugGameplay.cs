@@ -5,8 +5,10 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 public class MugGameplay : MonoBehaviour
 {
     public event Action<MugGameplay> CoffeeStateUpdated;
+
     [SerializeField] private CupType cupType;
     [SerializeField] private LiquidBehaviour liquid;
+
     [Header("Aeropress")]
     [SerializeField] private XRSocketInteractor aeropressSocket;
     [Header("Kettle")]
@@ -17,6 +19,7 @@ public class MugGameplay : MonoBehaviour
     private bool _hasAeropress;
     private bool _hasWater;
     private bool _hasMilk;
+
     private GameObject _aeropress;
     private GameObject _kettle;
     private GameObject _milk;
@@ -87,6 +90,26 @@ public class MugGameplay : MonoBehaviour
         Debug.Log("Milk removed");
     }
 
+    public float GetCoffeeAmount()
+    {
+        return 9f;
+    }
+
+    public float GetMilkAmount()
+    {
+        return _hasMilk ? 60f : 0f;
+    }
+
+    public float GetWaterAmount()
+    {
+        return _hasWater ? 30f : 0f;
+    }
+
+    public float GetCremeAmount()
+    {
+        return 0f;
+    }
+
     private void SubscribeToPress(PressGameplay pressGameplay)
     {
         _pressGameplay = pressGameplay;
@@ -103,6 +126,6 @@ public class MugGameplay : MonoBehaviour
 
     private void OnDestroy()
     {
-        _pressGameplay.Pressing += HandlePressedCoffee;
+        _pressGameplay.Pressing -= HandlePressedCoffee;
     }
 }
