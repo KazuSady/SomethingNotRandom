@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 9acd80a28ac636e48aea32f46daeeb53, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -1580,7 +1580,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredientTolerance: 0.1
-  availableCoffees: []
+  availableCoffees:
+  - {fileID: 11400000, guid: 8b77055ff6d59fd42a30bd5eab92b6b4, type: 2}
+  - {fileID: 11400000, guid: 87ce3e803524ffa42bddabff1d808ef5, type: 2}
+  - {fileID: 11400000, guid: 540ebab1e4f9b864f805e94cf810901d, type: 2}
+  - {fileID: 11400000, guid: 84cb31bbcec03054d88a2a1ffe5a8994, type: 2}
   mug: {fileID: 8822747381729104299}
   monsterPrefab: {fileID: 7571270122975196033, guid: ec585055d9576884b935c0653928c129, type: 3}
   monsterPlacement: {fileID: 1215930228}
@@ -2386,6 +2390,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mug
       objectReference: {fileID: 0}
+    - target: {fileID: 7633849247880734602, guid: c69357a7f4a9a1641a5568a0a840785a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 08793d916f28186418ddf75236104307, type: 2}
     - target: {fileID: 7771225407076909486, guid: c69357a7f4a9a1641a5568a0a840785a, type: 3}
       propertyPath: m_IsActive
       value: 0

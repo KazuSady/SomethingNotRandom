@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -106,11 +107,26 @@ public class GameManager : MonoBehaviour
         bool cremeOk = WithinTolerance(mug.GetCremeAmount(), coffeeOrder.CremeAmount);
 
         int satisfaction = 0;
-        if (correctCup) satisfaction += 1;
-        if (coffeeOk) satisfaction += 1;
-        if (milkOk) satisfaction += 1;
-        if (waterOk) satisfaction += 1;
-        if (cremeOk) satisfaction += 1;
+        if (correctCup)
+        {
+            satisfaction += 1;
+        }
+        if (coffeeOk)
+        {
+            satisfaction += 1;
+        }
+        if (milkOk)
+        {
+            satisfaction += 1;
+        }
+        if (waterOk)
+        {
+            satisfaction += 1;
+        }
+        if (cremeOk)
+        {
+            satisfaction += 1;
+        }
 
         return satisfaction;
     }
@@ -118,7 +134,9 @@ public class GameManager : MonoBehaviour
     private bool WithinTolerance(float current, float required)
     {
         if (required == 0f)
+        {
             return current <= 0.001f;
+        }
 
         float min = required * (1f - ingredientTolerance);
         float max = required * (1f + ingredientTolerance);
