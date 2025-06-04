@@ -795,7 +795,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1544,6 +1544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1917084519}
   - component: {fileID: 1917084520}
+  - component: {fileID: 1917084521}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1594,6 +1595,27 @@ MonoBehaviour:
   milkCoffeeMaterial: {fileID: 2100000, guid: 7577f11274c5eae4287b6e0824ae0280, type: 2}
   textBubble: {fileID: 1937406797}
   canvas: {fileID: 1248188735}
+--- !u!135 &1917084521
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917084517}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.24424547
+  m_Center: {x: 0, y: -0.19219339, z: 0.87117785}
 --- !u!1 &1937406794
 GameObject:
   m_ObjectHideFlags: 0
@@ -2389,6 +2411,10 @@ PrefabInstance:
     - target: {fileID: 6626704337498796780, guid: c69357a7f4a9a1641a5568a0a840785a, type: 3}
       propertyPath: m_Name
       value: Mug
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633849247880734602, guid: c69357a7f4a9a1641a5568a0a840785a, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7633849247880734602, guid: c69357a7f4a9a1641a5568a0a840785a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -83,7 +84,15 @@ public class GameManager : MonoBehaviour
         textBubble.text = $"I want {coffee.CoffeeName}! :>";
     }
 
-    public void SubmitCoffee()
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.parent.GetComponent<MugGameplay>() != null)
+        {
+            SubmitCoffee();
+        }
+    }
+
+    private void SubmitCoffee()
     {
         if (_currentMonster == null)
             return;
@@ -164,7 +173,7 @@ public class GameManager : MonoBehaviour
         MonsterHappiness mood = GetMood(satisfaction);
 
         _currentMonster.ChangeHappiness(mood);
-        Debug.Log($"Client is {mood.ToString().ToLower()}!");
+        textBubble.text = $"Client is {mood.ToString().ToLower()}!";
 
         yield return new WaitForSeconds(2f);
     }
