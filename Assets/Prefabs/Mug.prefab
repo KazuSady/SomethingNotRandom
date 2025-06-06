@@ -569,6 +569,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2173186014075506575}
   - component: {fileID: 8448581217756350797}
+  - component: {fileID: 1364732713920773688}
   m_Layer: 0
   m_Name: LiquidCollider
   m_TagString: LiquidCollider
@@ -586,7 +587,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.049999997, y: 0.01, z: 0.049999997}
+  m_LocalScale: {x: 0.049999997, y: 0.02, z: 0.049999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 37271270274093029}
@@ -610,8 +611,35 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Size: {x: 2, y: 1.031042, z: 2}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!54 &1364732713920773688
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5069793115395970445}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6626704337498796780
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,7 +967,7 @@ MeshRenderer:
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
+  m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
@@ -990,8 +1018,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Size: {x: 1.0000002, y: 1.0310421, z: 1.0000002}
+  m_Center: {x: 0.00000007450581, y: -0.48447895, z: -0.00000007450581}
 --- !u!1 &7141482009370143070
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,7 +1261,7 @@ MonoBehaviour:
   newParent: {fileID: 0}
   oldParent: {fileID: 0}
   minCutoff: 0
-  topCutoff: 1
+  topCutoff: 0.5
   duration: 3.5
   liquidCollider: {fileID: 8448581217756350797}
   dropletPrefab: {fileID: 6188177534721174859, guid: 53ba2611db2ff8543bb4b9aa410be6f8, type: 3}
@@ -1246,9 +1274,9 @@ MonoBehaviour:
   - {fileID: 7153414094130402748}
   - {fileID: 6624961871752705617}
   - {fileID: 6846417824081647340}
-  maxWobble: 0.3
-  wobbleSpeed: 1
-  recovery: 1
+  maxWobble: 0.01
+  wobbleSpeed: 0.5
+  recovery: 0.5
 --- !u!1 &8675137542529021422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,7 +1427,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.011199951, z: 0}
-  m_LocalScale: {x: 0.049999997, y: 0.01, z: 0.049999997}
+  m_LocalScale: {x: 0.049999997, y: 0.02, z: 0.049999997}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3593713213572047529}
@@ -1413,6 +1441,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5713426311899283833}
     m_Modifications:
+    - target: {fileID: 7576676584622712344, guid: 74813802888318e469b9490e6d0a6b55, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576676584622712344, guid: 74813802888318e469b9490e6d0a6b55, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 08793d916f28186418ddf75236104307, type: 2}
     - target: {fileID: 8225049863316522957, guid: 74813802888318e469b9490e6d0a6b55, type: 3}
       propertyPath: m_Name
       value: coffee_cup

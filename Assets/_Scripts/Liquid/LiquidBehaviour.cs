@@ -49,7 +49,7 @@ public class LiquidBehaviour : MonoBehaviour
         {
             liquidCollider.transform.rotation = Quaternion.identity;
         }
-        if (liquidObject.activeSelf && _liquidAmount > 0.0f)
+        if (liquidObject.activeSelf && _liquidAmount > 1.0f)
         {
             _time += Time.deltaTime;
             
@@ -103,13 +103,16 @@ public class LiquidBehaviour : MonoBehaviour
             var drop = Instantiate(dropletPrefab, liquidDropStart.position, Quaternion.identity);
             drop.GetComponentInChildren<Rigidbody>().AddForce(Physics.gravity, ForceMode.Acceleration);
             _liquidAmount -= 0.1f;
-            liquidRenderer.material.SetFloat("_Cutoff", _liquidAmount);
+            var cutoffAmount = topCutoff * _liquidAmount ;
+            liquidRenderer.material.SetFloat("_Cutoff", cutoffAmount);
             var colliderSize = liquidCollider.size;
             var colliderCenter = liquidCollider.center;
             colliderCenter.y = -1.0f + _liquidAmount;
             liquidCollider.center = colliderCenter;
             colliderSize.y *= _liquidAmount;
             liquidCollider.size = colliderSize;
+            Debug.Log($"Liquid amount: {_liquidAmount}");
+            Debug.Log($"Cut off: {cutoffAmount}");
         }
     }
     
