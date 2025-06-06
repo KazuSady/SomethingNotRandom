@@ -39,13 +39,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _CutAmount: -1
-    - _Cutoff: 0.5
+    - _Cutoff: 0.64
     - _QueueControl: 0
     - _QueueOffset: 0
     - _WobbleX: 0.0000011375718
     - _WobbleZ: 0.0000068292293
     m_Colors:
-    - _CutoffMinMax: {r: -0.021, g: 0.021, b: 0, a: 0}
+    - _CutoffMinMax: {r: -0.03, g: 0.03, b: 0, a: 0}
     - _SideColor: {r: 0.0754717, g: 0.027693296, b: 0.011154616, a: 1}
     - _TopColor: {r: 0.13836467, g: 0.046802104, b: 0.0152288005, a: 1}
   m_BuildTextureStacks: []

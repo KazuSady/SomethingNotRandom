@@ -22,6 +22,7 @@ public class LiquidSpillChecker : MonoBehaviour
         if (_liquidSpillingCoroutine != null)
         {
             StopCoroutine(_liquidSpillingCoroutine);
+            _liquidSpillingCoroutine = null;
         }
     }
 

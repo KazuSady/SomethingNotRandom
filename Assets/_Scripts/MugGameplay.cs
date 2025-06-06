@@ -27,7 +27,12 @@ public class MugGameplay : MonoBehaviour
     
     public CupType CupType => cupType;
     public bool HasMilk => _hasMilk;
-    
+
+    private void Awake()
+    {
+        liquid.NoLiquidLeft += ResetProgress;
+    }
+
     public void AeropressPlaced()
     {
         milkSocket.gameObject.SetActive(false);
@@ -102,7 +107,7 @@ public class MugGameplay : MonoBehaviour
 
     public float GetWaterAmount()
     {
-        return _hasWater ? 30f : 0f;
+        return liquid.LiquidAmount * 20.0f;
     }
 
     public float GetCremeAmount()
@@ -110,6 +115,22 @@ public class MugGameplay : MonoBehaviour
         return 0f;
     }
 
+
+    private void ResetProgress()
+    {
+        Debug.Log("ResetProgress");
+        _pressGameplay.Pressing -= HandlePressedCoffee;
+        liquid.NoLiquidLeft -= ResetProgress;
+        _aeropress = null;
+        _kettle = null;
+        _pressGameplay = null;
+        _hasMilk = false;
+        _milk = null;
+        _hasWater = false;
+        kettleSocket.gameObject.SetActive(false);
+        aeropressSocket.gameObject.SetActive(true);
+        milkSocket.gameObject.SetActive(false);
+    }
     private void SubscribeToPress(PressGameplay pressGameplay)
     {
         _pressGameplay = pressGameplay;
@@ -126,6 +147,6 @@ public class MugGameplay : MonoBehaviour
 
     private void OnDestroy()
     {
-        _pressGameplay.Pressing -= HandlePressedCoffee;
+        ResetProgress();
     }
 }

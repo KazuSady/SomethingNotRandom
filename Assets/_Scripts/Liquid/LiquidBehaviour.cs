@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -5,6 +6,8 @@ using UnityEngine;
 
 public class LiquidBehaviour : MonoBehaviour
 {
+    public event Action NoLiquidLeft;
+    
     [SerializeField] private GameObject liquidObject;
     [SerializeField] private Renderer liquidRenderer;
     [SerializeField] private Transform newParent;
@@ -34,6 +37,8 @@ public class LiquidBehaviour : MonoBehaviour
     private float _wobbleAmountToAddX;
     private float _wobbleAmountToAddZ;
     private float _pulse;
+    
+    public float LiquidAmount => _liquidAmount;
 
     private void Awake()
     {
@@ -49,7 +54,7 @@ public class LiquidBehaviour : MonoBehaviour
         {
             liquidCollider.transform.rotation = Quaternion.identity;
         }
-        if (liquidObject.activeSelf && _liquidAmount > 1.0f)
+        if (liquidObject.activeSelf && _liquidAmount > 0.0f)
         {
             _time += Time.deltaTime;
             
@@ -98,7 +103,7 @@ public class LiquidBehaviour : MonoBehaviour
 
     private void HandleLiquidSpill(Transform liquidDropStart)
     {
-        if (_liquidAmount > 0.0f)
+        if (_liquidAmount > 0.0001f)
         {
             var drop = Instantiate(dropletPrefab, liquidDropStart.position, Quaternion.identity);
             drop.GetComponentInChildren<Rigidbody>().AddForce(Physics.gravity, ForceMode.Acceleration);
@@ -109,10 +114,15 @@ public class LiquidBehaviour : MonoBehaviour
             var colliderCenter = liquidCollider.center;
             colliderCenter.y = -1.0f + _liquidAmount;
             liquidCollider.center = colliderCenter;
-            colliderSize.y *= _liquidAmount;
+            colliderSize.y = Mathf.Max(colliderSize.y * _liquidAmount, 0.02f);
             liquidCollider.size = colliderSize;
-            Debug.Log($"Liquid amount: {_liquidAmount}");
-            Debug.Log($"Cut off: {cutoffAmount}");
+            if (_liquidAmount < 0.01f)
+            {
+                liquidRenderer.material.SetFloat("_Cutoff", minCutoff);
+                _liquidAmount = 0.0f;
+                NoLiquidLeft?.Invoke();
+                liquidObject.SetActive(false);
+            }
         }
     }
     
