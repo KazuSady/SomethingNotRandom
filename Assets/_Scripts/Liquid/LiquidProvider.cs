@@ -6,15 +6,18 @@ public class LiquidProvider : MonoBehaviour
     [SerializeField] private LiquidSpillChecker spillPoint;
     [SerializeField] private GameObject dropletPrefab;
 
+    private float _originalXRotation;
+    
     private void Awake()
     {
         spillPoint.OnDropSpill += HandleLiquidSpill;
+        _originalXRotation = transform.rotation.x;
     }
 
     private void Update()
     {
         var updatedRotation = liquidSpillCollider.transform.rotation;
-        liquidSpillCollider.transform.rotation = new Quaternion(0.0f, updatedRotation.y, updatedRotation.z, updatedRotation.w);
+        liquidSpillCollider.transform.rotation = new Quaternion(_originalXRotation, updatedRotation.y, updatedRotation.z, updatedRotation.w);
     }
     
     private void OnDestroy()
@@ -25,6 +28,6 @@ public class LiquidProvider : MonoBehaviour
     private void HandleLiquidSpill(Transform liquidDropStart)
     {
         var drop = Instantiate(dropletPrefab, liquidDropStart.position, Quaternion.identity);
-        drop.GetComponentInChildren<Rigidbody>().AddForce(Physics.gravity, ForceMode.Acceleration);
+        drop.GetComponent<Rigidbody>().AddForce(Physics.gravity, ForceMode.Acceleration);
     }
 }

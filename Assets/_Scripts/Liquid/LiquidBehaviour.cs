@@ -106,7 +106,7 @@ public class LiquidBehaviour : MonoBehaviour
         if (_liquidAmount > 0.0001f)
         {
             var drop = Instantiate(dropletPrefab, liquidDropStart.position, Quaternion.identity);
-            drop.GetComponentInChildren<Rigidbody>().AddForce(Physics.gravity, ForceMode.Acceleration);
+            drop.GetComponent<Rigidbody>().AddForce(Physics.gravity, ForceMode.Acceleration);
             _liquidAmount -= 0.1f;
             var cutoffAmount = topCutoff * _liquidAmount ;
             liquidRenderer.material.SetFloat("_Cutoff", cutoffAmount);
