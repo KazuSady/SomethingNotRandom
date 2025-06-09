@@ -12,6 +12,7 @@ public class TubeGameplay : MonoBehaviour
     [SerializeField] private XRSocketInteractor pressSocket;
     [Header("Coffee")]
     [SerializeField] private XRSocketInteractor coffeSocket;
+    [SerializeField] private LiquidBehaviour liquid;
     
 
     public void StrainerPlaced()
@@ -23,6 +24,7 @@ public class TubeGameplay : MonoBehaviour
     public void StrainerRemoved()
     {
         coffeSocket.gameObject.SetActive(false);
+        liquid.Reset();
         Debug.Log("Strainer removed");
     }
     
@@ -30,22 +32,20 @@ public class TubeGameplay : MonoBehaviour
     {
         var press = pressSocket.GetOldestInteractableSelected();
         PressAttached?.Invoke(press.transform.GetComponent<PressGameplay>());
+        liquid.CanAddLiquid = false;
         Debug.Log("Press attached");
     }
 
     public void PressRemoved()
     {
         Debug.Log("Press removed");
+        liquid.CanAddLiquid = true;
     }
 
     public void CoffePlaced()
     {
         var coffee = coffeSocket.GetOldestInteractableSelected();
         coffee.transform.GetComponent<Animator>().Play("Coffee");
-    }
-
-    public void ActivatePressSocket()
-    {
-        pressSocket.gameObject.SetActive(true);
+        liquid.CanAddLiquid = true;
     }
 }

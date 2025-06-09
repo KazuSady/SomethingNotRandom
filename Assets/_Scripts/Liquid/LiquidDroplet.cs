@@ -17,7 +17,7 @@ public class LiquidDroplet : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("LiquidCollider") == false && other.gameObject.CompareTag("NoCollisionForDrop") == false)
+        if (other.gameObject.CompareTag("NoCollisionForDrop") == false)
         {
             Destroy(gameObject); 
         }

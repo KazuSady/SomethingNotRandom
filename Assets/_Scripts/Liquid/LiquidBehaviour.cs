@@ -1,32 +1,32 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
 
 public class LiquidBehaviour : MonoBehaviour
 {
     public event Action NoLiquidLeft;
-    
+    public bool CanAddLiquid;
     [SerializeField] private GameObject liquidObject;
     [SerializeField] private Renderer liquidRenderer;
-    [SerializeField] private Transform newParent;
-    [SerializeField] private Transform oldParent;
-    [SerializeField] private float minCutoff = -0.5f;
-    [SerializeField] private float topCutoff = 0.25f;
+    [SerializeField] private float minCutoff;
     [SerializeField] private float duration = 3.5f;
 
     [Header("For liquid spilling")] 
     [SerializeField] private BoxCollider liquidCollider;
-    [SerializeField] private GameObject dropletPrefab;
+    [SerializeField] private LiquidDroplet dropletPrefab;
     [SerializeField] private List<LiquidSpillChecker> liquidSpillCheckers = new();
+    
+    [Header("For liquid receiving")] 
+    [SerializeField] private LiquidReceiver liquidReceiver;
     
     [Header("For liquid movement")]
     [SerializeField] private float maxWobble = 0.03f;
     [SerializeField] private float wobbleSpeed = 1.0f;
     [SerializeField] private float recovery = 1.0f;
 
-    private float _liquidAmount = 0.0f;
+    private float _liquidAmount;
+    private float _milkAmount;
     private float _time = 0.5f;
     private Vector3 _lastPos;
     private Vector3 _lastRot;
@@ -39,6 +39,7 @@ public class LiquidBehaviour : MonoBehaviour
     private float _pulse;
     
     public float LiquidAmount => _liquidAmount;
+    public float MilkAmount => _milkAmount;
 
     private void Awake()
     {
@@ -46,6 +47,7 @@ public class LiquidBehaviour : MonoBehaviour
         {
             spillChecker.OnDropSpill += HandleLiquidSpill;
         }
+        liquidReceiver.OnDropletReceived += HandleNewDroplet;
     }
 
     private void Update()
@@ -79,14 +81,31 @@ public class LiquidBehaviour : MonoBehaviour
         }
     }
 
-    public void PourLiquid()
+    private void OnDestroy()
+    {
+        foreach (var spillChecker in liquidSpillCheckers)
+        {
+            spillChecker.OnDropSpill -= HandleLiquidSpill;
+        }
+        liquidReceiver.OnDropletReceived -= HandleNewDroplet;
+    }
+
+    public void Reset()
+    {
+        _liquidAmount = 0;
+        HandleChangeInAmount();
+        liquidObject.SetActive(false);
+        CanAddLiquid = false;
+    }
+    public void PourLiquid(float amountToSimulate)
     {
         if (liquidRenderer.material == GameManager.Instance.MilkCoffeeMaterial)
         {
             liquidRenderer.material = GameManager.Instance.BasicCoffeeMaterial;
         }
         liquidObject.SetActive(true);
-        StartCoroutine(SimulateLiquid());
+        StartCoroutine(SimulateLiquid(amountToSimulate));
+        CanAddLiquid = true;
     }
 
     public void PressLiquid(float disappearingDuration)
@@ -94,28 +113,37 @@ public class LiquidBehaviour : MonoBehaviour
         StartCoroutine(SimulateDisappearingLiquid(disappearingDuration));
     }
 
-    public void HandleMilk()
+    private void HandleNewDroplet(LiquidDroplet droplet)
     {
-        liquidObject.transform.DOScaleY(0.02f, 3.0f);
-        liquidRenderer.material = GameManager.Instance.MilkCoffeeMaterial;
-        liquidCollider.size = liquidObject.GetComponent<BoxCollider>().size;
+        if (_liquidAmount >= 200.0f || _liquidAmount + _milkAmount >= 200.0f)
+        {
+            return;
+        }
+        switch (droplet.LiquidType)
+        {
+            case DropletType.Water:
+                _liquidAmount += droplet.AmountOfLiquid;
+                break;
+            case DropletType.Coffee:
+                break;
+            case DropletType.Milk:
+                _liquidAmount += droplet.AmountOfLiquid;
+                _milkAmount += droplet.AmountOfLiquid;
+                liquidRenderer.material = GameManager.Instance.MilkCoffeeMaterial;
+                break;
+        }
+        liquidObject.SetActive(true);
+        HandleChangeInAmount();
     }
 
     private void HandleLiquidSpill(Transform liquidDropStart)
     {
-        if (_liquidAmount > 0.0001f)
+        if (_liquidAmount > 0.0f)
         {
             var drop = Instantiate(dropletPrefab, liquidDropStart.position, Quaternion.identity);
             drop.GetComponent<Rigidbody>().AddForce(Physics.gravity, ForceMode.Acceleration);
-            _liquidAmount -= 0.1f;
-            var cutoffAmount = topCutoff * _liquidAmount ;
-            liquidRenderer.material.SetFloat("_Cutoff", cutoffAmount);
-            var colliderSize = liquidCollider.size;
-            var colliderCenter = liquidCollider.center;
-            colliderCenter.y = -1.0f + _liquidAmount;
-            liquidCollider.center = colliderCenter;
-            colliderSize.y = Mathf.Max(colliderSize.y * _liquidAmount, 0.02f);
-            liquidCollider.size = colliderSize;
+            _liquidAmount -= drop.AmountOfLiquid;
+            HandleChangeInAmount();
             if (_liquidAmount < 0.01f)
             {
                 liquidRenderer.material.SetFloat("_Cutoff", minCutoff);
@@ -125,43 +153,53 @@ public class LiquidBehaviour : MonoBehaviour
             }
         }
     }
-    
-    private IEnumerator SimulateLiquid()
+
+    private void HandleChangeInAmount()
     {
+        var proportion = _liquidAmount / 200.0f;
+        liquidRenderer.material.SetFloat("_Cutoff", proportion);
+        var colliderSize = liquidCollider.size;
+        var colliderCenter = liquidCollider.center;
+        colliderCenter.y = -1.0f + proportion;
+        liquidCollider.center = colliderCenter;
+        colliderSize.y = Mathf.Max(colliderSize.y * proportion, 0.02f);
+        liquidCollider.size = colliderSize;
+    }
+    private IEnumerator SimulateLiquid(float amountToSimulate)
+    {
+        var top = amountToSimulate / 200.0f;
         var time = 0.0f;
         while (time < duration)
         {
             var t = time / duration;
-            var cutoff = Mathf.Lerp(minCutoff, topCutoff, t);
+            var cutoff = Mathf.Lerp(minCutoff, top, t);
             liquidRenderer.material.SetFloat("_Cutoff", cutoff);
             time += Time.deltaTime;
             yield return null;
         }
+        var colliderSize = liquidCollider.size;
+        var colliderCenter = liquidCollider.center;
+        colliderCenter.y = -1.0f + top;
+        liquidCollider.center = colliderCenter;
+        colliderSize.y = Mathf.Max(colliderSize.y * top, 0.02f);
+        liquidCollider.size = colliderSize;
 
-        if (newParent)
-        {
-            liquidObject.transform.SetParent(newParent);
-        }
-
-        _liquidAmount = 1.0f;
+        _liquidAmount = amountToSimulate;
     }
     
     private IEnumerator SimulateDisappearingLiquid(float disappearingDuration)
     {
+        var start = _liquidAmount / 200.0f;
         var time = 0.0f;
         while (time < disappearingDuration)
         {
             var t = time / disappearingDuration;
-            var cutoff = Mathf.Lerp(topCutoff, minCutoff, t);
+            var cutoff = Mathf.Lerp(start, minCutoff, t);
             liquidRenderer.material.SetFloat("_Cutoff", cutoff);
             time += Time.deltaTime;
             yield return null;
         }
         liquidObject.SetActive(false);
-        if (newParent)
-        {
-            liquidObject.transform.SetParent(oldParent);
-        }
 
         _liquidAmount = 0.0f;
     }

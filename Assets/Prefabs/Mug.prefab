@@ -1,129 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &120513377768006968
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6206307019794365801}
-  - component: {fileID: 4694361644750124722}
-  - component: {fileID: 1524661244578031851}
-  m_Layer: 0
-  m_Name: KettlePlace
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &6206307019794365801
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120513377768006968}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.0992, y: 0.1053, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5713426311899283833}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &4694361644750124722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120513377768006968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayers:
-    m_Bits: 16
-  m_Handedness: 0
-  m_AttachTransform: {fileID: 0}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2766929750471047087}
-        m_TargetAssemblyTypeName: MugGameplay, Assembly-CSharp
-        m_MethodName: KettlePlaced
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2766929750471047087}
-        m_TargetAssemblyTypeName: MugGameplay, Assembly-CSharp
-        m_MethodName: KettleRemoved
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 0}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
---- !u!135 &1524661244578031851
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120513377768006968}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.09542511
-  m_Center: {x: 0, y: 0.098897815, z: 0}
 --- !u!1 &1381133648890400913
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +13,7 @@ GameObject:
   - component: {fileID: 591292116454414244}
   m_Layer: 0
   m_Name: SpillChecker (3)
-  m_TagString: Untagged
+  m_TagString: NoCollisionForDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ee62e1aa370f142881f543a80cabae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  liquidCollider: {fileID: 8448581217756350797}
 --- !u!1 &2883464629431641668
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +80,7 @@ GameObject:
   - component: {fileID: 1145893786173104036}
   m_Layer: 0
   m_Name: SpillChecker (2)
-  m_TagString: Untagged
+  m_TagString: NoCollisionForDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ee62e1aa370f142881f543a80cabae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  liquidCollider: {fileID: 8448581217756350797}
 --- !u!1 &3346870957632011753
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +147,7 @@ GameObject:
   - component: {fileID: 6624961871752705617}
   m_Layer: 0
   m_Name: SpillChecker (6)
-  m_TagString: Untagged
+  m_TagString: NoCollisionForDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -322,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ee62e1aa370f142881f543a80cabae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  liquidCollider: {fileID: 8448581217756350797}
 --- !u!1 &3564688770319202318
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +214,7 @@ GameObject:
   - component: {fileID: 7153414094130402748}
   m_Layer: 0
   m_Name: SpillChecker (5)
-  m_TagString: Untagged
+  m_TagString: NoCollisionForDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -388,6 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ee62e1aa370f142881f543a80cabae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  liquidCollider: {fileID: 8448581217756350797}
 --- !u!1 &4475033837461737188
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +281,7 @@ GameObject:
   - component: {fileID: 2468934186444361705}
   m_Layer: 0
   m_Name: SpillChecker (1)
-  m_TagString: Untagged
+  m_TagString: NoCollisionForDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -454,6 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ee62e1aa370f142881f543a80cabae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  liquidCollider: {fileID: 8448581217756350797}
 --- !u!1 &4737552148745598257
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +348,7 @@ GameObject:
   - component: {fileID: 6846417824081647340}
   m_Layer: 0
   m_Name: SpillChecker (7)
-  m_TagString: Untagged
+  m_TagString: NoCollisionForDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -520,6 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ee62e1aa370f142881f543a80cabae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  liquidCollider: {fileID: 8448581217756350797}
 --- !u!1 &4927425811022371571
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,8 +494,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 1, z: 2}
-  m_Center: {x: 0.00000007450581, y: -0.9680331, z: -0.00000007450581}
+  m_Size: {x: 2, y: 2.7808251, z: 2}
+  m_Center: {x: 0.00000007450581, y: -0.07762024, z: -0.00000007450581}
 --- !u!54 &1364732713920773688
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -675,8 +557,6 @@ Transform:
   m_Children:
   - {fileID: 4160736240053501909}
   - {fileID: 8993709505271227066}
-  - {fileID: 6206307019794365801}
-  - {fileID: 915283997009751417}
   - {fileID: 9091741445394460169}
   - {fileID: 37271270274093029}
   m_Father: {fileID: 0}
@@ -845,8 +725,8 @@ MonoBehaviour:
   cupType: 1
   liquid: {fileID: 1649086771342314848}
   aeropressSocket: {fileID: 2935759833927634303}
-  kettleSocket: {fileID: 4694361644750124722}
-  milkSocket: {fileID: 768897000137673077}
+  kettleSocket: {fileID: 0}
+  milkSocket: {fileID: 0}
 --- !u!1 &6691613984987267071
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,7 +740,7 @@ GameObject:
   - component: {fileID: 1028068181264974431}
   m_Layer: 0
   m_Name: SpillChecker (4)
-  m_TagString: Untagged
+  m_TagString: NoCollisionForDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -913,6 +793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ee62e1aa370f142881f543a80cabae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  liquidCollider: {fileID: 8448581217756350797}
 --- !u!1 &7141482009370143070
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,7 +807,7 @@ GameObject:
   - component: {fileID: 3446101788225105753}
   m_Layer: 0
   m_Name: SpillChecker
-  m_TagString: Untagged
+  m_TagString: NoCollisionForDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -979,6 +860,101 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ee62e1aa370f142881f543a80cabae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  liquidCollider: {fileID: 8448581217756350797}
+--- !u!1 &7371677241237747832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 547994299889129865}
+  - component: {fileID: 161913266625666565}
+  - component: {fileID: 4936434257103060229}
+  - component: {fileID: 1453746349094117228}
+  m_Layer: 0
+  m_Name: LiquidReceiver
+  m_TagString: NoCollisionForDrop
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &547994299889129865
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7371677241237747832}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.049999997, y: 0.02, z: 0.049999997}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 37271270274093029}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &161913266625666565
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7371677241237747832}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 0.40529817, z: 2}
+  m_Center: {x: 0.00000007450581, y: 2.6715808, z: -0.00000007450581}
+--- !u!54 &4936434257103060229
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7371677241237747832}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1453746349094117228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7371677241237747832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3caad31cfe5f4974caee9ac15538f7d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7693668560249696350
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,7 +972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2346676124566982413
 Transform:
   m_ObjectHideFlags: 0
@@ -1007,7 +983,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.020789804, y: -0.13301373, z: 0.001472179}
-  m_LocalScale: {x: 9.5, y: 24.5, z: 9.5}
+  m_LocalScale: {x: 9.5, y: 22, z: 9.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2173186014075506575}
@@ -1065,130 +1041,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &7771225407076909486
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 915283997009751417}
-  - component: {fileID: 768897000137673077}
-  - component: {fileID: 7159798617990097311}
-  m_Layer: 0
-  m_Name: MilkPlace
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &915283997009751417
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7771225407076909486}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.0992, y: 0.1053, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5713426311899283833}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &768897000137673077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7771225407076909486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayers:
-    m_Bits: 128
-  m_Handedness: 0
-  m_AttachTransform: {fileID: 0}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2766929750471047087}
-        m_TargetAssemblyTypeName: MugGameplay, Assembly-CSharp
-        m_MethodName: MilkPlaced
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2766929750471047087}
-        m_TargetAssemblyTypeName: MugGameplay, Assembly-CSharp
-        m_MethodName: MilkRemoved
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 0}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
---- !u!135 &7159798617990097311
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7771225407076909486}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.09542511
-  m_Center: {x: 0, y: 0.098897815, z: 0}
 --- !u!1 &8582368252035106168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,6 +1072,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2173186014075506575}
+  - {fileID: 547994299889129865}
   m_Father: {fileID: 5713426311899283833}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1649086771342314848
@@ -1234,15 +1087,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d48d1cfbf2c797f45a7a3ed473bffdfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanAddLiquid: 0
   liquidObject: {fileID: 7693668560249696350}
   liquidRenderer: {fileID: 3366240647074313268}
-  newParent: {fileID: 0}
-  oldParent: {fileID: 0}
   minCutoff: 0
-  topCutoff: 0.5
   duration: 3.5
   liquidCollider: {fileID: 8448581217756350797}
-  dropletPrefab: {fileID: 6188177534721174859, guid: 53ba2611db2ff8543bb4b9aa410be6f8, type: 3}
+  dropletPrefab: {fileID: 5328912005759910872, guid: 53ba2611db2ff8543bb4b9aa410be6f8, type: 3}
   liquidSpillCheckers:
   - {fileID: 3446101788225105753}
   - {fileID: 2468934186444361705}
@@ -1252,6 +1103,7 @@ MonoBehaviour:
   - {fileID: 7153414094130402748}
   - {fileID: 6624961871752705617}
   - {fileID: 6846417824081647340}
+  liquidReceiver: {fileID: 1453746349094117228}
   maxWobble: 0.01
   wobbleSpeed: 0.5
   recovery: 0.5
@@ -1394,6 +1246,10 @@ PrefabInstance:
     - target: {fileID: 8354199667851359669, guid: 2fd4b1bd1b8d0704eae1811344c3fc95, type: 3}
       propertyPath: m_Name
       value: coffee_machine_cup
+      objectReference: {fileID: 0}
+    - target: {fileID: 8354199667851359669, guid: 2fd4b1bd1b8d0704eae1811344c3fc95, type: 3}
+      propertyPath: m_TagString
+      value: NoCollisionForDrop
       objectReference: {fileID: 0}
     - target: {fileID: 8699763680973631247, guid: 2fd4b1bd1b8d0704eae1811344c3fc95, type: 3}
       propertyPath: m_LocalScale.x

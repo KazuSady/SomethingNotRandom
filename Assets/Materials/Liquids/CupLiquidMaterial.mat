@@ -39,7 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _CutAmount: -1
-    - _Cutoff: 0.64
+    - _Cutoff: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _WobbleX: 0.0000011375718
