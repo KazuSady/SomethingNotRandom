@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: type
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6023342002028315769, guid: 53ba2611db2ff8543bb4b9aa410be6f8, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8591de7524ba75b49b36fb72406c30fe, type: 2}
     - target: {fileID: 6188177534721174859, guid: 53ba2611db2ff8543bb4b9aa410be6f8, type: 3}
       propertyPath: m_Name
       value: WaterDroplet

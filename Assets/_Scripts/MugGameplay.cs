@@ -6,6 +6,7 @@ public class MugGameplay : MonoBehaviour
 {
     public event Action<MugGameplay> CoffeeStateUpdated;
 
+    [SerializeField] private BoxCollider mainCollider;
     [SerializeField] private CupType cupType;
     [SerializeField] private LiquidBehaviour liquid;
 
@@ -32,19 +33,17 @@ public class MugGameplay : MonoBehaviour
         var aeropress = aeropressSocket.GetOldestInteractableSelected();
         _aeropress = aeropress.transform.gameObject;
         _aeropress.GetComponent<TubeGameplay>().PressAttached += SubscribeToPress;
-        Debug.Log("Aeropress attached");
+        Physics.IgnoreCollision(mainCollider, _aeropress.GetComponentInChildren<BoxCollider>(), true);
     }
 
     public void AeropressRemoved()
     {
         _aeropress.GetComponent<TubeGameplay>().PressAttached -= SubscribeToPress;
+        Physics.IgnoreCollision(mainCollider, _aeropress.GetComponentInChildren<BoxCollider>(), false);
         _hasAeropress = false;
         _aeropress = null;
-        Debug.Log("Aeropress removed");
     }
     
-   
-
     public float GetCoffeeAmount()
     {
         return liquid.CanAddLiquid ? 9.0f : 0.0f;

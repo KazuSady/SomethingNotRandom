@@ -722,11 +722,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 734a4965a332afd49ac4214250eadc54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCollider: {fileID: 1371418446373724295}
   cupType: 1
   liquid: {fileID: 1649086771342314848}
   aeropressSocket: {fileID: 2935759833927634303}
-  kettleSocket: {fileID: 0}
-  milkSocket: {fileID: 0}
 --- !u!1 &6691613984987267071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,7 +1133,7 @@ Transform:
   m_GameObject: {fileID: 8675137542529021422}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0156, y: 0.094, z: -0.0062}
+  m_LocalPosition: {x: 0.0156, y: 0.0982, z: -0.0062}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

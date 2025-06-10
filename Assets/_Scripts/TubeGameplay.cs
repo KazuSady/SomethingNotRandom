@@ -6,6 +6,7 @@ public class TubeGameplay : MonoBehaviour
 {
     public event Action<PressGameplay> PressAttached;
     
+    [SerializeField] private BoxCollider mainCollider;
     [Header("Strainer")]
     [SerializeField] private XRSocketInteractor strainerSocket;
     [Header("Press")]
@@ -13,32 +14,42 @@ public class TubeGameplay : MonoBehaviour
     [Header("Coffee")]
     [SerializeField] private XRSocketInteractor coffeSocket;
     [SerializeField] private LiquidBehaviour liquid;
+
+    private GameObject _press;
+    private GameObject _strainer;
     
 
     public void StrainerPlaced()
     {
-        Debug.Log("Strainer attached");
-        coffeSocket.gameObject.SetActive(true);
+        _strainer = strainerSocket.GetOldestInteractableSelected().transform.gameObject;
+        Physics.IgnoreCollision(mainCollider, _strainer.GetComponentInChildren<BoxCollider>(), true);
+        if (_strainer.transform.gameObject.GetComponent<StrainerGameplay>().HasFilter)
+        {
+            coffeSocket.gameObject.SetActive(true);
+        }
     }
 
     public void StrainerRemoved()
     {
         coffeSocket.gameObject.SetActive(false);
+        Physics.IgnoreCollision(mainCollider, _strainer.GetComponentInChildren<BoxCollider>(), false);
+        _strainer = null;
         liquid.Reset();
-        Debug.Log("Strainer removed");
     }
     
     public void PressPlaced()
     {
         var press = pressSocket.GetOldestInteractableSelected();
+        _press = press.transform.gameObject;
+        Physics.IgnoreCollision(mainCollider, _press.GetComponentInChildren<BoxCollider>(), true);
         PressAttached?.Invoke(press.transform.GetComponent<PressGameplay>());
         liquid.CanAddLiquid = false;
-        Debug.Log("Press attached");
     }
 
     public void PressRemoved()
     {
-        Debug.Log("Press removed");
+        Physics.IgnoreCollision(mainCollider, _press.GetComponentInChildren<BoxCollider>(), false);
+        _press = null;
         liquid.CanAddLiquid = true;
     }
 
