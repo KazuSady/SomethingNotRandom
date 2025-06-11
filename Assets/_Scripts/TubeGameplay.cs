@@ -5,6 +5,10 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 public class TubeGameplay : MonoBehaviour
 {
     public event Action<PressGameplay> PressAttached;
+    public event Action<bool> StrainerAttached;
+    public event Action<bool> AeropressAttached;
+    public event Action<bool> CoffeePresent;
+    public event Action<bool> WaterPresent;
     
     [SerializeField] private BoxCollider mainCollider;
     [Header("Strainer")]
@@ -17,7 +21,11 @@ public class TubeGameplay : MonoBehaviour
 
     private GameObject _press;
     private GameObject _strainer;
-    
+
+    private void Start()
+    {
+        liquid.NewLiquid += () => {WaterPresent?.Invoke(true); };
+    }
 
     public void StrainerPlaced()
     {
@@ -27,6 +35,7 @@ public class TubeGameplay : MonoBehaviour
         {
             coffeSocket.gameObject.SetActive(true);
         }
+        StrainerAttached?.Invoke(true);
     }
 
     public void StrainerRemoved()
@@ -35,6 +44,7 @@ public class TubeGameplay : MonoBehaviour
         Physics.IgnoreCollision(mainCollider, _strainer.GetComponentInChildren<BoxCollider>(), false);
         _strainer = null;
         liquid.Reset();
+        StrainerAttached?.Invoke(false);
     }
     
     public void PressPlaced()
@@ -44,6 +54,7 @@ public class TubeGameplay : MonoBehaviour
         Physics.IgnoreCollision(mainCollider, _press.GetComponentInChildren<BoxCollider>(), true);
         PressAttached?.Invoke(press.transform.GetComponent<PressGameplay>());
         liquid.CanAddLiquid = false;
+        AeropressAttached?.Invoke(true);
     }
 
     public void PressRemoved()
@@ -51,6 +62,7 @@ public class TubeGameplay : MonoBehaviour
         Physics.IgnoreCollision(mainCollider, _press.GetComponentInChildren<BoxCollider>(), false);
         _press = null;
         liquid.CanAddLiquid = true;
+        AeropressAttached?.Invoke(false);
     }
 
     public void CoffePlaced()
@@ -58,5 +70,6 @@ public class TubeGameplay : MonoBehaviour
         var coffee = coffeSocket.GetOldestInteractableSelected();
         coffee.transform.GetComponent<Animator>().Play("Coffee");
         liquid.CanAddLiquid = true;
+        CoffeePresent?.Invoke(true);
     }
 }

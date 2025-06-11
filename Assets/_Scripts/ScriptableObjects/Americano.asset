@@ -15,5 +15,6 @@ MonoBehaviour:
   coffeeName: Americano
   coffeeAmount: 9
   milkAmount: 0
-  waterAmount: 200
+  cremeAmount: 0
+  waterAmount: 210
   requiredCup: 1

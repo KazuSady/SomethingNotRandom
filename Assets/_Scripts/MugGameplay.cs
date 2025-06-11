@@ -5,6 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 public class MugGameplay : MonoBehaviour
 {
     public event Action<MugGameplay> CoffeeStateUpdated;
+    public event Action<bool> TubeAttached;
 
     [SerializeField] private BoxCollider mainCollider;
     [SerializeField] private CupType cupType;
@@ -13,9 +14,6 @@ public class MugGameplay : MonoBehaviour
     [Header("Aeropress")]
     [SerializeField] private XRSocketInteractor aeropressSocket;
     
-    private float _milkAmount;
-    private float _liquidAmount;
-    private bool _hasAeropress;
 
     private GameObject _aeropress;
     private PressGameplay _pressGameplay;
@@ -29,19 +27,22 @@ public class MugGameplay : MonoBehaviour
 
     public void AeropressPlaced()
     {
-        _hasAeropress = true;
         var aeropress = aeropressSocket.GetOldestInteractableSelected();
         _aeropress = aeropress.transform.gameObject;
         _aeropress.GetComponent<TubeGameplay>().PressAttached += SubscribeToPress;
         Physics.IgnoreCollision(mainCollider, _aeropress.GetComponentInChildren<BoxCollider>(), true);
+        TubeAttached?.Invoke(true);
     }
 
     public void AeropressRemoved()
     {
         _aeropress.GetComponent<TubeGameplay>().PressAttached -= SubscribeToPress;
         Physics.IgnoreCollision(mainCollider, _aeropress.GetComponentInChildren<BoxCollider>(), false);
-        _hasAeropress = false;
         _aeropress = null;
+        if (liquid.LiquidAmount < 0.5f)
+        {
+            TubeAttached?.Invoke(false);
+        }
     }
     
     public float GetCoffeeAmount()

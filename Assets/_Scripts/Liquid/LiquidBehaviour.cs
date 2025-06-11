@@ -1,12 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using TMPro;
 using UnityEngine;
 
 public class LiquidBehaviour : MonoBehaviour
 {
     public event Action NoLiquidLeft;
+    public event Action NewLiquid;
+    
     public bool CanAddLiquid;
+    [SerializeField] private TMP_Text liquidText;
     [SerializeField] private GameObject liquidObject;
     [SerializeField] private Renderer liquidRenderer;
     [SerializeField] private float minCutoff;
@@ -115,6 +120,11 @@ public class LiquidBehaviour : MonoBehaviour
 
     private void HandleNewDroplet(LiquidDroplet droplet)
     {
+        if (_liquidAmount == 0.0f && _liquidAmount + droplet.AmountOfLiquid > 0.0f)
+        {
+            NewLiquid?.Invoke();
+            liquidObject.SetActive(true);
+        }
         if (_liquidAmount >= 200.0f || _liquidAmount + _milkAmount >= 200.0f)
         {
             return;
@@ -132,7 +142,8 @@ public class LiquidBehaviour : MonoBehaviour
                 liquidRenderer.material = GameManager.Instance.MilkCoffeeMaterial;
                 break;
         }
-        liquidObject.SetActive(true);
+
+        liquidText.text = _liquidAmount.ToString(CultureInfo.InvariantCulture);
         HandleChangeInAmount();
     }
 
@@ -149,6 +160,7 @@ public class LiquidBehaviour : MonoBehaviour
                 liquidRenderer.material.SetFloat("_Cutoff", minCutoff);
                 _liquidAmount = 0.0f;
                 NoLiquidLeft?.Invoke();
+                liquidText.text = "";
                 liquidObject.SetActive(false);
             }
         }
@@ -185,6 +197,7 @@ public class LiquidBehaviour : MonoBehaviour
         liquidCollider.size = colliderSize;
 
         _liquidAmount = amountToSimulate;
+        liquidText.text = _liquidAmount.ToString(CultureInfo.InvariantCulture);
     }
     
     private IEnumerator SimulateDisappearingLiquid(float disappearingDuration)
@@ -202,5 +215,6 @@ public class LiquidBehaviour : MonoBehaviour
         liquidObject.SetActive(false);
 
         _liquidAmount = 0.0f;
+        liquidText.text = "";
     }
 }
