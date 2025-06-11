@@ -4,8 +4,8 @@ public class TutorialManager : MonoBehaviour
 {
     private static readonly int ShouldLight = Shader.PropertyToID("_ShouldLight");
     
-    [SerializeField] private MugGameplay mugGameplay;
-    [SerializeField] private Renderer mugRenderer;
+    public MugGameplay mugGameplay;
+    public Renderer mugRenderer;
     
     [Header("Aeropress parts")]
     [SerializeField] private StrainerGameplay strainerGameplay;

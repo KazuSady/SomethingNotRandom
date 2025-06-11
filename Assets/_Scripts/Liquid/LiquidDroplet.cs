@@ -35,5 +35,6 @@ public enum DropletType
 {
     Water,
     Coffee,
-    Milk
+    Milk,
+    CoffeeBlend
 }

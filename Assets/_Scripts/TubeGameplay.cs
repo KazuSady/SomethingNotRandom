@@ -15,8 +15,6 @@ public class TubeGameplay : MonoBehaviour
     [SerializeField] private XRSocketInteractor strainerSocket;
     [Header("Press")]
     [SerializeField] private XRSocketInteractor pressSocket;
-    [Header("Coffee")]
-    [SerializeField] private XRSocketInteractor coffeSocket;
     [SerializeField] private LiquidBehaviour liquid;
 
     private GameObject _press;
@@ -25,6 +23,7 @@ public class TubeGameplay : MonoBehaviour
     private void Start()
     {
         liquid.NewLiquid += () => {WaterPresent?.Invoke(true); };
+        liquid.CoffeeIn += () => {CoffeePresent?.Invoke(true); };
     }
 
     public void StrainerPlaced()
@@ -33,14 +32,14 @@ public class TubeGameplay : MonoBehaviour
         Physics.IgnoreCollision(mainCollider, _strainer.GetComponentInChildren<BoxCollider>(), true);
         if (_strainer.transform.gameObject.GetComponent<StrainerGameplay>().HasFilter)
         {
-            coffeSocket.gameObject.SetActive(true);
+            liquid.CanAddCoffee = true;
         }
         StrainerAttached?.Invoke(true);
     }
 
     public void StrainerRemoved()
     {
-        coffeSocket.gameObject.SetActive(false);
+        liquid.CanAddCoffee = false;
         Physics.IgnoreCollision(mainCollider, _strainer.GetComponentInChildren<BoxCollider>(), false);
         _strainer = null;
         liquid.Reset();
@@ -63,13 +62,5 @@ public class TubeGameplay : MonoBehaviour
         _press = null;
         liquid.CanAddLiquid = true;
         AeropressAttached?.Invoke(false);
-    }
-
-    public void CoffePlaced()
-    {
-        var coffee = coffeSocket.GetOldestInteractableSelected();
-        coffee.transform.GetComponent<Animator>().Play("Coffee");
-        liquid.CanAddLiquid = true;
-        CoffeePresent?.Invoke(true);
     }
 }

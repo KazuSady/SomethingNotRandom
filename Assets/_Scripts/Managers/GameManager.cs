@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,16 +10,18 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField, Range(0f, 1f)] private float ingredientTolerance = 0.1f;
-    
+    [SerializeField] private TutorialManager tutorialManager;
     [SerializeField] private List<CoffeeSO> availableCoffees;
-
-    [SerializeField] private MugGameplay mug;
+    [SerializeField] private Transform mugParent;
+    [SerializeField] private MugGameplay mugPrefab;
 
     [Header("Monsters")]
     [SerializeField] private MonsterGameplay monsterPrefab;
     [SerializeField] private Transform monsterPlacement;
     [SerializeField] private List<GameObject> monsterLook;
-
+    [SerializeField] private float disappearX = -4.0f;
+    [SerializeField] private float showX = -2.0f;
+    
     [Header("Materials")]   
     [SerializeField] private Material basicCoffeeMaterial;
     [SerializeField] private Material milkCoffeeMaterial;
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject canvas;
     
     private MonsterGameplay _currentMonster;
+    private MugGameplay _mug;
     public MonsterGameplay CurrentMonster => _currentMonster;
 
     public Material BasicCoffeeMaterial => basicCoffeeMaterial;
@@ -46,24 +48,31 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        mug.CoffeeStateUpdated += OnCoffeeUpdated;
-        SpawnNewMonster();
+        _mug = Instantiate(mugPrefab, mugParent);
+        _mug.CoffeeStateUpdated += OnCoffeeUpdated;
+        tutorialManager.mugGameplay = _mug;
+        tutorialManager.mugRenderer = _mug.GetComponentInChildren<Renderer>();
+        StartCoroutine(SpawnNewMonster());
     }
 
     private void OnDestroy()
     {
-        mug.CoffeeStateUpdated -= OnCoffeeUpdated;
+        _mug.CoffeeStateUpdated -= OnCoffeeUpdated;
     }
+    
 
-
-    public void SpawnNewMonster()
+    private IEnumerator SpawnNewMonster()
     {
-        if (_currentMonster != null)
+        if (_currentMonster)
         {
+            var tween = _currentMonster.transform.DOLocalMoveX(disappearX, 2.0f);
+            yield return tween.WaitForCompletion();
             Destroy(_currentMonster.gameObject);
         }
         _currentMonster = Instantiate(monsterPrefab, monsterPlacement);
         GenerateMonsterInfo();
+        var tween2 = _currentMonster.transform.DOLocalMoveX(showX, 2.0f);
+        yield return tween2.WaitForCompletion();
         DisplayOrder(_currentMonster.DesiredCoffee);
     }
     
@@ -99,6 +108,12 @@ public class GameManager : MonoBehaviour
 
         int satisfaction = EvaluateCoffee();
         StartCoroutine(ShowFeedbackAndGenerateNewMonster(satisfaction));
+        _mug.CoffeeStateUpdated -= OnCoffeeUpdated;
+        Destroy(_mug.gameObject);
+        _mug = Instantiate(mugPrefab, mugParent);
+        _mug.CoffeeStateUpdated += OnCoffeeUpdated;
+        tutorialManager.mugGameplay = _mug;
+        tutorialManager.mugRenderer = _mug.GetComponentInChildren<Renderer>();
     }
     
     private void OnCoffeeUpdated(MugGameplay _mug)
@@ -109,11 +124,11 @@ public class GameManager : MonoBehaviour
     private int EvaluateCoffee()
     {
         CoffeeSO coffeeOrder = _currentMonster.DesiredCoffee;
-        bool correctCup = mug.CupType == coffeeOrder.RequiredCup;
-        bool coffeeOk = WithinTolerance(mug.GetCoffeeAmount(), coffeeOrder.CoffeeAmount);
-        bool milkOk = WithinTolerance(mug.GetMilkAmount(), coffeeOrder.MilkAmount);
-        bool waterOk = WithinTolerance(mug.GetWaterAmount(), coffeeOrder.WaterAmount);
-        bool cremeOk = WithinTolerance(mug.GetCremeAmount(), coffeeOrder.CremeAmount);
+        bool correctCup = _mug.CupType == coffeeOrder.RequiredCup;
+        bool coffeeOk = WithinTolerance(_mug.GetCoffeeAmount(), coffeeOrder.CoffeeAmount);
+        bool milkOk = WithinTolerance(_mug.GetMilkAmount(), coffeeOrder.MilkAmount);
+        bool waterOk = WithinTolerance(_mug.GetWaterAmount(), coffeeOrder.WaterAmount);
+        bool cremeOk = WithinTolerance(_mug.GetCremeAmount(), coffeeOrder.CremeAmount);
 
         int satisfaction = 0;
         if (correctCup)
@@ -165,7 +180,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator ShowFeedbackAndGenerateNewMonster(int satisfaction)
     {
         yield return ShowFeedback(satisfaction);
-        SpawnNewMonster();
+        StartCoroutine(SpawnNewMonster());
     }
     
     private IEnumerator ShowFeedback(int satisfaction)

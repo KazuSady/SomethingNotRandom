@@ -9,9 +9,17 @@ public class LiquidBehaviour : MonoBehaviour
 {
     public event Action NoLiquidLeft;
     public event Action NewLiquid;
+    public event Action CoffeeIn;
     
     public bool CanAddLiquid;
+    public bool CanAddCoffee;
+    
+    [Header("UI Elements")]
     [SerializeField] private TMP_Text liquidText;
+    [SerializeField] private TMP_Text coffeeText;
+    [SerializeField] private TMP_Text milkText;
+    
+    [Header("Cutoff")]
     [SerializeField] private GameObject liquidObject;
     [SerializeField] private Renderer liquidRenderer;
     [SerializeField] private float minCutoff;
@@ -21,8 +29,9 @@ public class LiquidBehaviour : MonoBehaviour
     [SerializeField] private BoxCollider liquidCollider;
     [SerializeField] private LiquidDroplet dropletPrefab;
     [SerializeField] private List<LiquidSpillChecker> liquidSpillCheckers = new();
-    
+
     [Header("For liquid receiving")] 
+    [SerializeField] private bool noMilk;
     [SerializeField] private LiquidReceiver liquidReceiver;
     
     [Header("For liquid movement")]
@@ -32,6 +41,7 @@ public class LiquidBehaviour : MonoBehaviour
 
     private float _liquidAmount;
     private float _milkAmount;
+    private float _coffeeAmount;
     private float _time = 0.5f;
     private Vector3 _lastPos;
     private Vector3 _lastRot;
@@ -45,6 +55,7 @@ public class LiquidBehaviour : MonoBehaviour
     
     public float LiquidAmount => _liquidAmount;
     public float MilkAmount => _milkAmount;
+    public float CoffeeAmount => _coffeeAmount;
 
     private void Awake()
     {
@@ -102,14 +113,14 @@ public class LiquidBehaviour : MonoBehaviour
         liquidObject.SetActive(false);
         CanAddLiquid = false;
     }
-    public void PourLiquid(float amountToSimulate)
+    public void PourLiquid(float amountToSimulate, float coffeAmount)
     {
         if (liquidRenderer.material == GameManager.Instance.MilkCoffeeMaterial)
         {
             liquidRenderer.material = GameManager.Instance.BasicCoffeeMaterial;
         }
         liquidObject.SetActive(true);
-        StartCoroutine(SimulateLiquid(amountToSimulate));
+        StartCoroutine(SimulateLiquid(amountToSimulate, coffeAmount));
         CanAddLiquid = true;
     }
 
@@ -120,31 +131,49 @@ public class LiquidBehaviour : MonoBehaviour
 
     private void HandleNewDroplet(LiquidDroplet droplet)
     {
-        if (_liquidAmount == 0.0f && _liquidAmount + droplet.AmountOfLiquid > 0.0f)
-        {
-            NewLiquid?.Invoke();
-            liquidObject.SetActive(true);
-        }
-        if (_liquidAmount >= 200.0f || _liquidAmount + _milkAmount >= 200.0f)
+        if (noMilk && droplet.LiquidType == DropletType.Milk)
         {
             return;
         }
-        switch (droplet.LiquidType)
+        if (droplet.LiquidType == DropletType.CoffeeBlend)
         {
-            case DropletType.Water:
-                _liquidAmount += droplet.AmountOfLiquid;
-                break;
-            case DropletType.Coffee:
-                break;
-            case DropletType.Milk:
-                _liquidAmount += droplet.AmountOfLiquid;
-                _milkAmount += droplet.AmountOfLiquid;
-                liquidRenderer.material = GameManager.Instance.MilkCoffeeMaterial;
-                break;
+            if (_coffeeAmount == 0.0f && _coffeeAmount + droplet.AmountOfLiquid > 0.0f)
+            {
+               CoffeeIn?.Invoke();
+            }
+            _coffeeAmount += droplet.AmountOfLiquid;
+            coffeeText.text = $"Coffee: {_coffeeAmount.ToString(CultureInfo.InvariantCulture)} g";
         }
-
-        liquidText.text = _liquidAmount.ToString(CultureInfo.InvariantCulture);
-        HandleChangeInAmount();
+        else
+        {
+            if (_liquidAmount == 0.0f && _liquidAmount + droplet.AmountOfLiquid > 0.0f)
+            {
+                NewLiquid?.Invoke();
+                liquidObject.SetActive(true);
+                CanAddLiquid = true;
+            }
+        
+            if (_liquidAmount >= 200.0f || _liquidAmount + _milkAmount >= 200.0f)
+            {
+                return;
+            }
+            switch (droplet.LiquidType)
+            {
+                case DropletType.Water:
+                    _liquidAmount += droplet.AmountOfLiquid;
+                    break;
+                case DropletType.Coffee:
+                    break;
+                case DropletType.Milk:
+                    _liquidAmount += droplet.AmountOfLiquid;
+                    _milkAmount += droplet.AmountOfLiquid;
+                    milkText.text = $"Milk: {_milkAmount.ToString(CultureInfo.InvariantCulture)} ml";
+                    liquidRenderer.material = GameManager.Instance.MilkCoffeeMaterial;
+                    break;
+            }
+            liquidText.text = $"Liquid: {_liquidAmount.ToString(CultureInfo.InvariantCulture)} ml";
+            HandleChangeInAmount();
+        }
     }
 
     private void HandleLiquidSpill(Transform liquidDropStart)
@@ -159,8 +188,15 @@ public class LiquidBehaviour : MonoBehaviour
             {
                 liquidRenderer.material.SetFloat("_Cutoff", minCutoff);
                 _liquidAmount = 0.0f;
+                _coffeeAmount = 0.0f;
                 NoLiquidLeft?.Invoke();
                 liquidText.text = "";
+                coffeeText.text = "";
+                if (noMilk == false)
+                {
+                    _milkAmount = 0.0f;
+                    milkText.text = "";
+                }
                 liquidObject.SetActive(false);
             }
         }
@@ -177,7 +213,7 @@ public class LiquidBehaviour : MonoBehaviour
         colliderSize.y = Mathf.Max(colliderSize.y * proportion, 0.02f);
         liquidCollider.size = colliderSize;
     }
-    private IEnumerator SimulateLiquid(float amountToSimulate)
+    private IEnumerator SimulateLiquid(float amountToSimulate, float coffeeAmount)
     {
         var top = amountToSimulate / 200.0f;
         var time = 0.0f;
@@ -197,7 +233,9 @@ public class LiquidBehaviour : MonoBehaviour
         liquidCollider.size = colliderSize;
 
         _liquidAmount = amountToSimulate;
-        liquidText.text = _liquidAmount.ToString(CultureInfo.InvariantCulture);
+        _coffeeAmount = coffeeAmount;
+        liquidText.text = $"Liquid: {_liquidAmount.ToString(CultureInfo.InvariantCulture)} ml";
+        coffeeText.text = $"Coffee: {_coffeeAmount.ToString(CultureInfo.InvariantCulture)} g";
     }
     
     private IEnumerator SimulateDisappearingLiquid(float disappearingDuration)
@@ -216,5 +254,7 @@ public class LiquidBehaviour : MonoBehaviour
 
         _liquidAmount = 0.0f;
         liquidText.text = "";
+        _coffeeAmount = 0.0f;
+        coffeeText.text = "";
     }
 }

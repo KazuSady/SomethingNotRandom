@@ -888,8 +888,8 @@
     "m_ObjectId": "223107730ac84fefa6bd96253c05f57c",
     "m_Title": "Edge Highlight",
     "m_Position": {
-        "x": -672.6666870117188,
-        "y": -1423.33349609375
+        "x": -672.666748046875,
+        "y": -1423.3333740234375
     }
 }
 
@@ -2679,7 +2679,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": true
+    "m_Value": false
 }
 
 {

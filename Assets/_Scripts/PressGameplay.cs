@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PressGameplay : MonoBehaviour
@@ -24,7 +25,16 @@ public class PressGameplay : MonoBehaviour
 
     private void Press()
     {
-        pressAnimator.Play("Press");
+        StartCoroutine(PressAnimation());
         Pressing?.Invoke();
     }
+
+    private IEnumerator PressAnimation()
+    {
+        pressAnimator.Play("Press");
+        pressAnimator.Update(0f);
+        yield return new WaitForSeconds(pressAnimator.GetCurrentAnimatorStateInfo(0).length);
+        pressAnimator.Play("New State 0");
+    }
+    
 }

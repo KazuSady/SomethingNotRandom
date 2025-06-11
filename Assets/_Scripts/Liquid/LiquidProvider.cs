@@ -27,6 +27,7 @@ public class LiquidProvider : MonoBehaviour
     
     private void HandleLiquidSpill(Transform liquidDropStart)
     {
+        
         var drop = Instantiate(dropletPrefab, liquidDropStart.position, Quaternion.identity);
         drop.GetComponent<Rigidbody>().AddForce(Physics.gravity, ForceMode.Acceleration);
     }

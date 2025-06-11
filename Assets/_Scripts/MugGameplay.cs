@@ -83,9 +83,9 @@ public class MugGameplay : MonoBehaviour
 
     private void HandlePressedCoffee()
     {
-        var amount = _aeropress.GetComponentInChildren<LiquidBehaviour>().LiquidAmount;
-        _aeropress.GetComponentInChildren<LiquidBehaviour>().PressLiquid(3.5f);
-        liquid.PourLiquid(amount);
+        var liquidPress = _aeropress.GetComponentInChildren<LiquidBehaviour>();
+        liquid.PourLiquid(liquidPress.LiquidAmount, liquidPress.CoffeeAmount);
+        liquidPress.PressLiquid(3.5f);
         CoffeeStateUpdated?.Invoke(this);
     }
 
