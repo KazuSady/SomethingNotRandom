@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class MugGameplay : MonoBehaviour
@@ -20,9 +22,24 @@ public class MugGameplay : MonoBehaviour
     
     public CupType CupType => cupType;
 
-    private void Awake()
+    private XRGrabInteractable _grabInteractable;
+
+    void Awake()
     {
         liquid.NoLiquidLeft += ResetProgress;
+
+        _grabInteractable = GetComponent<XRGrabInteractable>();
+        _grabInteractable.selectEntered.AddListener(OnGrabbed);
+    }
+
+    void OnDestroy()
+    {
+        _grabInteractable.selectEntered.RemoveListener(OnGrabbed);
+    }
+
+    private void OnGrabbed(SelectEnterEventArgs args)
+    {
+        MugCupboard.Instance.OnMugGrabbed(this);
     }
 
     public void AeropressPlaced()
@@ -94,10 +111,5 @@ public class MugGameplay : MonoBehaviour
         liquid.PourLiquid(liquidPress.LiquidAmount, liquidPress.CoffeeAmount);
         liquidPress.PressLiquid(3.5f);
         CoffeeStateUpdated?.Invoke(this);
-    }
-
-    private void OnDestroy()
-    {
-        ResetProgress();
     }
 }

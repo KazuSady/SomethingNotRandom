@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<CoffeeSO> availableCoffees;
     [SerializeField] private Transform mugParent;
     [SerializeField] private MugGameplay mugPrefab;
+    [SerializeField] private MugCupboard cupboard;
 
     [Header("Monsters")]
     [SerializeField] private MonsterGameplay monsterPrefab;
@@ -35,8 +36,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject canvas;
     
     private MonsterGameplay _currentMonster;
-    private MugGameplay _mug;
     public MonsterGameplay CurrentMonster => _currentMonster;
+
+    private MugGameplay _mug;
+    public MugGameplay CurrentMug => _mug;
+    public bool HasActiveMug() => _mug != null;
 
     public Material BasicCoffeeMaterial => basicCoffeeMaterial;
     public Material MilkCoffeeMaterial => milkCoffeeMaterial;
@@ -52,22 +56,20 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _mug = Instantiate(mugPrefab, mugParent);
-        _mug.CoffeeStateUpdated += OnCoffeeUpdated;
-        tutorialManager.mugGameplay = _mug;
-        tutorialManager.mugRenderer = _mug.GetComponentInChildren<Renderer>();
         StartCoroutine(SpawnNewMonster());
     }
 
     private void OnDestroy()
     {
-        _mug.CoffeeStateUpdated -= OnCoffeeUpdated;
+        if (_mug != null)
+        {
+            _mug.CoffeeStateUpdated -= OnCoffeeUpdated;
+        }
     }
     
-
     private IEnumerator SpawnNewMonster()
     {
-        canvas.gameObject.SetActive(false);
+        canvas.SetActive(false);
         if (_currentMonster)
         {
             var tween = _currentMonster.transform.DOLocalMoveX(disappearX, 2.0f);
@@ -94,7 +96,7 @@ public class GameManager : MonoBehaviour
 
     private void DisplayOrder(CoffeeSO coffee)
     {
-        canvas.gameObject.SetActive(true);
+        canvas.SetActive(true);
         textBubble.text = $"I want {coffee.CoffeeName}! :>";
     }
 
@@ -113,17 +115,44 @@ public class GameManager : MonoBehaviour
 
         int satisfaction = EvaluateCoffee();
         StartCoroutine(ShowFeedbackAndGenerateNewMonster(satisfaction));
-        _mug.CoffeeStateUpdated -= OnCoffeeUpdated;
-        Destroy(_mug.gameObject);
-        _mug = Instantiate(mugPrefab, mugParent);
-        _mug.CoffeeStateUpdated += OnCoffeeUpdated;
-        tutorialManager.mugGameplay = _mug;
-        tutorialManager.mugRenderer = _mug.GetComponentInChildren<Renderer>();
     }
     
     private void OnCoffeeUpdated(MugGameplay _mug)
     {
         // TODO
+    }
+
+    public void OnMugPicked(MugGameplay pickedMug)
+    {
+        if (_mug != null && _mug != pickedMug)
+        {
+            RemoveMug(_mug);
+        }
+
+        _mug = pickedMug;
+        _mug.CoffeeStateUpdated += OnCoffeeUpdated;
+        tutorialManager.mugGameplay = _mug;
+        tutorialManager.mugRenderer = _mug.GetComponentInChildren<Renderer>();
+    }
+
+    public void RemoveMug(MugGameplay mug)
+    {
+        if (_mug == null)
+        {
+            return;
+        }
+        
+        if (_mug == mug)
+        {
+            _mug.CoffeeStateUpdated -= OnCoffeeUpdated;
+            _mug = null;
+
+            tutorialManager.mugGameplay = null;
+            tutorialManager.mugRenderer = null;
+            
+        }
+
+        Destroy(mug.gameObject);
     }
 
     private int EvaluateCoffee()
