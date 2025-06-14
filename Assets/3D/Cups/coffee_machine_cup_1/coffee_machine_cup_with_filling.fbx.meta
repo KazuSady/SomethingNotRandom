@@ -1,24 +1,9 @@
 fileFormatVersion: 2
-guid: 1047c261026d91142be6309a9a15f3c3
+guid: b26a7af36efb16e4f92c24bd72e1f8e2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Procedural Rust
-    second: {fileID: 2100000, guid: 36be0accae71c904d9fa22c91a4d22b6, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wood
-    second: {fileID: 2100000, guid: bdde93a40405892499fd9efd7b36bce0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: bark_brown_02
-    second: {fileID: 2100000, guid: 5fbca3e85c8dd804581c227c4b6db1b4, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

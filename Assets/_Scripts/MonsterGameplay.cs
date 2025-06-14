@@ -18,6 +18,21 @@ public class MonsterGameplay : MonoBehaviour
     {
         _monsterHappiness = newHappiness;
     }
+
+    public string GetHappinessText()
+    {
+        switch (_monsterHappiness)
+        {
+            case MonsterHappiness.Angry:
+                return "What the hell is even that!?";
+            case MonsterHappiness.Medium:
+                return "Is that all you got? Eh...";
+            case MonsterHappiness.Happy:
+                return "Yipee!";
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
 }
 
 [Serializable]

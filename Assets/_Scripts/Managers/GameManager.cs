@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float disappearX = -4.0f;
     [SerializeField] private float showX = -2.0f;
     
+    [Header("Effects")]
+    [SerializeField] private ParticleSystem happyParticles;
+    [SerializeField] private ParticleSystem angryParticles;
+    
     [Header("Materials")]   
     [SerializeField] private Material basicCoffeeMaterial;
     [SerializeField] private Material milkCoffeeMaterial;
@@ -63,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SpawnNewMonster()
     {
+        canvas.gameObject.SetActive(false);
         if (_currentMonster)
         {
             var tween = _currentMonster.transform.DOLocalMoveX(disappearX, 2.0f);
@@ -89,7 +94,7 @@ public class GameManager : MonoBehaviour
 
     private void DisplayOrder(CoffeeSO coffee)
     {
-        canvas.SetActive(true);
+        canvas.gameObject.SetActive(true);
         textBubble.text = $"I want {coffee.CoffeeName}! :>";
     }
 
@@ -188,7 +193,21 @@ public class GameManager : MonoBehaviour
         MonsterHappiness mood = GetMood(satisfaction);
 
         _currentMonster.ChangeHappiness(mood);
-        textBubble.text = $"Client is {mood.ToString().ToLower()}!";
+        switch (mood)
+        {
+            case MonsterHappiness.Angry:
+                _currentMonster.transform.DOShakePosition(2.0f, 0.5f);
+                angryParticles.Play();
+                break;
+            case MonsterHappiness.Medium:
+                break;
+            case MonsterHappiness.Happy:
+                _currentMonster.transform.DOLocalJump(_currentMonster.transform.localPosition, 0.1f, 5, 2.0f);
+                happyParticles.Play();
+                break;
+        }
+
+        textBubble.text = _currentMonster.GetHappinessText();
 
         yield return new WaitForSeconds(2f);
     }

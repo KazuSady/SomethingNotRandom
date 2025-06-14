@@ -67,8 +67,15 @@ public class MugGameplay : MonoBehaviour
     
     private void ResetProgress()
     {
-        _pressGameplay.Pressing -= HandlePressedCoffee;
-        liquid.NoLiquidLeft -= ResetProgress;
+        if (_pressGameplay)
+        {
+            _pressGameplay.Pressing -= HandlePressedCoffee;
+        }
+
+        if (liquid)
+        {
+            liquid.NoLiquidLeft -= ResetProgress;
+        }
         _aeropress = null;
         _pressGameplay = null;
         aeropressSocket.gameObject.SetActive(true);
