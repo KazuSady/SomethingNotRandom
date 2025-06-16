@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6929863310528825379}
   - component: {fileID: 445570367363705275}
   - component: {fileID: 5998136652386908053}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CoffeeShop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,6 +241,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_House_Door
       objectReference: {fileID: 0}
+    - target: {fileID: 1932897569947366666, guid: b9956b566fdbb3b45942051e678ea04d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -291,6 +295,10 @@ PrefabInstance:
     - target: {fileID: 5058553326922940273, guid: 08349fde08787eb49a158543a2570208, type: 3}
       propertyPath: m_Name
       value: SM_House_Worktop
+      objectReference: {fileID: 0}
+    - target: {fileID: 5058553326922940273, guid: 08349fde08787eb49a158543a2570208, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5582290763547207115, guid: 08349fde08787eb49a158543a2570208, type: 3}
       propertyPath: m_LocalPosition.x
@@ -392,6 +400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_House_Floor
       objectReference: {fileID: 0}
+    - target: {fileID: 1483577146790268430, guid: 3824b546f06b6834f964c2acba7d5878, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2296106977192973492, guid: 3824b546f06b6834f964c2acba7d5878, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -487,6 +499,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_House_Roof
       objectReference: {fileID: 0}
+    - target: {fileID: 3720788074181959893, guid: 5a69f997236a1ca4c8362070dd206396, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4100867925673540207, guid: 5a69f997236a1ca4c8362070dd206396, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -578,6 +594,10 @@ PrefabInstance:
     - target: {fileID: 39261240522623633, guid: 6e83f75377d5a70408c1b56926b922af, type: 3}
       propertyPath: m_Name
       value: SM_House_LowerPart
+      objectReference: {fileID: 0}
+    - target: {fileID: 39261240522623633, guid: 6e83f75377d5a70408c1b56926b922af, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 846865087824826411, guid: 6e83f75377d5a70408c1b56926b922af, type: 3}
       propertyPath: m_LocalPosition.x

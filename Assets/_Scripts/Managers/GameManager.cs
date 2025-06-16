@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float ingredientTolerance = 0.1f;
     [SerializeField] private TutorialManager tutorialManager;
     [SerializeField] private List<CoffeeSO> availableCoffees;
-    [SerializeField] private Transform mugParent;
-    [SerializeField] private MugGameplay mugPrefab;
     [SerializeField] private MugCupboard cupboard;
 
     [Header("Monsters")]
@@ -27,9 +25,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ParticleSystem happyParticles;
     [SerializeField] private ParticleSystem angryParticles;
     
-    [Header("Materials")]   
-    [SerializeField] private Material basicCoffeeMaterial;
-    [SerializeField] private Material milkCoffeeMaterial;
     
     [Header("UI Elements")]
     [SerializeField] private TMP_Text textBubble;
@@ -41,10 +36,6 @@ public class GameManager : MonoBehaviour
     private MugGameplay _mug;
     public MugGameplay CurrentMug => _mug;
     public bool HasActiveMug() => _mug != null;
-
-    public Material BasicCoffeeMaterial => basicCoffeeMaterial;
-    public Material MilkCoffeeMaterial => milkCoffeeMaterial;
-
 
     private void Awake()
     {
@@ -111,10 +102,13 @@ public class GameManager : MonoBehaviour
     private void SubmitCoffee()
     {
         if (_currentMonster == null)
+        {
             return;
+        }
 
         int satisfaction = EvaluateCoffee();
         StartCoroutine(ShowFeedbackAndGenerateNewMonster(satisfaction));
+        cupboard.ReturnMugToCupboard(_mug);
     }
     
     private void OnCoffeeUpdated(MugGameplay _mug)
@@ -131,8 +125,7 @@ public class GameManager : MonoBehaviour
 
         _mug = pickedMug;
         _mug.CoffeeStateUpdated += OnCoffeeUpdated;
-        tutorialManager.mugGameplay = _mug;
-        tutorialManager.mugRenderer = _mug.GetComponentInChildren<Renderer>();
+        tutorialManager.SetMug(_mug, _mug.GetComponentInChildren<Renderer>());
     }
 
     public void RemoveMug(MugGameplay mug)
@@ -147,8 +140,7 @@ public class GameManager : MonoBehaviour
             _mug.CoffeeStateUpdated -= OnCoffeeUpdated;
             _mug = null;
 
-            tutorialManager.mugGameplay = null;
-            tutorialManager.mugRenderer = null;
+           tutorialManager.RemoveOldMug();
             
         }
 

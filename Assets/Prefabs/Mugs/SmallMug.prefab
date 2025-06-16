@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 335038924491088718}
   m_Layer: 0
   m_Name: SmallMug
-  m_TagString: Untagged
+  m_TagString: NoCollisionForDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,8 +178,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962173779919185056}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.4649446, z: -0, w: 0.8853398}
-  m_LocalPosition: {x: 0.636, y: 1.1454, z: 0.321}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -189,7 +189,7 @@ Transform:
   - {fileID: 1988128784043132440}
   - {fileID: 96752354770594042}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -55.413, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2892576221311483199
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -677,7 +677,7 @@ Transform:
   m_GameObject: {fileID: 4541497339666444940}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.0156, y: 0.0982, z: -0.0062}
+  m_LocalPosition: {x: 0.0156, y: 0.1381, z: -0.0062}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1216,8 +1216,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 2.7808251, z: 2}
-  m_Center: {x: 0.00000007450581, y: -0.07762024, z: -0.00000007450581}
+  m_Size: {x: 2, y: 2.2714846, z: 2}
+  m_Center: {x: 0.00000007450581, y: -0.3322957, z: -0.00000007450581}
 --- !u!54 &1164060301638084280
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1296,6 +1296,8 @@ MonoBehaviour:
   liquidText: {fileID: 3693878747802906172}
   coffeeText: {fileID: 2987896509850428772}
   milkText: {fileID: 5809220545377943380}
+  coffeeMaterial: {fileID: 2100000, guid: 7b83a2d8aafc2394dbeb8098500acb9a, type: 2}
+  milkMaterial: {fileID: 2100000, guid: 2a68400ff1635304ab274f4c056b5669, type: 2}
   liquidObject: {fileID: 9032511389018001007}
   liquidRenderer: {fileID: 2421314014602585087}
   minCutoff: 0
@@ -1771,7 +1773,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 87078eca9338d674c9186b5461297d98, type: 2}
+  - {fileID: 2100000, guid: 7b83a2d8aafc2394dbeb8098500acb9a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

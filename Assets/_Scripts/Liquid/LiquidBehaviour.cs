@@ -19,6 +19,10 @@ public class LiquidBehaviour : MonoBehaviour
     [SerializeField] private TMP_Text coffeeText;
     [SerializeField] private TMP_Text milkText;
     
+    [Header("Materials")]
+    [SerializeField] private Material coffeeMaterial;
+    [SerializeField] private Material milkMaterial;
+    
     [Header("Cutoff")]
     [SerializeField] private GameObject liquidObject;
     [SerializeField] private Renderer liquidRenderer;
@@ -113,14 +117,14 @@ public class LiquidBehaviour : MonoBehaviour
         liquidObject.SetActive(false);
         CanAddLiquid = false;
     }
-    public void PourLiquid(float amountToSimulate, float coffeAmount)
+    public void PourLiquid(float amountToSimulate, float coffeeAmount)
     {
-        if (liquidRenderer.material == GameManager.Instance.MilkCoffeeMaterial)
+        if (liquidRenderer.material == milkMaterial)
         {
-            liquidRenderer.material = GameManager.Instance.BasicCoffeeMaterial;
+            liquidRenderer.material = coffeeMaterial;
         }
         liquidObject.SetActive(true);
-        StartCoroutine(SimulateLiquid(amountToSimulate, coffeAmount));
+        StartCoroutine(SimulateLiquid(amountToSimulate, coffeeAmount));
         CanAddLiquid = true;
     }
 
@@ -153,7 +157,7 @@ public class LiquidBehaviour : MonoBehaviour
                 CanAddLiquid = true;
             }
         
-            if (_liquidAmount >= 200.0f || _liquidAmount + _milkAmount >= 200.0f)
+            if (_liquidAmount >= 210.0f || _liquidAmount + _milkAmount >= 210.0f)
             {
                 return;
             }
@@ -168,12 +172,13 @@ public class LiquidBehaviour : MonoBehaviour
                     _liquidAmount += droplet.AmountOfLiquid;
                     _milkAmount += droplet.AmountOfLiquid;
                     milkText.text = $"Milk: {_milkAmount.ToString(CultureInfo.InvariantCulture)} ml";
-                    liquidRenderer.material = GameManager.Instance.MilkCoffeeMaterial;
+                    liquidRenderer.material = milkMaterial;
                     break;
             }
             liquidText.text = $"Liquid: {_liquidAmount.ToString(CultureInfo.InvariantCulture)} ml";
             HandleChangeInAmount();
         }
+        DestroyImmediate(droplet.gameObject);
     }
 
     private void HandleLiquidSpill(Transform liquidDropStart)
@@ -183,6 +188,7 @@ public class LiquidBehaviour : MonoBehaviour
             var drop = Instantiate(dropletPrefab, liquidDropStart.position, Quaternion.identity);
             drop.GetComponent<Rigidbody>().AddForce(Physics.gravity, ForceMode.Acceleration);
             _liquidAmount -= drop.AmountOfLiquid;
+            liquidText.text = $"Liquid: {_liquidAmount.ToString(CultureInfo.InvariantCulture)} ml";
             HandleChangeInAmount();
             if (_liquidAmount < 0.01f)
             {

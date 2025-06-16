@@ -638,6 +638,8 @@ MonoBehaviour:
   liquidText: {fileID: 8901508789632676341}
   coffeeText: {fileID: 838068733434896016}
   milkText: {fileID: 1626127705602982245}
+  coffeeMaterial: {fileID: 2100000, guid: 87078eca9338d674c9186b5461297d98, type: 2}
+  milkMaterial: {fileID: 2100000, guid: ea811c3cda749e54a8d7b79baf8346fd, type: 2}
   liquidObject: {fileID: 8377444005798253851}
   liquidRenderer: {fileID: 1308132844173862598}
   minCutoff: 0
@@ -873,7 +875,7 @@ GameObject:
   - component: {fileID: 5057783698436850696}
   m_Layer: 0
   m_Name: NormalMug
-  m_TagString: Untagged
+  m_TagString: NoCollisionForDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

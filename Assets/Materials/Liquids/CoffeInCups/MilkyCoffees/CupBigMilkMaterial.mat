@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CupLiquidMaterial
+  m_Name: CupBigMilkMaterial
   m_Shader: {fileID: -6465566751694194690, guid: edd4b63dba1848d4fb0efc8b42e8871d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -45,9 +45,9 @@ Material:
     - _WobbleX: 0.0000011375718
     - _WobbleZ: 0.0000068292293
     m_Colors:
-    - _CutoffMinMax: {r: 0.16, g: 0.3, b: 0, a: 0}
-    - _SideColor: {r: 0.0754717, g: 0.027693296, b: 0.011154616, a: 1}
-    - _TopColor: {r: 0.13836467, g: 0.046802104, b: 0.0152288005, a: 1}
+    - _CutoffMinMax: {r: -0.039, g: 0.037, b: 0, a: 0}
+    - _SideColor: {r: 0.18431373, g: 0.11372549, b: 0.09411765, a: 1}
+    - _TopColor: {r: 0.5921569, g: 0.43137255, b: 0.3764706, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &3889412456232269779

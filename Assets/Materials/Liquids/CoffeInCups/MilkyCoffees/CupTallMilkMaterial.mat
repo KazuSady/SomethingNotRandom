@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MilkMaterial
+  m_Name: CupTallMilkMaterial
   m_Shader: {fileID: -6465566751694194690, guid: edd4b63dba1848d4fb0efc8b42e8871d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -39,14 +39,15 @@ Material:
     m_Ints: []
     m_Floats:
     - _CutAmount: -1
-    - _Cutoff: 0.25
+    - _Cutoff: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _WobbleX: -0.000012253069
-    - _WobbleZ: 0.0000015601221
+    - _WobbleX: 0.0000011375718
+    - _WobbleZ: 0.0000068292293
     m_Colors:
-    - _SideColor: {r: 0.18238991, g: 0.114854015, b: 0.09234205, a: 1}
-    - _TopColor: {r: 0.59119487, g: 0.43084717, b: 0.37739795, a: 1}
+    - _CutoffMinMax: {r: -0.048, g: 0.046, b: 0, a: 0}
+    - _SideColor: {r: 0.18431373, g: 0.11372549, b: 0.09411765, a: 1}
+    - _TopColor: {r: 0.5921569, g: 0.43137255, b: 0.3764706, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &3889412456232269779

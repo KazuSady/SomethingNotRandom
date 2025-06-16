@@ -4,8 +4,6 @@ public class TutorialManager : MonoBehaviour
 {
     private static readonly int ShouldLight = Shader.PropertyToID("_ShouldLight");
     
-    public MugGameplay mugGameplay;
-    public Renderer mugRenderer;
     
     [Header("Aeropress parts")]
     [SerializeField] private StrainerGameplay strainerGameplay;
@@ -21,6 +19,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Renderer coffeeObject;
     [SerializeField] private Renderer kettleObject;
 
+    private MugGameplay _mugGameplay;
+    private Renderer _mugRenderer;
 
     private void Start()
     {
@@ -29,7 +29,6 @@ public class TutorialManager : MonoBehaviour
         tubeGameplay.AeropressAttached += TubePress;
         tubeGameplay.CoffeePresent += CoffeeBag;
         tubeGameplay.WaterPresent += Kettle;
-        mugGameplay.TubeAttached += MugTube;
         FilterStrainer(false);
     }
 
@@ -38,9 +37,23 @@ public class TutorialManager : MonoBehaviour
         strainerGameplay.FilterAttached -= FilterStrainer;
         tubeGameplay.StrainerAttached -= StrainerTube;
         tubeGameplay.AeropressAttached -= TubePress;
-        mugGameplay.TubeAttached -= MugTube;
+        _mugGameplay.TubeAttached -= MugTube;
     }
 
+    public void SetMug(MugGameplay mug, Renderer mugRenderer)
+    {
+        _mugGameplay = mug;
+        _mugRenderer = mugRenderer;
+        _mugGameplay.TubeAttached += MugTube;
+    }
+
+    public void RemoveOldMug()
+    {
+        _mugGameplay.TubeAttached -= MugTube;
+        _mugRenderer = null;
+        _mugGameplay = null;
+    }
+    
     private void FilterStrainer(bool isFilterAttached)
     {
         if (isFilterAttached)
@@ -76,13 +89,13 @@ public class TutorialManager : MonoBehaviour
         if (isTubeAttached)
         {
             tubeRenderer.material.SetFloat(ShouldLight, 0.0f);
-            mugRenderer.material.SetFloat(ShouldLight, 0.0f);
+            _mugRenderer.material.SetFloat(ShouldLight, 0.0f);
             CoffeeBag(false);
         }
         else
         {
             tubeRenderer.material.SetFloat(ShouldLight, 1.0f);
-            mugRenderer.material.SetFloat(ShouldLight, 1.0f);
+            _mugRenderer.material.SetFloat(ShouldLight, 1.0f);
         }
     }
 

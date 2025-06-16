@@ -11531,7 +11531,6 @@ Transform:
   - {fileID: 514656258}
   - {fileID: 1812761669}
   - {fileID: 247576755}
-  - {fileID: 850998212}
   - {fileID: 8975921263447405786}
   - {fileID: 214876426}
   - {fileID: 1437830332}
@@ -11541,6 +11540,7 @@ Transform:
   - {fileID: 1489371080}
   - {fileID: 988253485}
   - {fileID: 1916687504}
+  - {fileID: 850998212}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1603483825
@@ -11952,8 +11952,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 87ce3e803524ffa42bddabff1d808ef5, type: 2}
   - {fileID: 11400000, guid: 540ebab1e4f9b864f805e94cf810901d, type: 2}
   - {fileID: 11400000, guid: 84cb31bbcec03054d88a2a1ffe5a8994, type: 2}
-  mugParent: {fileID: 0}
-  mugPrefab: {fileID: 2766929750471047087, guid: c69357a7f4a9a1641a5568a0a840785a, type: 3}
   cupboard: {fileID: 1916687505}
   monsterPrefab: {fileID: 7571270122975196033, guid: ec585055d9576884b935c0653928c129, type: 3}
   monsterPlacement: {fileID: 1215930228}
@@ -11964,8 +11962,6 @@ MonoBehaviour:
   showX: -2
   happyParticles: {fileID: 867578203}
   angryParticles: {fileID: 618795721}
-  basicCoffeeMaterial: {fileID: 2100000, guid: 87078eca9338d674c9186b5461297d98, type: 2}
-  milkCoffeeMaterial: {fileID: 2100000, guid: 7577f11274c5eae4287b6e0824ae0280, type: 2}
   textBubble: {fileID: 1937406797}
   canvas: {fileID: 1248188735}
 --- !u!135 &1917084521
@@ -12001,8 +11997,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54a501af5cf21849b23b46bbd174f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mugGameplay: {fileID: 0}
-  mugRenderer: {fileID: 0}
   strainerGameplay: {fileID: 214876427}
   pressGameplay: {fileID: 122453676}
   tubeGameplay: {fileID: 8275388233572743202}
@@ -12918,6 +12912,18 @@ PrefabInstance:
       value: Tube
       objectReference: {fileID: 0}
     - target: {fileID: 3418194895233893492, guid: 52cc0356d6c98cf448cc7301be532703, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3418194895233893492, guid: 52cc0356d6c98cf448cc7301be532703, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3418194895233893492, guid: 52cc0356d6c98cf448cc7301be532703, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3418194895233893492, guid: 52cc0356d6c98cf448cc7301be532703, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.1711
       objectReference: {fileID: 0}
@@ -12961,6 +12967,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 836446655}
+    - target: {fileID: 9172283234249835017, guid: 52cc0356d6c98cf448cc7301be532703, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13000,30 +13010,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1548559005}
     m_Modifications:
-    - target: {fileID: 4046619078307276627, guid: e2bd9525b1b84a949acdf0a2b3e03f2d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.024
-      objectReference: {fileID: 0}
-    - target: {fileID: 4046619078307276627, guid: e2bd9525b1b84a949acdf0a2b3e03f2d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.241
-      objectReference: {fileID: 0}
-    - target: {fileID: 4046619078307276627, guid: e2bd9525b1b84a949acdf0a2b3e03f2d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9908534
-      objectReference: {fileID: 0}
-    - target: {fileID: 4046619078307276627, guid: e2bd9525b1b84a949acdf0a2b3e03f2d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4046619078307276627, guid: e2bd9525b1b84a949acdf0a2b3e03f2d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.13494273
-      objectReference: {fileID: 0}
-    - target: {fileID: 4046619078307276627, guid: e2bd9525b1b84a949acdf0a2b3e03f2d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -15.511
-      objectReference: {fileID: 0}
     - target: {fileID: 5077818790302131192, guid: e2bd9525b1b84a949acdf0a2b3e03f2d, type: 3}
       propertyPath: m_Name
       value: Kettle

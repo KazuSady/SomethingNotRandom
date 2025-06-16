@@ -46,15 +46,23 @@ public class MugGameplay : MonoBehaviour
     {
         var aeropress = aeropressSocket.GetOldestInteractableSelected();
         _aeropress = aeropress.transform.gameObject;
-        _aeropress.GetComponent<TubeGameplay>().PressAttached += SubscribeToPress;
+        var tubeGameplay = _aeropress.GetComponent<TubeGameplay>();
+        tubeGameplay.PressAttached += SubscribeToPress;
         Physics.IgnoreCollision(mainCollider, _aeropress.GetComponentInChildren<BoxCollider>(), true);
+        Physics.IgnoreCollision(mainCollider, tubeGameplay.Strainer.GetComponentInChildren<BoxCollider>(), true);
+        var strainerGameplay = tubeGameplay.Strainer.GetComponentInChildren<StrainerGameplay>();
+        Physics.IgnoreCollision(mainCollider, strainerGameplay.Filter.GetComponentInChildren<BoxCollider>(), true);
         TubeAttached?.Invoke(true);
     }
 
     public void AeropressRemoved()
     {
-        _aeropress.GetComponent<TubeGameplay>().PressAttached -= SubscribeToPress;
+        var tubeGameplay = _aeropress.GetComponent<TubeGameplay>();
+        tubeGameplay.PressAttached -= SubscribeToPress;
         Physics.IgnoreCollision(mainCollider, _aeropress.GetComponentInChildren<BoxCollider>(), false);
+        Physics.IgnoreCollision(mainCollider, tubeGameplay.Strainer.GetComponentInChildren<BoxCollider>(), false);
+        var strainerGameplay = tubeGameplay.Strainer.GetComponentInChildren<StrainerGameplay>();
+        Physics.IgnoreCollision(mainCollider, strainerGameplay.Filter.GetComponentInChildren<BoxCollider>(), false);
         _aeropress = null;
         if (liquid.LiquidAmount < 0.5f)
         {

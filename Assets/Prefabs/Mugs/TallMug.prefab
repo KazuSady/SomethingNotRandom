@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2481715441428162082}
   m_Layer: 0
   m_Name: TallMug
-  m_TagString: Untagged
+  m_TagString: NoCollisionForDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -842,6 +842,8 @@ MonoBehaviour:
   liquidText: {fileID: 490577790794789572}
   coffeeText: {fileID: 1394098244125386714}
   milkText: {fileID: 4511908194287887202}
+  coffeeMaterial: {fileID: 2100000, guid: 7364ffb83e6f89c47873908898095660, type: 2}
+  milkMaterial: {fileID: 2100000, guid: 3e4a483c29fa1944e9e9456a4534935a, type: 2}
   liquidObject: {fileID: 5032780476452837315}
   liquidRenderer: {fileID: 6970677770883911197}
   minCutoff: 0
@@ -1060,7 +1062,7 @@ Transform:
   m_GameObject: {fileID: 4060046484961255106}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.0156, y: 0.0982, z: -0.0062}
+  m_LocalPosition: {x: 0.0156, y: 0.0749, z: -0.0062}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1315,7 +1317,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 87078eca9338d674c9186b5461297d98, type: 2}
+  - {fileID: 2100000, guid: 7364ffb83e6f89c47873908898095660, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

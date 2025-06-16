@@ -11,6 +11,7 @@ public class StrainerGameplay : MonoBehaviour
     private bool _hasFilterAttached;
     private GameObject _filter;
     
+    public GameObject Filter => _filter;
     public bool HasFilter => _hasFilterAttached;
     
     public void FilterPlaced()

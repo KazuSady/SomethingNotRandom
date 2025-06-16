@@ -21,7 +21,7 @@ public class MugCupboard : MonoBehaviour
     private GameObject _tallMugInstance;
     private GameObject _bigMugInstance;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -29,13 +29,14 @@ public class MugCupboard : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         SpawnSmallMug();
         SpawnNormalMug();
         SpawnTallMug();
         SpawnBigMug();
     }
+    
 
     public void OnMugGrabbed(MugGameplay mug)
     {
@@ -47,7 +48,7 @@ public class MugCupboard : MonoBehaviour
         GameManager.Instance.OnMugPicked(mug);
     }
 
-    private void ReturnMugToCupboard(MugGameplay mug)
+    public void ReturnMugToCupboard(MugGameplay mug)
     {
         CupType mugType = mug.CupType;
         GameManager.Instance.RemoveMug(mug);

@@ -20,6 +20,8 @@ public class TubeGameplay : MonoBehaviour
     private GameObject _press;
     private GameObject _strainer;
 
+    public GameObject Strainer => _strainer;
+    
     private void Start()
     {
         liquid.NewLiquid += () => {WaterPresent?.Invoke(true); };
