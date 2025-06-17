@@ -278,6 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 942616587300109131}
+  timeBetweenDroplets: 0.2
 --- !u!136 &1862825232472726584
 CapsuleCollider:
   m_ObjectHideFlags: 0

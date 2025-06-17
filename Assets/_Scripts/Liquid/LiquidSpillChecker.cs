@@ -1,14 +1,16 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LiquidSpillChecker : MonoBehaviour
 {
     public event Action<Transform> OnDropSpill;
 
     [SerializeField] private BoxCollider liquidCollider;
+    [SerializeField] private float timeBetweenDroplets = 0.1f;
     private Coroutine _liquidSpillingCoroutine;
-    private float _timeBetweenDroplets = 1.0f;
+    
     
     private void OnTriggerEnter(Collider other)
     {
@@ -32,7 +34,7 @@ public class LiquidSpillChecker : MonoBehaviour
         while (true)
         {
             OnDropSpill?.Invoke(transform);
-            yield return new WaitForSeconds(_timeBetweenDroplets);
+            yield return new WaitForSeconds(timeBetweenDroplets);
         }
     }
 }

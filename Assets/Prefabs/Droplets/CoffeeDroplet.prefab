@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  amountOfLiquid: 30
+  amountOfLiquid: 1
 --- !u!135 &5828241770504659220
 SphereCollider:
   m_ObjectHideFlags: 0

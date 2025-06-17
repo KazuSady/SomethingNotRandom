@@ -178,7 +178,7 @@ public class LiquidBehaviour : MonoBehaviour
             liquidText.text = $"Liquid: {_liquidAmount.ToString(CultureInfo.InvariantCulture)} ml";
             HandleChangeInAmount();
         }
-        DestroyImmediate(droplet.gameObject);
+        Destroy(droplet.gameObject);
     }
 
     private void HandleLiquidSpill(Transform liquidDropStart)
