@@ -33,11 +33,12 @@ public class TubeGameplay : MonoBehaviour
     {
         _strainer = strainerSocket.GetOldestInteractableSelected().transform.gameObject;
         Physics.IgnoreCollision(mainCollider, _strainer.GetComponentInChildren<BoxCollider>(), true);
-        if (_strainer.transform.gameObject.GetComponent<StrainerGameplay>().HasFilter)
+        var sg = _strainer.transform.gameObject.GetComponent<StrainerGameplay>();
+        if (sg.HasFilter)
         {
             liquid.CanAddCoffee = true;
         }
-        _strainer.GetComponent<StrainerGameplay>().DisableFilterInteract();
+        sg.DisableFilterInteract();
         StrainerAttached?.Invoke(true);
     }
 
@@ -76,16 +77,31 @@ public class TubeGameplay : MonoBehaviour
             return;
         }
 
-        var grab = _strainer.GetComponent<XRGrabInteractable>();
-        if (grab)
+        if (_strainer.TryGetComponent<XRGrabInteractable>(out var grab))
         {
+            var interactor = grab.firstInteractorSelecting;
+            if (interactor != null)
+            {
+                var manager = grab.interactionManager;
+                if (manager)
+                {
+                    manager.CancelInteractableSelection(grab as IXRSelectInteractable);
+                }
+            }
             grab.enabled = false;
+        }
+
+        // Reset physics
+        if (_strainer.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
 
         Collider strainerCollider = _strainer.GetComponentInChildren<Collider>();
         if (strainerCollider)
         {
-            Physics.IgnoreCollision(mainCollider, strainerCollider, true);
+            strainerCollider.enabled = false;
         }
     }
 
@@ -96,8 +112,7 @@ public class TubeGameplay : MonoBehaviour
             return;
         }
         
-        var grab = _strainer.GetComponent<XRGrabInteractable>();
-        if (grab)
+        if (_strainer.TryGetComponent<XRGrabInteractable>(out var grab))
         {
             grab.enabled = true;
         }
@@ -105,7 +120,7 @@ public class TubeGameplay : MonoBehaviour
         Collider strainerCollider = _strainer.GetComponentInChildren<Collider>();
         if (strainerCollider)
         {
-            Physics.IgnoreCollision(mainCollider, strainerCollider, false);
+            strainerCollider.enabled = true;
         }
     }
 }

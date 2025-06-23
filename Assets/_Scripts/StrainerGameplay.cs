@@ -38,16 +38,30 @@ public class StrainerGameplay : MonoBehaviour
             return;
         }
 
-        var grab = _filter.GetComponent<XRGrabInteractable>();
-        if (grab)
+        if (_filter.TryGetComponent<XRGrabInteractable>(out var grab))
         {
+            var interactor = grab.firstInteractorSelecting;
+            if (interactor != null)
+            {
+                var manager = grab.interactionManager;
+                if (manager)
+                {
+                    manager.CancelInteractableSelection(grab as IXRSelectInteractable);
+                }
+            }
             grab.enabled = false;
+        }
+
+        if (_filter.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
 
         Collider filterCollider = _filter.GetComponentInChildren<Collider>();
         if (filterCollider)
         {
-            Physics.IgnoreCollision(mainCollider, filterCollider, true);
+            filterCollider.enabled = false;
         }
     }
 
@@ -58,8 +72,7 @@ public class StrainerGameplay : MonoBehaviour
             return;
         }
         
-        var grab = _filter.GetComponent<XRGrabInteractable>();
-        if (grab)
+        if (_filter.TryGetComponent<XRGrabInteractable>(out var grab))
         {
             grab.enabled = true;
         }
@@ -67,7 +80,7 @@ public class StrainerGameplay : MonoBehaviour
         Collider filterCollider = _filter.GetComponentInChildren<Collider>();
         if (filterCollider)
         {
-            Physics.IgnoreCollision(mainCollider, filterCollider, false);
+            filterCollider.enabled = true;
         }
     }
 }

@@ -141,41 +141,56 @@ public class MugGameplay : MonoBehaviour
     
     public void DisableTubeInteract()
     {
-        if (_aeropress == null)
+        var _tube = _aeropress.GetComponent<TubeGameplay>();
+        if (_tube == null)
         {
             return;
         }
 
-        var grab = _aeropress.GetComponent<XRGrabInteractable>();
-        if (grab)
+        if (_tube.TryGetComponent<XRGrabInteractable>(out var grab))
         {
+            var interactor = grab.firstInteractorSelecting;
+            if (interactor != null)
+            {
+                var manager = grab.interactionManager;
+                if (manager)
+                {
+                    manager.CancelInteractableSelection(grab as IXRSelectInteractable);
+                }
+            }
             grab.enabled = false;
         }
 
-        Collider tubeCollider = _aeropress.GetComponentInChildren<Collider>();
+        if (_tube.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        Collider tubeCollider = _tube.GetComponentInChildren<Collider>();
         if (tubeCollider)
         {
-            Physics.IgnoreCollision(mainCollider, tubeCollider, true);
+            tubeCollider.enabled = false;
         }
     }
-    
-    public void EnableTubeInteract()
+
+    public void EnableFilterInteract()
     {
-        if (_aeropress == null)
+        var _tube = _aeropress.GetComponent<TubeGameplay>();
+        if (_tube == null)
         {
             return;
         }
-
-        var grab = _aeropress.GetComponent<XRGrabInteractable>();
-        if (grab)
+        
+        if (_tube.TryGetComponent<XRGrabInteractable>(out var grab))
         {
             grab.enabled = true;
         }
 
-        Collider tubeCollider = _aeropress.GetComponentInChildren<Collider>();
-        if (tubeCollider)
+        Collider filterCollider = _tube.GetComponentInChildren<Collider>();
+        if (filterCollider)
         {
-            Physics.IgnoreCollision(mainCollider, tubeCollider, false);
+            filterCollider.enabled = true;
         }
     }
 }
