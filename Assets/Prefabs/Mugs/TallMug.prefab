@@ -81,7 +81,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 256
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -203,6 +203,7 @@ MonoBehaviour:
   mainCollider: {fileID: 2914375350577878881}
   cupType: 2
   liquid: {fileID: 6169232094112559516}
+  maxTemperature: 100
   aeropressSocket: {fileID: 816137284772206959}
 --- !u!1 &2300228908982969240
 GameObject:
@@ -422,6 +423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 2542014034481557645}
+  timeBetweenDroplets: 0.1
 --- !u!1 &2853739473500016624
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,6 +793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 2542014034481557645}
+  timeBetweenDroplets: 0.1
 --- !u!1 &3520374296271214318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1036,6 +1039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 2542014034481557645}
+  timeBetweenDroplets: 0.1
 --- !u!1 &4060046484961255106
 GameObject:
   m_ObjectHideFlags: 0
@@ -1407,6 +1411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 2542014034481557645}
+  timeBetweenDroplets: 0.1
 --- !u!1 &6393757070988278501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1474,6 +1479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 2542014034481557645}
+  timeBetweenDroplets: 0.1
 --- !u!1 &8082415474792163974
 GameObject:
   m_ObjectHideFlags: 0
@@ -1661,6 +1667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 2542014034481557645}
+  timeBetweenDroplets: 0.1
 --- !u!1 &8627992871226298623
 GameObject:
   m_ObjectHideFlags: 0
@@ -1728,6 +1735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 2542014034481557645}
+  timeBetweenDroplets: 0.1
 --- !u!1 &8672238228757582302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1795,6 +1803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 2542014034481557645}
+  timeBetweenDroplets: 0.1
 --- !u!1001 &6315036307484649567
 PrefabInstance:
   m_ObjectHideFlags: 0
