@@ -11560,7 +11560,6 @@ Transform:
   - {fileID: 1248188739}
   - {fileID: 867578205}
   - {fileID: 618795723}
-  - {fileID: 1849850775}
   m_Father: {fileID: 1917084519}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1248188735
@@ -12158,68 +12157,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 793219412319431736, guid: 633780ef31ffe5841898b86797cc48d4, type: 3}
   m_PrefabInstance: {fileID: 122453674}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1849850774
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1215930228}
-    m_Modifications:
-    - target: {fileID: 1601568529470690860, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
-      propertyPath: m_Name
-      value: MudMonster
-      objectReference: {fileID: 0}
-    - target: {fileID: 5765816754173193075, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5765816754173193075, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5765816754173193075, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5765816754173193075, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5765816754173193075, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5765816754173193075, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5765816754173193075, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5765816754173193075, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5765816754173193075, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5765816754173193075, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
---- !u!4 &1849850775 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5765816754173193075, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
-  m_PrefabInstance: {fileID: 1849850774}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1864776669
 GameObject:
   m_ObjectHideFlags: 0
@@ -12367,6 +12304,13 @@ MonoBehaviour:
   monsterLook:
   - {fileID: 5108732889448363403, guid: ed389429ede9f164784f29f254119c32, type: 3}
   - {fileID: 1601568529470690860, guid: 933d29abc61571f4f9dbd58938d8f37a, type: 3}
+  - {fileID: 4220199508790722549, guid: 10fdedc9eea6cad4187e74307079b2a5, type: 3}
+  - {fileID: 3873671955911999169, guid: e9efe056e217d3e46a58ce6b82964324, type: 3}
+  - {fileID: 216496645683904536, guid: 70d3b94274ef2a44b9331ecae830bd7d, type: 3}
+  - {fileID: 216496645683904536, guid: 4f4c06ba7bbd94b4db69a86b7510060f, type: 3}
+  - {fileID: 916940007517334722, guid: 2e375140fd67883429dad87c6e45165f, type: 3}
+  - {fileID: 1610057186391369072, guid: 65c50434913fe564a90b40eae971c52e, type: 3}
+  - {fileID: 8680963218081668158, guid: 06ffc457fcc43594baac4edaae1c1415, type: 3}
   disappearX: -4
   showX: -2
   happyParticles: {fileID: 867578203}
