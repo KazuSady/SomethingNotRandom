@@ -117,6 +117,7 @@ public class LiquidBehaviour : MonoBehaviour
         liquidObject.SetActive(false);
         CanAddLiquid = false;
     }
+    
     public void PourLiquid(float amountToSimulate, float coffeeAmount)
     {
         if (liquidRenderer.material == milkMaterial)

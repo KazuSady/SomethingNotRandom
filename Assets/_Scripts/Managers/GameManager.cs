@@ -155,6 +155,7 @@ public class GameManager : MonoBehaviour
         bool milkOk = WithinTolerance(_mug.GetMilkAmount(), coffeeOrder.MilkAmount);
         bool waterOk = WithinTolerance(_mug.GetWaterAmount(), coffeeOrder.WaterAmount);
         bool cremeOk = WithinTolerance(_mug.GetCremeAmount(), coffeeOrder.CremeAmount);
+        bool temperatureOk = WithinTolerance(_mug.GetTemperature(), coffeeOrder.DesiredTemperature);
 
         int satisfaction = 0;
 
@@ -164,7 +165,8 @@ public class GameManager : MonoBehaviour
             $"Coffee: {(coffeeOk ? "OK" : "not ok")}",
             $"Milk: {(milkOk ? "OK" : "not ok")}",
             $"Water: {(waterOk ? "OK" : "not ok")}",
-            $"Creme: {(cremeOk ? "OK" : "not ok")}"
+            $"Creme: {(cremeOk ? "OK" : "not ok")}",
+            $"Temperature: {(cremeOk ? "OK" : "not ok")}",
         };
 
         satisfaction += correctCup ? 1 : 0;
@@ -172,6 +174,7 @@ public class GameManager : MonoBehaviour
         satisfaction += milkOk ? 1 : 0;
         satisfaction += waterOk ? 1 : 0;
         satisfaction += cremeOk ? 1 : 0;
+        satisfaction += temperatureOk ? 1 : 0;
 
         Debug.Log($"Coffee evaluated. Satisfaction: {satisfaction} ({string.Join("; ", parts)})");
 

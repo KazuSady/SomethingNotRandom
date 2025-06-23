@@ -11,6 +11,7 @@ public class CoffeeSO : ScriptableObject
     [SerializeField] private float milkAmount;
     [SerializeField] private float cremeAmount;
     [SerializeField] private float waterAmount;
+    [SerializeField] private float desiredTemperature;
     [SerializeField] private CupType requiredCup;
     
     public string CoffeeName => coffeeName;
@@ -18,6 +19,7 @@ public class CoffeeSO : ScriptableObject
     public float MilkAmount => milkAmount;
     public float CremeAmount => cremeAmount;
     public float WaterAmount => waterAmount;
+    public float DesiredTemperature => desiredTemperature;
     public CupType RequiredCup => requiredCup;
 }
 

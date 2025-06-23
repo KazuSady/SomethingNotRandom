@@ -12,6 +12,7 @@ public class MugGameplay : MonoBehaviour
     [SerializeField] private BoxCollider mainCollider;
     [SerializeField] private CupType cupType;
     [SerializeField] private LiquidBehaviour liquid;
+    [SerializeField] private float maxTemperature = 100.0f;
 
     [Header("Aeropress")]
     [SerializeField] private XRSocketInteractor aeropressSocket;
@@ -19,6 +20,8 @@ public class MugGameplay : MonoBehaviour
 
     private GameObject _aeropress;
     private PressGameplay _pressGameplay;
+
+    private float _temperature = 20.0f;
     
     public CupType CupType => cupType;
 
@@ -69,6 +72,13 @@ public class MugGameplay : MonoBehaviour
             TubeAttached?.Invoke(false);
         }
     }
+
+    public void HeatUp(float temperatureIncreasePerSecond)
+    {
+        _temperature += temperatureIncreasePerSecond * Time.deltaTime;
+        _temperature = Mathf.Min(_temperature, maxTemperature);
+        CoffeeStateUpdated?.Invoke(this);
+    }
     
     public float GetCoffeeAmount()
     {
@@ -89,6 +99,11 @@ public class MugGameplay : MonoBehaviour
     {
         return 0f;
     }
+
+    public float GetTemperature()
+    {
+        return _temperature;
+    }
     
     private void ResetProgress()
     {
@@ -106,6 +121,7 @@ public class MugGameplay : MonoBehaviour
         aeropressSocket.gameObject.SetActive(true);
         liquid.Reset();
     }
+    
     private void SubscribeToPress(PressGameplay pressGameplay)
     {
         _pressGameplay = pressGameplay;
