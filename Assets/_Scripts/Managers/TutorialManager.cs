@@ -37,7 +37,10 @@ public class TutorialManager : MonoBehaviour
         strainerGameplay.FilterAttached -= FilterStrainer;
         tubeGameplay.StrainerAttached -= StrainerTube;
         tubeGameplay.AeropressAttached -= TubePress;
-        _mugGameplay.TubeAttached -= MugTube;
+        if (_mugGameplay) // null happens only if we did not pick up a mug at all
+        {
+            _mugGameplay.TubeAttached -= MugTube;
+        }
     }
 
     public void SetMug(MugGameplay mug, Renderer mugRenderer)

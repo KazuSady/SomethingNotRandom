@@ -36,5 +36,4 @@ public class PressGameplay : MonoBehaviour
         yield return new WaitForSeconds(pressAnimator.GetCurrentAnimatorStateInfo(0).length);
         pressAnimator.Play("New State 0");
     }
-    
 }

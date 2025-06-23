@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class StrainerGameplay : MonoBehaviour
@@ -7,13 +8,13 @@ public class StrainerGameplay : MonoBehaviour
     public event Action<bool> FilterAttached;
     [SerializeField] private XRSocketInteractor filterSocket;
     [SerializeField] private BoxCollider mainCollider;
-    
+
     private bool _hasFilterAttached;
     private GameObject _filter;
-    
+
     public GameObject Filter => _filter;
     public bool HasFilter => _hasFilterAttached;
-    
+
     public void FilterPlaced()
     {
         _hasFilterAttached = true;
@@ -28,5 +29,45 @@ public class StrainerGameplay : MonoBehaviour
         Physics.IgnoreCollision(mainCollider, _filter.GetComponentInChildren<BoxCollider>(), false);
         _filter = null;
         FilterAttached?.Invoke(false);
+    }
+
+    public void DisableFilterInteract()
+    {
+        if (_filter == null)
+        {
+            return;
+        }
+
+        var grab = _filter.GetComponent<XRGrabInteractable>();
+        if (grab)
+        {
+            grab.enabled = false;
+        }
+
+        Collider filterCollider = _filter.GetComponentInChildren<Collider>();
+        if (filterCollider)
+        {
+            Physics.IgnoreCollision(mainCollider, filterCollider, true);
+        }
+    }
+
+    public void EnableFilterInteract()
+    {
+        if (_filter == null)
+        {
+            return;
+        }
+        
+        var grab = _filter.GetComponent<XRGrabInteractable>();
+        if (grab)
+        {
+            grab.enabled = true;
+        }
+
+        Collider filterCollider = _filter.GetComponentInChildren<Collider>();
+        if (filterCollider)
+        {
+            Physics.IgnoreCollision(mainCollider, filterCollider, false);
+        }
     }
 }

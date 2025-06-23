@@ -16,13 +16,13 @@ public class MugGameplay : MonoBehaviour
 
     [Header("Aeropress")]
     [SerializeField] private XRSocketInteractor aeropressSocket;
-    
+
 
     private GameObject _aeropress;
     private PressGameplay _pressGameplay;
 
     private float _temperature = 20.0f;
-    
+
     public CupType CupType => cupType;
 
     private XRGrabInteractable _grabInteractable;
@@ -51,6 +51,7 @@ public class MugGameplay : MonoBehaviour
         _aeropress = aeropress.transform.gameObject;
         var tubeGameplay = _aeropress.GetComponent<TubeGameplay>();
         tubeGameplay.PressAttached += SubscribeToPress;
+        tubeGameplay.DisableStrainerInteract();
         Physics.IgnoreCollision(mainCollider, _aeropress.GetComponentInChildren<BoxCollider>(), true);
         Physics.IgnoreCollision(mainCollider, tubeGameplay.Strainer.GetComponentInChildren<BoxCollider>(), true);
         var strainerGameplay = tubeGameplay.Strainer.GetComponentInChildren<StrainerGameplay>();
@@ -62,6 +63,7 @@ public class MugGameplay : MonoBehaviour
     {
         var tubeGameplay = _aeropress.GetComponent<TubeGameplay>();
         tubeGameplay.PressAttached -= SubscribeToPress;
+        tubeGameplay.EnableStrainerInteract();
         Physics.IgnoreCollision(mainCollider, _aeropress.GetComponentInChildren<BoxCollider>(), false);
         Physics.IgnoreCollision(mainCollider, tubeGameplay.Strainer.GetComponentInChildren<BoxCollider>(), false);
         var strainerGameplay = tubeGameplay.Strainer.GetComponentInChildren<StrainerGameplay>();
@@ -79,7 +81,7 @@ public class MugGameplay : MonoBehaviour
         _temperature = Mathf.Min(_temperature, maxTemperature);
         CoffeeStateUpdated?.Invoke(this);
     }
-    
+
     public float GetCoffeeAmount()
     {
         return liquid.CanAddLiquid ? 9.0f : 0.0f;
@@ -104,7 +106,7 @@ public class MugGameplay : MonoBehaviour
     {
         return _temperature;
     }
-    
+
     private void ResetProgress()
     {
         if (_pressGameplay)
@@ -121,7 +123,7 @@ public class MugGameplay : MonoBehaviour
         aeropressSocket.gameObject.SetActive(true);
         liquid.Reset();
     }
-    
+
     private void SubscribeToPress(PressGameplay pressGameplay)
     {
         _pressGameplay = pressGameplay;
@@ -135,5 +137,45 @@ public class MugGameplay : MonoBehaviour
         liquid.PourLiquid(liquidPress.LiquidAmount, liquidPress.CoffeeAmount);
         liquidPress.PressLiquid(3.5f);
         CoffeeStateUpdated?.Invoke(this);
+    }
+    
+    public void DisableTubeInteract()
+    {
+        if (_aeropress == null)
+        {
+            return;
+        }
+
+        var grab = _aeropress.GetComponent<XRGrabInteractable>();
+        if (grab)
+        {
+            grab.enabled = false;
+        }
+
+        Collider tubeCollider = _aeropress.GetComponentInChildren<Collider>();
+        if (tubeCollider)
+        {
+            Physics.IgnoreCollision(mainCollider, tubeCollider, true);
+        }
+    }
+    
+    public void EnableTubeInteract()
+    {
+        if (_aeropress == null)
+        {
+            return;
+        }
+
+        var grab = _aeropress.GetComponent<XRGrabInteractable>();
+        if (grab)
+        {
+            grab.enabled = true;
+        }
+
+        Collider tubeCollider = _aeropress.GetComponentInChildren<Collider>();
+        if (tubeCollider)
+        {
+            Physics.IgnoreCollision(mainCollider, tubeCollider, false);
+        }
     }
 }

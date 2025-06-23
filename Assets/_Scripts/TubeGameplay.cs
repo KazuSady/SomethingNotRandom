@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class TubeGameplay : MonoBehaviour
@@ -9,7 +10,7 @@ public class TubeGameplay : MonoBehaviour
     public event Action<bool> AeropressAttached;
     public event Action<bool> CoffeePresent;
     public event Action<bool> WaterPresent;
-    
+
     [SerializeField] private BoxCollider mainCollider;
     [Header("Strainer")]
     [SerializeField] private XRSocketInteractor strainerSocket;
@@ -21,11 +22,11 @@ public class TubeGameplay : MonoBehaviour
     private GameObject _strainer;
 
     public GameObject Strainer => _strainer;
-    
+
     private void Start()
     {
-        liquid.NewLiquid += () => {WaterPresent?.Invoke(true); };
-        liquid.CoffeeIn += () => {CoffeePresent?.Invoke(true); };
+        liquid.NewLiquid += () => { WaterPresent?.Invoke(true); };
+        liquid.CoffeeIn += () => { CoffeePresent?.Invoke(true); };
     }
 
     public void StrainerPlaced()
@@ -36,6 +37,7 @@ public class TubeGameplay : MonoBehaviour
         {
             liquid.CanAddCoffee = true;
         }
+        _strainer.GetComponent<StrainerGameplay>().DisableFilterInteract();
         StrainerAttached?.Invoke(true);
     }
 
@@ -43,11 +45,12 @@ public class TubeGameplay : MonoBehaviour
     {
         liquid.CanAddCoffee = false;
         Physics.IgnoreCollision(mainCollider, _strainer.GetComponentInChildren<BoxCollider>(), false);
+        _strainer.GetComponent<StrainerGameplay>().EnableFilterInteract();
         _strainer = null;
         liquid.Reset();
         StrainerAttached?.Invoke(false);
     }
-    
+
     public void PressPlaced()
     {
         var press = pressSocket.GetOldestInteractableSelected();
@@ -64,5 +67,45 @@ public class TubeGameplay : MonoBehaviour
         _press = null;
         liquid.CanAddLiquid = true;
         AeropressAttached?.Invoke(false);
+    }
+    
+    public void DisableStrainerInteract()
+    {
+        if (_strainer == null)
+        {
+            return;
+        }
+
+        var grab = _strainer.GetComponent<XRGrabInteractable>();
+        if (grab)
+        {
+            grab.enabled = false;
+        }
+
+        Collider strainerCollider = _strainer.GetComponentInChildren<Collider>();
+        if (strainerCollider)
+        {
+            Physics.IgnoreCollision(mainCollider, strainerCollider, true);
+        }
+    }
+
+    public void EnableStrainerInteract()
+    {
+        if (_strainer == null)
+        {
+            return;
+        }
+        
+        var grab = _strainer.GetComponent<XRGrabInteractable>();
+        if (grab)
+        {
+            grab.enabled = true;
+        }
+
+        Collider strainerCollider = _strainer.GetComponentInChildren<Collider>();
+        if (strainerCollider)
+        {
+            Physics.IgnoreCollision(mainCollider, strainerCollider, false);
+        }
     }
 }
