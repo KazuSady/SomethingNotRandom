@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 366046083543494120}
+  timeBetweenDroplets: 0.1
 --- !u!1 &2001756876708620343
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,6 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 366046083543494120}
+  timeBetweenDroplets: 0.1
 --- !u!1 &3948372251626270872
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,6 +782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 366046083543494120}
+  timeBetweenDroplets: 0.1
 --- !u!1 &7574967839410409520
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,6 +850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 366046083543494120}
+  timeBetweenDroplets: 0.1
 --- !u!1 &8052575133816606094
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,6 +999,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 366046083543494120}
+  timeBetweenDroplets: 0.1
 --- !u!1 &8572901749991295465
 GameObject:
   m_ObjectHideFlags: 0

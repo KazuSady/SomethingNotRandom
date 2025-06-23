@@ -520,6 +520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 8355483347056103993}
+  timeBetweenDroplets: 0.1
 --- !u!1 &2214063101683403485
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 8355483347056103993}
+  timeBetweenDroplets: 0.1
 --- !u!1 &2357087968890194753
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,6 +730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 8355483347056103993}
+  timeBetweenDroplets: 0.1
 --- !u!1 &2645493216134721796
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,6 +798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 8355483347056103993}
+  timeBetweenDroplets: 0.1
 --- !u!1 &2688445232297876845
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,6 +866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 8355483347056103993}
+  timeBetweenDroplets: 0.1
 --- !u!1 &2761088416389032907
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,6 +1070,7 @@ MonoBehaviour:
   mainCollider: {fileID: 7677281312969905170}
   cupType: 1
   liquid: {fileID: 4550294235556984537}
+  maxTemperature: 100
   aeropressSocket: {fileID: 4487923681569007711}
 --- !u!1 &3897093197671397015
 GameObject:
@@ -1442,6 +1448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 8355483347056103993}
+  timeBetweenDroplets: 0.1
 --- !u!1 &5964244741894911970
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,6 +1610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 8355483347056103993}
+  timeBetweenDroplets: 0.1
 --- !u!1 &8140869978846428812
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,6 +1678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidCollider: {fileID: 8355483347056103993}
+  timeBetweenDroplets: 0.1
 --- !u!1 &8377444005798253851
 GameObject:
   m_ObjectHideFlags: 0
