@@ -157,26 +157,23 @@ public class GameManager : MonoBehaviour
         bool cremeOk = WithinTolerance(_mug.GetCremeAmount(), coffeeOrder.CremeAmount);
 
         int satisfaction = 0;
-        if (correctCup)
+
+        List<string> parts = new()
         {
-            satisfaction += 1;
-        }
-        if (coffeeOk)
-        {
-            satisfaction += 1;
-        }
-        if (milkOk)
-        {
-            satisfaction += 1;
-        }
-        if (waterOk)
-        {
-            satisfaction += 1;
-        }
-        if (cremeOk)
-        {
-            satisfaction += 1;
-        }
+            $"Cup: {(correctCup ? "OK" : "not ok")}",
+            $"Coffee: {(coffeeOk ? "OK" : "not ok")}",
+            $"Milk: {(milkOk ? "OK" : "not ok")}",
+            $"Water: {(waterOk ? "OK" : "not ok")}",
+            $"Creme: {(cremeOk ? "OK" : "not ok")}"
+        };
+
+        satisfaction += correctCup ? 1 : 0;
+        satisfaction += coffeeOk ? 1 : 0;
+        satisfaction += milkOk ? 1 : 0;
+        satisfaction += waterOk ? 1 : 0;
+        satisfaction += cremeOk ? 1 : 0;
+
+        Debug.Log($"Coffee evaluated. Satisfaction: {satisfaction} ({string.Join("; ", parts)})");
 
         return satisfaction;
     }
