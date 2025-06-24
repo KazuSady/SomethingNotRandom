@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class LiquidBehaviour : MonoBehaviour
 {
+    private static readonly int WobbleX = Shader.PropertyToID("_WobbleX");
+    private static readonly int WobbleZ = Shader.PropertyToID("_WobbleZ");
+    private static readonly int Cutoff = Shader.PropertyToID("_Cutoff");
     public event Action NoLiquidLeft;
     public event Action NewLiquid;
     public event Action CoffeeIn;
@@ -87,8 +90,8 @@ public class LiquidBehaviour : MonoBehaviour
             _wobbleAmountX = _wobbleAmountToAddX * Mathf.Sin(_pulse * _time);
             _wobbleAmountZ = _wobbleAmountToAddZ * Mathf.Sin(_pulse * _time);
             
-            liquidRenderer.material.SetFloat("_WobbleX", _wobbleAmountX);
-            liquidRenderer.material.SetFloat("_WobbleZ", _wobbleAmountZ);
+            liquidRenderer.material.SetFloat(WobbleX, _wobbleAmountX);
+            liquidRenderer.material.SetFloat(WobbleZ, _wobbleAmountZ);
             
             _velocity = (_lastPos - transform.position) / Time.deltaTime;
             _angularVelocity = transform.rotation.eulerAngles - _lastRot;
@@ -193,7 +196,7 @@ public class LiquidBehaviour : MonoBehaviour
             HandleChangeInAmount();
             if (_liquidAmount < 0.01f)
             {
-                liquidRenderer.material.SetFloat("_Cutoff", minCutoff);
+                liquidRenderer.material.SetFloat(Cutoff, minCutoff);
                 _liquidAmount = 0.0f;
                 _coffeeAmount = 0.0f;
                 NoLiquidLeft?.Invoke();
@@ -212,7 +215,7 @@ public class LiquidBehaviour : MonoBehaviour
     private void HandleChangeInAmount()
     {
         var proportion = _liquidAmount / 200.0f;
-        liquidRenderer.material.SetFloat("_Cutoff", proportion);
+        liquidRenderer.material.SetFloat(Cutoff, proportion);
         var colliderSize = liquidCollider.size;
         var colliderCenter = liquidCollider.center;
         colliderCenter.y = -1.0f + proportion;
@@ -228,7 +231,7 @@ public class LiquidBehaviour : MonoBehaviour
         {
             var t = time / duration;
             var cutoff = Mathf.Lerp(minCutoff, top, t);
-            liquidRenderer.material.SetFloat("_Cutoff", cutoff);
+            liquidRenderer.material.SetFloat(Cutoff, cutoff);
             time += Time.deltaTime;
             yield return null;
         }
@@ -253,7 +256,7 @@ public class LiquidBehaviour : MonoBehaviour
         {
             var t = time / disappearingDuration;
             var cutoff = Mathf.Lerp(start, minCutoff, t);
-            liquidRenderer.material.SetFloat("_Cutoff", cutoff);
+            liquidRenderer.material.SetFloat(Cutoff, cutoff);
             time += Time.deltaTime;
             yield return null;
         }

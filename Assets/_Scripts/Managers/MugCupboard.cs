@@ -71,21 +71,21 @@ public class MugCupboard : MonoBehaviour
 
     private void SpawnSmallMug()
     {
-        _smallMugInstance = Instantiate(_smallMugPrefab, _smallMugPosition.position, Quaternion.identity);
+        _smallMugInstance = Instantiate(_smallMugPrefab, _smallMugPosition);
     }
 
     private void SpawnNormalMug()
     {
-        _normalMugInstance = Instantiate(_normalMugPrefab, _normalMugPosition.position, Quaternion.identity);
+        _normalMugInstance = Instantiate(_normalMugPrefab, _normalMugPosition);
     }
 
     private void SpawnTallMug()
     {
-        _tallMugInstance = Instantiate(_tallMugPrefab, _tallMugPosition.position, Quaternion.identity);
+        _tallMugInstance = Instantiate(_tallMugPrefab, _tallMugPosition);
     }
 
     private void SpawnBigMug()
     {
-        _bigMugInstance = Instantiate(_bigMugPrefab, _bigMugPosition.position, Quaternion.identity);
+        _bigMugInstance = Instantiate(_bigMugPrefab, _bigMugPosition);
     }
 }
