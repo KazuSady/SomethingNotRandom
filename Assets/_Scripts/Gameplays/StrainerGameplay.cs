@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
@@ -49,19 +50,13 @@ public class StrainerGameplay : MonoBehaviour
                     manager.CancelInteractableSelection(grab as IXRSelectInteractable);
                 }
             }
-            grab.enabled = false;
+            grab.interactionLayers &= ~InteractionLayerMask.GetMask("Default");
         }
 
         if (_filter.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-        }
-
-        Collider filterCollider = _filter.GetComponentInChildren<Collider>();
-        if (filterCollider)
-        {
-            filterCollider.enabled = false;
         }
     }
 
@@ -74,13 +69,7 @@ public class StrainerGameplay : MonoBehaviour
         
         if (_filter.TryGetComponent<XRGrabInteractable>(out var grab))
         {
-            grab.enabled = true;
-        }
-
-        Collider filterCollider = _filter.GetComponentInChildren<Collider>();
-        if (filterCollider)
-        {
-            filterCollider.enabled = true;
+            grab.interactionLayers |= InteractionLayerMask.GetMask("Default");
         }
     }
 }

@@ -158,7 +158,7 @@ public class MugGameplay : MonoBehaviour
                     manager.CancelInteractableSelection(grab as IXRSelectInteractable);
                 }
             }
-            grab.enabled = false;
+            grab.interactionLayers &= ~InteractionLayerMask.GetMask("Default");
         }
 
         if (_tube.TryGetComponent<Rigidbody>(out var rb))
@@ -166,15 +166,9 @@ public class MugGameplay : MonoBehaviour
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
-
-        Collider tubeCollider = _tube.GetComponentInChildren<Collider>();
-        if (tubeCollider)
-        {
-            tubeCollider.enabled = false;
-        }
     }
 
-    public void EnableFilterInteract()
+    public void EnableTubeInteract()
     {
         var _tube = _aeropress.GetComponent<TubeGameplay>();
         if (_tube == null)
@@ -184,13 +178,7 @@ public class MugGameplay : MonoBehaviour
         
         if (_tube.TryGetComponent<XRGrabInteractable>(out var grab))
         {
-            grab.enabled = true;
-        }
-
-        Collider filterCollider = _tube.GetComponentInChildren<Collider>();
-        if (filterCollider)
-        {
-            filterCollider.enabled = true;
+            grab.interactionLayers |= InteractionLayerMask.GetMask("Default");
         }
     }
 }

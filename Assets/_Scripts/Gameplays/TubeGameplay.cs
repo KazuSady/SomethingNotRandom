@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
@@ -88,7 +89,7 @@ public class TubeGameplay : MonoBehaviour
                     manager.CancelInteractableSelection(grab as IXRSelectInteractable);
                 }
             }
-            grab.enabled = false;
+            grab.interactionLayers &= ~InteractionLayerMask.GetMask("Default");
         }
 
         // Reset physics
@@ -96,12 +97,6 @@ public class TubeGameplay : MonoBehaviour
         {
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-        }
-
-        Collider strainerCollider = _strainer.GetComponentInChildren<Collider>();
-        if (strainerCollider)
-        {
-            strainerCollider.enabled = false;
         }
     }
 
@@ -114,13 +109,7 @@ public class TubeGameplay : MonoBehaviour
         
         if (_strainer.TryGetComponent<XRGrabInteractable>(out var grab))
         {
-            grab.enabled = true;
-        }
-
-        Collider strainerCollider = _strainer.GetComponentInChildren<Collider>();
-        if (strainerCollider)
-        {
-            strainerCollider.enabled = true;
+            grab.interactionLayers |= InteractionLayerMask.GetMask("Default");
         }
     }
 }
