@@ -59,6 +59,8 @@ public class HeaterPlate : MonoBehaviour
 
     private void OnMugRemoved(SelectExitEventArgs args)
     {
+        hotEffect.Stop();
+        midEffect.Stop();
         _currentMug.HotAchieved -= ChangeVisuals;
         _currentMug = null;
         material.SetFloat(ShouldEmissive, 0.0f);

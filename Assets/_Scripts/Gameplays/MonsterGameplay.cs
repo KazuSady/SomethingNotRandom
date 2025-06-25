@@ -5,13 +5,20 @@ public class MonsterGameplay : MonoBehaviour
 {
     private MonsterHappiness _monsterHappiness = MonsterHappiness.Medium;
     private CoffeeSO _desiredCoffee;
+    private DecorationType _desiredDecorationType;
+    private float _desiredTemperature;
     
     public CoffeeSO DesiredCoffee => _desiredCoffee;
+    public DecorationType DesiredDecorationType => _desiredDecorationType;
+    public float DesiredTemperature => _desiredTemperature;
 
-    public void InitializeMonster(GameObject newLook, CoffeeSO newCoffee)
+    public void InitializeMonster(GameObject newLook, CoffeeSO newCoffee,
+        DecorationType newDecorationType, float desiredTemperature)
     {
         Instantiate(newLook, transform);
         _desiredCoffee = newCoffee;
+        _desiredDecorationType = newDecorationType;
+        _desiredTemperature = desiredTemperature;
     }
 
     public void ChangeHappiness(MonsterHappiness newHappiness)

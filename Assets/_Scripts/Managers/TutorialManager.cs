@@ -7,7 +7,7 @@ public class TutorialManager : MonoBehaviour
     
     [Header("Aeropress parts")]
     [SerializeField] private StrainerGameplay strainerGameplay;
-    [SerializeField] private PressGameplay pressGameplay;
+    [SerializeField] private ContinuousPressGameplay pressGameplay;
     [SerializeField] private TubeGameplay tubeGameplay;
     [SerializeField] private Renderer filterObject;
     [SerializeField] private Renderer strainerRenderer;

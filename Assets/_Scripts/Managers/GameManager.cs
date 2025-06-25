@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TutorialManager tutorialManager;
     [SerializeField] private List<CoffeeSO> availableCoffees;
     [SerializeField] private MugCupboard cupboard;
+    [SerializeField] private List<DecorationType> availableDecorations;
+    [SerializeField] private List<float> availableTemperatures;
 
     [Header("Monsters")]
     [SerializeField] private MonsterGameplay monsterPrefab;
@@ -24,7 +26,6 @@ public class GameManager : MonoBehaviour
     [Header("Effects")]
     [SerializeField] private ParticleSystem happyParticles;
     [SerializeField] private ParticleSystem angryParticles;
-    
     
     [Header("UI Elements")]
     [SerializeField] private TMP_Text textBubble;
@@ -48,14 +49,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(SpawnNewMonster());
-    }
-
-    private void OnDestroy()
-    {
-        if (_mug != null)
-        {
-            _mug.CoffeeStateUpdated -= OnCoffeeUpdated;
-        }
     }
     
     private IEnumerator SpawnNewMonster()
@@ -81,14 +74,34 @@ public class GameManager : MonoBehaviour
 
         randomIndex = Random.Range(0, monsterLook.Count);
         GameObject look = monsterLook[randomIndex];
+        
+        randomIndex = Random.Range(0, availableDecorations.Count);
+        var decorType = (DecorationType)randomIndex;
+        randomIndex = Random.Range(0, availableTemperatures.Count);
+        var temperature = availableTemperatures[randomIndex];
 
-        _currentMonster.InitializeMonster(look, coffee);
+        _currentMonster.InitializeMonster(look, coffee, decorType, temperature);
     }
 
     private void DisplayOrder(CoffeeSO coffee)
     {
         canvas.SetActive(true);
-        textBubble.text = $"I want {coffee.CoffeeName}! :>";
+        var temperature = "";
+        switch (_currentMonster.DesiredTemperature)
+        {
+            case 0.0f:
+                temperature = "cold";
+                break;
+            case 50.0f:
+                temperature = "warm";
+                break;
+            case 90.0f:
+                temperature = "extra hot";
+                break;
+        }
+        textBubble.text = $"I want {coffee.CoffeeName}! :>\n" +
+                          $"Make it {temperature}!\n" +
+                          $"I want {_currentMonster.DesiredDecorationType} decorations!";
     }
 
     private void OnTriggerEnter(Collider other)
@@ -111,11 +124,6 @@ public class GameManager : MonoBehaviour
         cupboard.ReturnMugToCupboard(_mug);
     }
     
-    private void OnCoffeeUpdated(MugGameplay _mug)
-    {
-        // TODO
-    }
-
     public void OnMugPicked(MugGameplay pickedMug)
     {
         if (_mug != null && _mug != pickedMug)
@@ -124,7 +132,6 @@ public class GameManager : MonoBehaviour
         }
 
         _mug = pickedMug;
-        _mug.CoffeeStateUpdated += OnCoffeeUpdated;
         tutorialManager.SetMug(_mug, _mug.GetComponentInChildren<Renderer>());
     }
 
@@ -137,7 +144,6 @@ public class GameManager : MonoBehaviour
         
         if (_mug == mug)
         {
-            _mug.CoffeeStateUpdated -= OnCoffeeUpdated;
             _mug = null;
 
            tutorialManager.RemoveOldMug();
@@ -150,12 +156,16 @@ public class GameManager : MonoBehaviour
     private int EvaluateCoffee()
     {
         CoffeeSO coffeeOrder = _currentMonster.DesiredCoffee;
+        var desiredTemperature = _currentMonster.DesiredTemperature;
+        var desiredDecor = _currentMonster.DesiredDecorationType;
+        
         bool correctCup = _mug.CupType == coffeeOrder.RequiredCup;
         bool coffeeOk = WithinTolerance(_mug.GetCoffeeAmount(), coffeeOrder.CoffeeAmount);
         bool milkOk = WithinTolerance(_mug.GetMilkAmount(), coffeeOrder.MilkAmount);
         bool waterOk = WithinTolerance(_mug.GetWaterAmount(), coffeeOrder.WaterAmount);
         bool cremeOk = WithinTolerance(_mug.GetCremeAmount(), coffeeOrder.CremeAmount);
-        bool temperatureOk = WithinTolerance(_mug.GetTemperature(), coffeeOrder.DesiredTemperature);
+        bool temperatureOk = IsTemperatureOkay(_mug.GetTemperature(), desiredTemperature);
+        bool decorOk = _mug.DecorType() == desiredDecor;
 
         int satisfaction = 0;
 
@@ -166,7 +176,8 @@ public class GameManager : MonoBehaviour
             $"Milk: {(milkOk ? "OK" : "not ok")}",
             $"Water: {(waterOk ? "OK" : "not ok")}",
             $"Creme: {(cremeOk ? "OK" : "not ok")}",
-            $"Temperature: {(cremeOk ? "OK" : "not ok")}",
+            $"Temperature: {(temperatureOk ? "OK" : "not ok")}",
+            $"Decoration: {(decorOk ? "OK" : "not ok")}"
         };
 
         satisfaction += correctCup ? 1 : 0;
@@ -175,10 +186,29 @@ public class GameManager : MonoBehaviour
         satisfaction += waterOk ? 1 : 0;
         satisfaction += cremeOk ? 1 : 0;
         satisfaction += temperatureOk ? 1 : 0;
+        satisfaction += decorOk ? 1 : 0;
 
         Debug.Log($"Coffee evaluated. Satisfaction: {satisfaction} ({string.Join("; ", parts)})");
 
         return satisfaction;
+    }
+
+    private bool IsTemperatureOkay(float current, float required)
+    {
+        if (required == 0.0f)
+        {
+            return current < 50.0f;
+        }
+        if (Mathf.Approximately(required, 50.0f))
+        {
+            return current < 90.0f;
+        }
+        if (Mathf.Approximately(required, 90.0f))
+        {
+            return current <= 100.0f;
+        }
+
+        return false;
     }
 
     private bool WithinTolerance(float current, float required)

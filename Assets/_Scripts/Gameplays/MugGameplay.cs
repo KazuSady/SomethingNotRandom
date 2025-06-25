@@ -6,7 +6,6 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class MugGameplay : MonoBehaviour
 {
-    public event Action<MugGameplay> CoffeeStateUpdated;
     public event Action<bool> TubeAttached;
     public event Action<bool> HotAchieved;
 
@@ -14,10 +13,11 @@ public class MugGameplay : MonoBehaviour
     [SerializeField] private CupType cupType;
     [SerializeField] private LiquidBehaviour liquid;
     [SerializeField] private float maxTemperature = 100.0f;
-
-    [Header("Aeropress")]
+    
+    [Header("Sockets")]
     [SerializeField] private XRSocketInteractor aeropressSocket;
-
+    [SerializeField] private XRSocketInteractor decorSocket;
+    
     [Header("Temperature effects")] 
     [SerializeField] private ParticleSystem midEffect;
     [SerializeField] private ParticleSystem hotEffect;
@@ -25,6 +25,7 @@ public class MugGameplay : MonoBehaviour
     private float _midTemp = 50.0f;
     private float _maxTemp = 90.0f;
     private GameObject _aeropress;
+    private DecorationGameplay _decorationGameplay;
     private ContinuousPressGameplay _pressGameplay;
     private bool _midEffectOn = false;
     private bool _hotEffectOn = false;
@@ -53,6 +54,18 @@ public class MugGameplay : MonoBehaviour
         MugCupboard.Instance.OnMugGrabbed(this);
     }
 
+    public void DecorPlaced()
+    {
+        var decor = decorSocket.GetOldestInteractableSelected();
+        _decorationGameplay = decor.transform.GetComponent<DecorationGameplay>();
+        Physics.IgnoreCollision(mainCollider, _decorationGameplay.GetComponentInChildren<BoxCollider>(), true);
+    }
+    
+    public void DecorRemoved()
+    {
+        Physics.IgnoreCollision(mainCollider, _decorationGameplay.GetComponentInChildren<BoxCollider>(), false);
+        _decorationGameplay = null;
+    }
     public void AeropressPlaced()
     {
         var aeropress = aeropressSocket.GetOldestInteractableSelected();
@@ -104,13 +117,11 @@ public class MugGameplay : MonoBehaviour
             hotEffect.Play();
             HotAchieved?.Invoke(true);
         }
-        CoffeeStateUpdated?.Invoke(this);
     }
     
     public void Froth(float amount)
     {
         liquid.FrothMilk(amount);
-        CoffeeStateUpdated?.Invoke(this);
     }
 
     public float GetCoffeeAmount()
@@ -136,6 +147,11 @@ public class MugGameplay : MonoBehaviour
     public float GetTemperature()
     {
         return _temperature;
+    }
+
+    public DecorationType DecorType()
+    {
+        return _decorationGameplay == null ? DecorationType.None : _decorationGameplay.DecorationType;
     }
 
     private void ResetProgress()
@@ -174,7 +190,6 @@ public class MugGameplay : MonoBehaviour
     {
         liquid.PourLiquid(liquidAmount, coffee);
         liquidbeh.PressedAll -= FinishPressing;
-        CoffeeStateUpdated?.Invoke(this);
     }
     
     private void StoppedPressed()
