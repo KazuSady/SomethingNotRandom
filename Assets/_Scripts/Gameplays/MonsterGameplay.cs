@@ -3,10 +3,16 @@ using UnityEngine;
 
 public class MonsterGameplay : MonoBehaviour
 {
+    [Header("Responses")]
+    [SerializeField] private string[] angryResponses;
+    [SerializeField] private string[] mediumResponses;
+    [SerializeField] private string[] happyResponses;
+
     private MonsterHappiness _monsterHappiness = MonsterHappiness.Medium;
     private CoffeeSO _desiredCoffee;
     private DecorationType _desiredDecorationType;
     private float _desiredTemperature;
+    private System.Random _random = new();
     
     public CoffeeSO DesiredCoffee => _desiredCoffee;
     public DecorationType DesiredDecorationType => _desiredDecorationType;
@@ -31,14 +37,24 @@ public class MonsterGameplay : MonoBehaviour
         switch (_monsterHappiness)
         {
             case MonsterHappiness.Angry:
-                return "What the hell is even that!?";
+                return GetRandomResponse(angryResponses);
             case MonsterHappiness.Medium:
-                return "Is that all you got? Eh...";
+                return GetRandomResponse(mediumResponses);
             case MonsterHappiness.Happy:
-                return "Yipee!";
+                return GetRandomResponse(happyResponses);
             default:
                 throw new ArgumentOutOfRangeException();
         }
+    }
+
+    private string GetRandomResponse(string[] responses)
+    {
+        if (responses == null || responses.Length == 0)
+        {
+            return string.Empty;
+        }
+
+        return responses[_random.Next(responses.Length)];
     }
 }
 

@@ -44,3 +44,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b01a63c066f924a9b9039923b1496f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angryResponses:
+  - What the hell is even that!?
+  - Did you even try?!
+  - This is an insult to coffee
+  - I'm never coming back here!
+  - This coffee ruined my day...
+  mediumResponses:
+  - Is that all you got? Eh...
+  - Eh... I guess it'll do.
+  - Meh. It's fine.
+  - "It\u2019s fine... I suppose."
+  - Meh. Could use some work.
+  happyResponses:
+  - Yipee!
+  - This is amazing!
+  - "Now that\u2019s the stuff!"
+  - Mmm, delicious! I love it!
+  - "Best cup I\u2019ve had all week!"

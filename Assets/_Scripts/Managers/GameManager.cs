@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Text;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -99,9 +101,21 @@ public class GameManager : MonoBehaviour
                 temperature = "extra hot";
                 break;
         }
-        textBubble.text = $"I want {coffee.CoffeeName}! :>\n" +
-                          $"Make it {temperature}!\n" +
-                          $"I want {_currentMonster.DesiredDecorationType} decorations!";
+        StringBuilder sb = new();
+
+        sb.AppendLine($"I want {coffee.CoffeeName}!");
+        sb.AppendLine($"Make it {temperature}!");
+
+        if (_currentMonster.DesiredDecorationType == DecorationType.None)
+        {
+            sb.AppendLine("I don't want any decorations!");
+        }
+        else
+        {
+            sb.AppendLine($"Decorate it with {_currentMonster.DesiredDecorationType}!");
+        }
+
+        textBubble.text = sb.ToString();
     }
 
     private void OnTriggerEnter(Collider other)
