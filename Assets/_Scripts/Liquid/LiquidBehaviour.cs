@@ -17,6 +17,9 @@ public class LiquidBehaviour : MonoBehaviour
     
     public bool CanAddLiquid;
     public bool CanAddCoffee;
+
+    [Header("Foam")]
+    [SerializeField] private GameObject foamObject;
     
     [Header("UI Elements")]
     [SerializeField] private TMP_Text liquidText;
@@ -51,7 +54,7 @@ public class LiquidBehaviour : MonoBehaviour
     private float _liquidAmount;
     private float _milkAmount;
     private float _coffeeAmount;
-    private float _cremeAmount;
+    private float _foamAmount;
     private float _time = 0.5f;
     private Vector3 _lastPos;
     private Vector3 _lastRot;
@@ -67,7 +70,7 @@ public class LiquidBehaviour : MonoBehaviour
     public float LiquidAmount => _liquidAmount;
     public float MilkAmount => _milkAmount;
     public float CoffeeAmount => _coffeeAmount;
-    public float CremeAmount => _cremeAmount;
+    public float FoamAmount => _foamAmount;
 
     private void Awake()
     {
@@ -121,6 +124,9 @@ public class LiquidBehaviour : MonoBehaviour
     public void Reset()
     {
         _liquidAmount = 0;
+        _milkAmount = 0;
+        _coffeeAmount = 0;
+        foamObject.SetActive(false);
         HandleChangeInAmount();
         liquidObject.SetActive(false);
         CanAddLiquid = false;
@@ -149,13 +155,20 @@ public class LiquidBehaviour : MonoBehaviour
             return;
         }
 
-        _cremeAmount += amount;
+        if (foamObject.activeSelf == false)
+        {
+            foamObject.SetActive(true);
+            foamObject.transform.localScale = new Vector3(1.0f, 0.0f, 1.0f);;
+        }
+
+        _foamAmount += amount;
         _milkAmount -= amount;
 
-        // TODO: update mesh/material
+        var scale = Mathf.Clamp(_foamAmount / 250.0f, 0.0f, 1.0f);
+        foamObject.transform.localScale = new Vector3(1.0f, scale * 0.57f, 1.0f);
 
         milkText.text = $"Milk: {_milkAmount} ml";
-        cremeText.text = $"Creme: {_milkAmount} ml";
+        cremeText.text = $"Foam: {FoamAmount} ml";
     }
 
     private void HandleNewDroplet(LiquidDroplet droplet)

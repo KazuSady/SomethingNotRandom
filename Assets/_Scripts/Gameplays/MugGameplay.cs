@@ -141,7 +141,7 @@ public class MugGameplay : MonoBehaviour
 
     public float GetCremeAmount()
     {
-        return liquid.CremeAmount;
+        return liquid.FoamAmount;
     }
 
     public float GetTemperature()

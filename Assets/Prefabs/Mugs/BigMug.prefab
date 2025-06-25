@@ -1704,6 +1704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanAddLiquid: 0
   CanAddCoffee: 0
+  foamObject: {fileID: 3311776703460481078}
   liquidText: {fileID: 1435452539391246826}
   coffeeText: {fileID: 5443103645080245001}
   milkText: {fileID: 7165921559452165947}
@@ -2249,7 +2250,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1531718076694224702, guid: 2fd4b1bd1b8d0704eae1811344c3fc95, type: 3}
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8699763680973631247, guid: 2fd4b1bd1b8d0704eae1811344c3fc95, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2791699541380645516}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8354199667851359669, guid: 2fd4b1bd1b8d0704eae1811344c3fc95, type: 3}
       insertIndex: -1
@@ -2285,4 +2289,75 @@ BoxCollider:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8699763680973631247, guid: 2fd4b1bd1b8d0704eae1811344c3fc95, type: 3}
   m_PrefabInstance: {fileID: 8202029108061782408}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8321975939010376270
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 677988543702298247}
+    m_Modifications:
+    - target: {fileID: 6179927112151134402, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0368
+      objectReference: {fileID: 0}
+    - target: {fileID: 6179927112151134402, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.055
+      objectReference: {fileID: 0}
+    - target: {fileID: 6179927112151134402, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.014
+      objectReference: {fileID: 0}
+    - target: {fileID: 6179927112151134402, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6179927112151134402, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6179927112151134402, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6179927112151134402, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6179927112151134402, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6179927112151134402, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6179927112151134402, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811784990869858936, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+      propertyPath: m_Name
+      value: milkFoam
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811784990869858936, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+--- !u!4 &2791699541380645516 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6179927112151134402, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+  m_PrefabInstance: {fileID: 8321975939010376270}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3311776703460481078 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6811784990869858936, guid: 777de95a4ee37474f989206949ec6009, type: 3}
+  m_PrefabInstance: {fileID: 8321975939010376270}
   m_PrefabAsset: {fileID: 0}
