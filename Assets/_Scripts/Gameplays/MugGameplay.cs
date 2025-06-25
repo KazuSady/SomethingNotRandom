@@ -8,6 +8,7 @@ public class MugGameplay : MonoBehaviour
 {
     public event Action<MugGameplay> CoffeeStateUpdated;
     public event Action<bool> TubeAttached;
+    public event Action<bool> HotAchieved;
 
     [SerializeField] private BoxCollider mainCollider;
     [SerializeField] private CupType cupType;
@@ -17,9 +18,16 @@ public class MugGameplay : MonoBehaviour
     [Header("Aeropress")]
     [SerializeField] private XRSocketInteractor aeropressSocket;
 
+    [Header("Temperature effects")] 
+    [SerializeField] private ParticleSystem midEffect;
+    [SerializeField] private ParticleSystem hotEffect;
 
+    private float _midTemp = 50.0f;
+    private float _maxTemp = 90.0f;
     private GameObject _aeropress;
     private ContinuousPressGameplay _pressGameplay;
+    private bool _midEffectOn = false;
+    private bool _hotEffectOn = false;
 
     private float _temperature = 20.0f;
 
@@ -27,7 +35,7 @@ public class MugGameplay : MonoBehaviour
 
     private XRGrabInteractable _grabInteractable;
 
-    void Awake()
+    private void Awake()
     {
         liquid.NoLiquidLeft += ResetProgress;
 
@@ -35,7 +43,7 @@ public class MugGameplay : MonoBehaviour
         _grabInteractable.selectEntered.AddListener(OnGrabbed);
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         _grabInteractable.selectEntered.RemoveListener(OnGrabbed);
     }
@@ -77,8 +85,25 @@ public class MugGameplay : MonoBehaviour
 
     public void HeatUp(float temperatureIncreasePerSecond)
     {
+        if (!(liquid.LiquidAmount > 0.0f))
+        {
+            return;
+        }
         _temperature += temperatureIncreasePerSecond * Time.deltaTime;
         _temperature = Mathf.Min(_temperature, maxTemperature);
+        if (_temperature >= _midTemp && _temperature < _maxTemp && _midEffectOn == false)
+        {
+            _midEffectOn = true;
+            midEffect.Play();
+            HotAchieved?.Invoke(false);
+        }
+        else if (_hotEffectOn && _temperature >= _maxTemp)
+        {
+            _hotEffectOn = true;
+            midEffect.Stop();
+            hotEffect.Play();
+            HotAchieved?.Invoke(true);
+        }
         CoffeeStateUpdated?.Invoke(this);
     }
     
@@ -90,7 +115,7 @@ public class MugGameplay : MonoBehaviour
 
     public float GetCoffeeAmount()
     {
-        return liquid.CanAddLiquid ? 9.0f : 0.0f;
+        return liquid.CoffeeAmount;
     }
 
     public float GetMilkAmount()
@@ -105,7 +130,7 @@ public class MugGameplay : MonoBehaviour
 
     public float GetCremeAmount()
     {
-        return 0f;
+        return liquid.CremeAmount;
     }
 
     public float GetTemperature()
@@ -135,14 +160,27 @@ public class MugGameplay : MonoBehaviour
         _pressGameplay = pressGameplay;
         _pressGameplay.EnablePressing();
         _pressGameplay.Pressing += HandlePressedCoffee;
+        _pressGameplay.StoppedPressing += StoppedPressed;
     }
 
     private void HandlePressedCoffee()
     {
         var liquidPress = _aeropress.GetComponentInChildren<LiquidBehaviour>();
-        liquid.PourLiquid(liquidPress.LiquidAmount, liquidPress.CoffeeAmount);
-        liquidPress.PressLiquid(3.5f);
+        liquidPress.PressedAll += FinishPressing;
+        liquidPress.StartDisappearingLiquid(3.5f);
+    }
+
+    private void FinishPressing(LiquidBehaviour liquidbeh, float liquidAmount, float coffee)
+    {
+        liquid.PourLiquid(liquidAmount, coffee);
+        liquidbeh.PressedAll -= FinishPressing;
         CoffeeStateUpdated?.Invoke(this);
+    }
+    
+    private void StoppedPressed()
+    {
+        var liquidPress = _aeropress.GetComponentInChildren<LiquidBehaviour>();
+        liquidPress.StopDisappearingLiquid();
     }
     
     public void DisableTubeInteract()

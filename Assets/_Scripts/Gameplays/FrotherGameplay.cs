@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -6,10 +7,12 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 public class FrotherGameplay : MonoBehaviour
 {
     [SerializeField] private XRSocketInteractor mugSocket;
+    [SerializeField] private GameObject tongue;
     [SerializeField] private float frothInterval = 0.5f;
     [SerializeField] private float frothAmount = 1f;
 
     private Coroutine _frothingRoutine;
+    private Coroutine _rotatingRoutine;
 
     private void OnEnable()
     {
@@ -28,6 +31,7 @@ public class FrotherGameplay : MonoBehaviour
         if (args.interactableObject.transform.TryGetComponent(out MugGameplay mug))
         {
             _frothingRoutine = StartCoroutine(FrothLoop(mug));
+            _rotatingRoutine = StartCoroutine(RotateTongue());
         }
     }
 
@@ -36,7 +40,19 @@ public class FrotherGameplay : MonoBehaviour
         if (_frothingRoutine != null)
         {
             StopCoroutine(_frothingRoutine);
+            StopCoroutine(_rotatingRoutine);
             _frothingRoutine = null;
+            _rotatingRoutine = null;
+        }
+    }
+
+    private IEnumerator RotateTongue()
+    {
+        Tween tongueTween;
+        while (true)
+        {
+            tongueTween = tongue.transform.DORotate(new Vector3(0.0f, 360.0f, 0.0f), 1.0f, RotateMode.FastBeyond360);
+            yield return tongueTween.WaitForCompletion();
         }
     }
 

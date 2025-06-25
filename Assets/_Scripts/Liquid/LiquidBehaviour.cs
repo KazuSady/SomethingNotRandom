@@ -12,6 +12,7 @@ public class LiquidBehaviour : MonoBehaviour
     private static readonly int Cutoff = Shader.PropertyToID("_Cutoff");
     public event Action NoLiquidLeft;
     public event Action NewLiquid;
+    public event Action<LiquidBehaviour, float, float> PressedAll;
     public event Action CoffeeIn;
     
     public bool CanAddLiquid;
@@ -61,6 +62,7 @@ public class LiquidBehaviour : MonoBehaviour
     private float _wobbleAmountToAddX;
     private float _wobbleAmountToAddZ;
     private float _pulse;
+    private Coroutine _disappearRoutine;
     
     public float LiquidAmount => _liquidAmount;
     public float MilkAmount => _milkAmount;
@@ -133,11 +135,6 @@ public class LiquidBehaviour : MonoBehaviour
         liquidObject.SetActive(true);
         StartCoroutine(SimulateLiquid(amountToSimulate, coffeeAmount));
         CanAddLiquid = true;
-    }
-
-    public void PressLiquid(float disappearingDuration)
-    {
-        StartCoroutine(SimulateDisappearingLiquid(disappearingDuration));
     }
 
     public void FrothMilk(float amount)
@@ -249,7 +246,7 @@ public class LiquidBehaviour : MonoBehaviour
     }
     private IEnumerator SimulateLiquid(float amountToSimulate, float coffeeAmount)
     {
-        var top = amountToSimulate / 200.0f;
+        var top = amountToSimulate / 210.0f;
         var time = 0.0f;
         while (time < duration)
         {
@@ -272,23 +269,52 @@ public class LiquidBehaviour : MonoBehaviour
         coffeeText.text = $"Coffee: {_coffeeAmount.ToString(CultureInfo.InvariantCulture)} g";
     }
     
+    public void StartDisappearingLiquid(float disappearingDuration)
+    {
+        if (_disappearRoutine != null)
+            StopCoroutine(_disappearRoutine);
+    
+        _disappearRoutine = StartCoroutine(SimulateDisappearingLiquid(disappearingDuration));
+    }
+    
+    public void StopDisappearingLiquid()
+    {
+        if (_disappearRoutine != null)
+        {
+            StopCoroutine(_disappearRoutine);
+            _disappearRoutine = null;
+        }
+    }
+
     private IEnumerator SimulateDisappearingLiquid(float disappearingDuration)
     {
-        var start = _liquidAmount / 200.0f;
-        var time = 0.0f;
-        while (time < disappearingDuration)
+        var totalSteps = Mathf.CeilToInt(disappearingDuration / 0.28f);
+        var currentStep = 0;
+
+        var start = _liquidAmount / 210.0f;
+        var cutoff = start;
+
+        while (cutoff > minCutoff)
         {
-            var t = time / disappearingDuration;
-            var cutoff = Mathf.Lerp(start, minCutoff, t);
+            var t = (float)currentStep / totalSteps;
+            cutoff = Mathf.Lerp(start, minCutoff, t);
             liquidRenderer.material.SetFloat(Cutoff, cutoff);
-            time += Time.deltaTime;
-            yield return null;
+
+            currentStep++;
+            yield return new WaitForSeconds(0.28f);
         }
+
+        liquidRenderer.material.SetFloat(Cutoff, minCutoff);
         liquidObject.SetActive(false);
+        
+        PressedAll?.Invoke(this, _liquidAmount, _coffeeAmount);
 
         _liquidAmount = 0.0f;
         liquidText.text = "";
         _coffeeAmount = 0.0f;
         coffeeText.text = "";
+
+        _disappearRoutine = null;
     }
+    
 }

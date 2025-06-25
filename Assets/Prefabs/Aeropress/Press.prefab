@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   validTag: Player
-  progressSpeed: 1
+  progressSpeed: 0.28
 --- !u!1 &6461185661671164584
 GameObject:
   m_ObjectHideFlags: 0

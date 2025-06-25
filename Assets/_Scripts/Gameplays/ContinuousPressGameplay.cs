@@ -5,10 +5,19 @@ using UnityEngine;
 public class ContinuousPressGameplay : MonoBehaviour
 {
     public event Action Pressing;
+    public event Action StoppedPressing;
+    
     [SerializeField] private ContinuousTrigger continuousTrigger;
     [SerializeField] private Animator pressAnimator;
 
-    private bool _notPressedYet = true;
+
+    private void Awake()
+    {
+        if(continuousTrigger)
+        {
+            continuousTrigger.Stopped += () => StoppedPressing?.Invoke();
+        }
+    }
 
     private void Update()
     {
@@ -18,18 +27,16 @@ public class ContinuousPressGameplay : MonoBehaviour
         }
         if (continuousTrigger.IsTouching)
         {
-            pressAnimator.Play("Press", 0, continuousTrigger.PressProgress);
-            pressAnimator.speed = 0f;
-            if (continuousTrigger.PressProgress == 1.0f && _notPressedYet)
+            if (continuousTrigger.PressProgress == 0.0f)
             {
-                _notPressedYet = false;
                 Pressing?.Invoke();
             }
-
+            pressAnimator.Play("Press", 0, continuousTrigger.PressProgress);
+            pressAnimator.speed = 0f;
         }
         else if (continuousTrigger.PressProgress == 0.0f)
         {
-            _notPressedYet = true;
+            pressAnimator.Play("New State 0");
         }
     }
     
@@ -40,6 +47,7 @@ public class ContinuousPressGameplay : MonoBehaviour
 
     public void DisablePressing()
     {
+        continuousTrigger.IsTouching = false;
         continuousTrigger.gameObject.SetActive(false);
     }
 }

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1673863841256673615}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.087, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -98,8 +98,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.10277799
-  m_Center: {x: 0, y: 0.048965767, z: -0.056355655}
+  m_Radius: 0.07785286
+  m_Center: {x: 0, y: 0.011441648, z: -0.06279676}
 --- !u!1 &8981927399482211082
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5859934047470300976}
+  - {fileID: 8123332685384939694}
   - {fileID: 8002412290218515964}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -147,9 +147,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mugSocket: {fileID: 1285888999057751462}
+  tongue: {fileID: 2238793189272909102}
   frothInterval: 0.5
   frothAmount: 1
---- !u!1001 &1173910822374825156
+--- !u!1001 &7711216642508677163
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -157,86 +158,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8406040779895257169}
     m_Modifications:
-    - target: {fileID: 4690564245330097140, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
+    - target: {fileID: 1221476103467516479, guid: 62dc03be449f9c349bd019f826e695b3, type: 3}
+      propertyPath: m_Name
+      value: milk_frother_snake
       objectReference: {fileID: 0}
-    - target: {fileID: 4690564245330097140, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4690564245330097140, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4690564245330097140, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
+    - target: {fileID: 1997450510293997701, guid: 62dc03be449f9c349bd019f826e695b3, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4690564245330097140, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
+    - target: {fileID: 1997450510293997701, guid: 62dc03be449f9c349bd019f826e695b3, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4690564245330097140, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
+    - target: {fileID: 1997450510293997701, guid: 62dc03be449f9c349bd019f826e695b3, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4690564245330097140, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
+    - target: {fileID: 1997450510293997701, guid: 62dc03be449f9c349bd019f826e695b3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4690564245330097140, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
+    - target: {fileID: 1997450510293997701, guid: 62dc03be449f9c349bd019f826e695b3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4690564245330097140, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
+    - target: {fileID: 1997450510293997701, guid: 62dc03be449f9c349bd019f826e695b3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4690564245330097140, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
+    - target: {fileID: 1997450510293997701, guid: 62dc03be449f9c349bd019f826e695b3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5355883835709729102, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
-      propertyPath: m_Name
-      value: snake_milk_frother
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5355883835709729102, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2614598550767073038}
-  m_SourcePrefab: {fileID: 100100000, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
---- !u!4 &5859934047470300976 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4690564245330097140, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
-  m_PrefabInstance: {fileID: 1173910822374825156}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6492354841445102986 stripped
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 62dc03be449f9c349bd019f826e695b3, type: 3}
+--- !u!1 &2238793189272909102 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 5355883835709729102, guid: 1e9088b1745f37f4daf83437d3db56e1, type: 3}
-  m_PrefabInstance: {fileID: 1173910822374825156}
+  m_CorrespondingSourceObject: {fileID: 8363875162371888389, guid: 62dc03be449f9c349bd019f826e695b3, type: 3}
+  m_PrefabInstance: {fileID: 7711216642508677163}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &2614598550767073038
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+--- !u!4 &8123332685384939694 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1997450510293997701, guid: 62dc03be449f9c349bd019f826e695b3, type: 3}
+  m_PrefabInstance: {fileID: 7711216642508677163}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6492354841445102986}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.61429715, y: 0.12961254, z: 0.62503725}
-  m_Center: {x: -0.019335032, y: -0.09612982, z: -0.0052476823}
