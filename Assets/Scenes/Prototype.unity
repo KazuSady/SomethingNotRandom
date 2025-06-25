@@ -12557,7 +12557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _smallMugPrefab: {fileID: 962173779919185056, guid: 1bc03a6c8a69d2742919b91358aee007, type: 3}
   _normalMugPrefab: {fileID: 2761088416389032907, guid: bafe0b1ea3f3e884885aceb114cab2b0, type: 3}
-  _tallMugPrefab: {fileID: 5130794595161517799, guid: b933a5c83f5a5c046ada02b6463d49aa, type: 3}
+  _tallMugPrefab: {fileID: 5130794595161517799, guid: 6e9a1b13e1e098f45be16a4fd61583f0, type: 3}
   _bigMugPrefab: {fileID: 2047571847485192791, guid: c8c187fd500509a479a7c9ca25983239, type: 3}
   _smallMugPosition: {fileID: 679671422}
   _normalMugPosition: {fileID: 2078572836}
