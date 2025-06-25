@@ -33,6 +33,7 @@ public class PortafilterGameplay : MonoBehaviour
         if (droplet.LiquidType == DropletType.CoffeeBlend)
         {
             _currentCoffee = Mathf.Clamp(_currentCoffee + coffeePerDroplet, 0f, maxCoffee);
+            Destroy(droplet.gameObject);
             coffeeText.text = $"Coffee: {_currentCoffee.ToString(CultureInfo.InvariantCulture)} g";
         }
     }
