@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
@@ -7,8 +6,8 @@ public class HeaterPlate : MonoBehaviour
 {
     private static readonly int ShouldEmissive = Shader.PropertyToID("_ShouldEmissive");
     
-    [FormerlySerializedAs("_heatRate")] [SerializeField] private float heatRate = 10.0f;
-    [FormerlySerializedAs("_socket")] [SerializeField] private XRSocketInteractor socket;
+    [SerializeField] private float heatRate = 10.0f;
+    [SerializeField] private XRSocketInteractor socket;
     [SerializeField] private Material material;
 
     private MugGameplay _currentMug;

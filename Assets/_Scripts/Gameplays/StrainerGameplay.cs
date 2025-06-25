@@ -41,22 +41,7 @@ public class StrainerGameplay : MonoBehaviour
 
         if (_filter.TryGetComponent<XRGrabInteractable>(out var grab))
         {
-            var interactor = grab.firstInteractorSelecting;
-            if (interactor != null)
-            {
-                var manager = grab.interactionManager;
-                if (manager)
-                {
-                    manager.CancelInteractableSelection(grab as IXRSelectInteractable);
-                }
-            }
             grab.interactionLayers &= ~InteractionLayerMask.GetMask("Default");
-        }
-
-        if (_filter.TryGetComponent<Rigidbody>(out var rb))
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
         }
     }
 

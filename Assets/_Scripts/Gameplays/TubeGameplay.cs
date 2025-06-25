@@ -80,23 +80,7 @@ public class TubeGameplay : MonoBehaviour
 
         if (_strainer.TryGetComponent<XRGrabInteractable>(out var grab))
         {
-            var interactor = grab.firstInteractorSelecting;
-            if (interactor != null)
-            {
-                var manager = grab.interactionManager;
-                if (manager)
-                {
-                    manager.CancelInteractableSelection(grab as IXRSelectInteractable);
-                }
-            }
             grab.interactionLayers &= ~InteractionLayerMask.GetMask("Default");
-        }
-
-        // Reset physics
-        if (_strainer.TryGetComponent<Rigidbody>(out var rb))
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
         }
     }
 

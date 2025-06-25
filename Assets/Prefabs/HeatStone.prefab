@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55848cc4666318b408225d6c4fa3eadf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heatRate: 10
-  _socket: {fileID: 4533018882827986007}
+  heatRate: 10
+  socket: {fileID: 4533018882827986007}
   material: {fileID: 2100000, guid: 848a3a4fe356dfa4cacfee78ef906561, type: 2}
 --- !u!1 &6467847804199632757
 GameObject:
@@ -76,7 +76,7 @@ Transform:
   m_GameObject: {fileID: 6467847804199632757}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.024, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0326, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

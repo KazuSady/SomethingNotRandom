@@ -79,6 +79,7 @@ public class MugGameplay : MonoBehaviour
     {
         _temperature += temperatureIncreasePerSecond * Time.deltaTime;
         _temperature = Mathf.Min(_temperature, maxTemperature);
+        Debug.Log(_temperature);
         CoffeeStateUpdated?.Invoke(this);
     }
 
@@ -141,42 +142,27 @@ public class MugGameplay : MonoBehaviour
     
     public void DisableTubeInteract()
     {
-        var _tube = _aeropress.GetComponent<TubeGameplay>();
-        if (_tube == null)
+        var tube = _aeropress.GetComponent<TubeGameplay>();
+        if (tube == null)
         {
             return;
         }
 
-        if (_tube.TryGetComponent<XRGrabInteractable>(out var grab))
+        if (tube.TryGetComponent<XRGrabInteractable>(out var grab))
         {
-            var interactor = grab.firstInteractorSelecting;
-            if (interactor != null)
-            {
-                var manager = grab.interactionManager;
-                if (manager)
-                {
-                    manager.CancelInteractableSelection(grab as IXRSelectInteractable);
-                }
-            }
             grab.interactionLayers &= ~InteractionLayerMask.GetMask("Default");
-        }
-
-        if (_tube.TryGetComponent<Rigidbody>(out var rb))
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
         }
     }
 
     public void EnableTubeInteract()
     {
-        var _tube = _aeropress.GetComponent<TubeGameplay>();
-        if (_tube == null)
+        var tube = _aeropress.GetComponent<TubeGameplay>();
+        if (tube == null)
         {
             return;
         }
         
-        if (_tube.TryGetComponent<XRGrabInteractable>(out var grab))
+        if (tube.TryGetComponent<XRGrabInteractable>(out var grab))
         {
             grab.interactionLayers |= InteractionLayerMask.GetMask("Default");
         }

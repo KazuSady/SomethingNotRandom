@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7587118570139618125}
-  - component: {fileID: 6690237705812120654}
   - component: {fileID: 202455468919331930}
+  - component: {fileID: 1406563316740954947}
   m_Layer: 0
   m_Name: ControllerDetector (1)
   m_TagString: Untagged
@@ -34,19 +34,6 @@ Transform:
   - {fileID: 8483037332912002310}
   m_Father: {fileID: 6618058794874207019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6690237705812120654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5257852927274734328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 161785aebe74ae0408b2feda12f492a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeRequired: 1
 --- !u!135 &202455468919331930
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -68,6 +55,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.018899592
   m_Center: {x: 0, y: 0.007623244, z: 0}
+--- !u!114 &1406563316740954947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5257852927274734328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaccf76ed6a826648a5127dc563c0c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  validTag: Player
+  progressSpeed: 1
 --- !u!1 &6461185661671164584
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +319,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1816226072462538343, guid: 52cc0356d6c98cf448cc7301be532703, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8208564859381040905}
+      addedObject: {fileID: 7981536087943838349}
     - targetCorrespondingSourceObject: {fileID: 1816226072462538343, guid: 52cc0356d6c98cf448cc7301be532703, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3071287973839137177}
@@ -333,7 +334,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1816226072462538343, guid: 52cc0356d6c98cf448cc7301be532703, type: 3}
   m_PrefabInstance: {fileID: 2624977357668493388}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8208564859381040905
+--- !u!114 &7981536087943838349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -342,10 +343,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4420649183374515755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d63a0c7a3dfc4fe4cba27378f08b477c, type: 3}
+  m_Script: {fileID: 11500000, guid: a531c7d2b23a6aa469cf7c1a8797a727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdInPlaceTrigger: {fileID: 6690237705812120654}
+  continuousTrigger: {fileID: 1406563316740954947}
   pressAnimator: {fileID: 3071287973839137177}
 --- !u!95 &3071287973839137177
 Animator:
