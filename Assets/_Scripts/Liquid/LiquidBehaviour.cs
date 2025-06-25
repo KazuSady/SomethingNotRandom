@@ -15,9 +15,6 @@ public class LiquidBehaviour : MonoBehaviour
     public event Action<LiquidBehaviour, float, float> PressedAll;
     public event Action CoffeeIn;
     
-    public bool CanAddLiquid;
-    public bool CanAddCoffee;
-
     [Header("Foam")]
     [SerializeField] private GameObject foamObject;
     
@@ -126,10 +123,9 @@ public class LiquidBehaviour : MonoBehaviour
         _liquidAmount = 0;
         _milkAmount = 0;
         _coffeeAmount = 0;
-        foamObject.SetActive(false);
+        foamObject?.SetActive(false);
         HandleChangeInAmount();
         liquidObject.SetActive(false);
-        CanAddLiquid = false;
     }
     
     public void PourLiquid(float amountToSimulate, float coffeeAmount)
@@ -140,7 +136,6 @@ public class LiquidBehaviour : MonoBehaviour
         }
         liquidObject.SetActive(true);
         StartCoroutine(SimulateLiquid(amountToSimulate, coffeeAmount));
-        CanAddLiquid = true;
     }
 
     public void FrothMilk(float amount)
@@ -192,7 +187,6 @@ public class LiquidBehaviour : MonoBehaviour
             {
                 NewLiquid?.Invoke();
                 liquidObject.SetActive(true);
-                CanAddLiquid = true;
             }
 
             if (_liquidAmount >= 210.0f || _liquidAmount + _milkAmount >= 210.0f)
@@ -223,6 +217,7 @@ public class LiquidBehaviour : MonoBehaviour
     {
         if (_liquidAmount > 0.0f)
         {
+            StartCoroutine(WaitForDropToSpill());
             var drop = Instantiate(dropletPrefab, liquidDropStart.position, Quaternion.identity);
             drop.GetComponent<Rigidbody>().AddForce(Physics.gravity, ForceMode.Acceleration);
             _liquidAmount -= drop.AmountOfLiquid;
@@ -244,6 +239,13 @@ public class LiquidBehaviour : MonoBehaviour
                 liquidObject.SetActive(false);
             }
         }
+    }
+
+    private IEnumerator WaitForDropToSpill()
+    {
+        liquidReceiver.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        liquidReceiver.gameObject.SetActive(true);
     }
 
     private void HandleChangeInAmount()

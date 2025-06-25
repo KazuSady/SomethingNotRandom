@@ -49,7 +49,7 @@ Material:
     - _WobbleX: 0.0000011375718
     - _WobbleZ: 0.0000068292293
     m_Colors:
-    - _CutoffMinMax: {r: -0.048, g: 0.046, b: 0, a: 0}
+    - _CutoffMinMax: {r: -0.039, g: 0.039, b: 0, a: 0}
     - _SideColor: {r: 0.0754717, g: 0.027693296, b: 0.011154616, a: 1}
     - _TopColor: {r: 0.06918234, g: 0.027953207, b: 0.013270813, a: 1}
   m_BuildTextureStacks: []

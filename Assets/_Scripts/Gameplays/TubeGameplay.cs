@@ -35,17 +35,12 @@ public class TubeGameplay : MonoBehaviour
         _strainer = strainerSocket.GetOldestInteractableSelected().transform.gameObject;
         Physics.IgnoreCollision(mainCollider, _strainer.GetComponentInChildren<BoxCollider>(), true);
         var sg = _strainer.transform.gameObject.GetComponent<StrainerGameplay>();
-        if (sg.HasFilter)
-        {
-            liquid.CanAddCoffee = true;
-        }
         sg.DisableFilterInteract();
         StrainerAttached?.Invoke(true);
     }
 
     public void StrainerRemoved()
     {
-        liquid.CanAddCoffee = false;
         Physics.IgnoreCollision(mainCollider, _strainer.GetComponentInChildren<BoxCollider>(), false);
         _strainer.GetComponent<StrainerGameplay>().EnableFilterInteract();
         _strainer = null;
@@ -59,7 +54,6 @@ public class TubeGameplay : MonoBehaviour
         _press = press.transform.gameObject;
         Physics.IgnoreCollision(mainCollider, _press.GetComponentInChildren<BoxCollider>(), true);
         PressAttached?.Invoke(press.transform.GetComponent<ContinuousPressGameplay>());
-        liquid.CanAddLiquid = false;
         AeropressAttached?.Invoke(true);
     }
 
@@ -67,7 +61,6 @@ public class TubeGameplay : MonoBehaviour
     {
         Physics.IgnoreCollision(mainCollider, _press.GetComponentInChildren<BoxCollider>(), false);
         _press = null;
-        liquid.CanAddLiquid = true;
         AeropressAttached?.Invoke(false);
     }
     

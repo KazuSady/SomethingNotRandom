@@ -11,7 +11,7 @@ public class CoffeeMachineGameplay : MonoBehaviour
         PouringCoffee
     }
 
-    [SerializeField] private float pourInterval = 0.1f;
+    [SerializeField] private float pourInterval = 0.5f;
     
     [Header("Portafilter")]
     [SerializeField] private PortafilterGameplay portafilter;

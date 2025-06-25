@@ -1,3 +1,5 @@
+using System.Globalization;
+using TMPro;
 using UnityEngine;
 
 public class PortafilterGameplay : MonoBehaviour
@@ -5,6 +7,7 @@ public class PortafilterGameplay : MonoBehaviour
     [SerializeField] private float maxCoffee = 100f;
     [SerializeField] private float coffeePerDroplet = 1f;
     [SerializeField] private LiquidReceiver liquidReceiver;
+    [SerializeField] private TMP_Text coffeeText;
 
     [Header("Droplets")]
     [SerializeField] private LiquidProvider leftNozzle;
@@ -30,6 +33,7 @@ public class PortafilterGameplay : MonoBehaviour
         if (droplet.LiquidType == DropletType.CoffeeBlend)
         {
             _currentCoffee = Mathf.Clamp(_currentCoffee + coffeePerDroplet, 0f, maxCoffee);
+            coffeeText.text = $"Coffee: {_currentCoffee.ToString(CultureInfo.InvariantCulture)} g";
         }
     }
    
@@ -40,6 +44,7 @@ public class PortafilterGameplay : MonoBehaviour
             leftNozzle.ForceSpawnDroplet();
             rightNozzle.ForceSpawnDroplet();
             _currentCoffee = Mathf.Max(0f, _currentCoffee - 2 * coffeePerDroplet);
+            coffeeText.text = $"Coffee: {_currentCoffee.ToString(CultureInfo.InvariantCulture)} g";
         }
     }
 }

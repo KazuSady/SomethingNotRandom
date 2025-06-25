@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CupBigMilkMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: edd4b63dba1848d4fb0efc8b42e8871d, type: 3}
+  m_Name: CupORM
+  m_Shader: {fileID: -6465566751694194690, guid: 1f0dd29291ff2924c9fb8412d813a2a3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -16,16 +16,29 @@ Material:
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _LiquidTexture:
-        m_Texture: {fileID: 2800000, guid: 3aec0b057d9f89544a28b07335ce54cd, type: 3}
+    - _Albedo:
+        m_Texture: {fileID: 2800000, guid: 3117009bd975d5c41b4d12750c7d3ddb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Emissive:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: ff84bdae19546a343ab5d757b6a2b1a5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ORM:
+        m_Texture: {fileID: 2800000, guid: 6413454af86826147bd8b2f2aaba056f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -42,19 +55,30 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CutAmount: -1
-    - _Cutoff: 0
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _CastShadows: 1
+    - _Cull: 2
+    - _DstBlend: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _WobbleX: 0.0000011375718
-    - _WobbleZ: 0.0000068292293
+    - _ReceiveShadows: 1
+    - _RoughnessMultiply: 1
+    - _ShouldEmissive: 0
+    - _ShouldLight: 0
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZTest: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
-    - _CutoffMinMax: {r: -0.032, g: 0.032, b: 0, a: 0}
-    - _SideColor: {r: 0.18431373, g: 0.11372549, b: 0.09411765, a: 1}
-    - _TopColor: {r: 0.5921569, g: 0.43137255, b: 0.3764706, a: 1}
+    - _RimColor: {r: 0.058736295, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &3889412456232269779
+--- !u!114 &525955090275141837
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
