@@ -19,7 +19,7 @@ public class MugGameplay : MonoBehaviour
 
 
     private GameObject _aeropress;
-    private PressGameplay _pressGameplay;
+    private ContinuousPressGameplay _pressGameplay;
 
     private float _temperature = 20.0f;
 
@@ -79,7 +79,6 @@ public class MugGameplay : MonoBehaviour
     {
         _temperature += temperatureIncreasePerSecond * Time.deltaTime;
         _temperature = Mathf.Min(_temperature, maxTemperature);
-        Debug.Log(_temperature);
         CoffeeStateUpdated?.Invoke(this);
     }
 
@@ -125,7 +124,7 @@ public class MugGameplay : MonoBehaviour
         liquid.Reset();
     }
 
-    private void SubscribeToPress(PressGameplay pressGameplay)
+    private void SubscribeToPress(ContinuousPressGameplay pressGameplay)
     {
         _pressGameplay = pressGameplay;
         _pressGameplay.EnablePressing();

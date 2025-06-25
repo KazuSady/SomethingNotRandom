@@ -10,8 +10,6 @@ public class ContinuousTrigger : MonoBehaviour
 
     [SerializeField] private float progressSpeed = 1.0f;
 
-    public event Action OnFullyPressed;
-
     private bool _isTouching;
     private bool _pressedFired;
 
@@ -40,7 +38,6 @@ public class ContinuousTrigger : MonoBehaviour
 
         if (PressProgress >= 1f && !_pressedFired)
         {
-            OnFullyPressed?.Invoke();
             _pressedFired = true;
         }
         else if (PressProgress < 1f)

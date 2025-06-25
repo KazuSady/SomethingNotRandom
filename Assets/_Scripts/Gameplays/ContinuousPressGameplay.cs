@@ -18,7 +18,7 @@ public class ContinuousPressGameplay : MonoBehaviour
         }
         if (continuousTrigger.IsTouching)
         {
-            pressAnimator.Play("New State 0", 0, continuousTrigger.PressProgress);
+            pressAnimator.Play("Press", 0, continuousTrigger.PressProgress);
             pressAnimator.speed = 0f;
             if (continuousTrigger.PressProgress == 1.0f && _notPressedYet)
             {
@@ -31,5 +31,15 @@ public class ContinuousPressGameplay : MonoBehaviour
         {
             _notPressedYet = true;
         }
+    }
+    
+    public void EnablePressing()
+    {
+        continuousTrigger.gameObject.SetActive(true);
+    }
+
+    public void DisablePressing()
+    {
+        continuousTrigger.gameObject.SetActive(false);
     }
 }

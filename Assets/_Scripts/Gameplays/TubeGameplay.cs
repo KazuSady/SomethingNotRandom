@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class TubeGameplay : MonoBehaviour
 {
-    public event Action<PressGameplay> PressAttached;
+    public event Action<ContinuousPressGameplay> PressAttached;
     public event Action<bool> StrainerAttached;
     public event Action<bool> AeropressAttached;
     public event Action<bool> CoffeePresent;
@@ -58,7 +58,7 @@ public class TubeGameplay : MonoBehaviour
         var press = pressSocket.GetOldestInteractableSelected();
         _press = press.transform.gameObject;
         Physics.IgnoreCollision(mainCollider, _press.GetComponentInChildren<BoxCollider>(), true);
-        PressAttached?.Invoke(press.transform.GetComponent<PressGameplay>());
+        PressAttached?.Invoke(press.transform.GetComponent<ContinuousPressGameplay>());
         liquid.CanAddLiquid = false;
         AeropressAttached?.Invoke(true);
     }
