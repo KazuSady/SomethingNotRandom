@@ -109,6 +109,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8406040779895257169}
+  - component: {fileID: 5478081683536605519}
   m_Layer: 0
   m_Name: Sssnake
   m_TagString: Untagged
@@ -133,6 +134,21 @@ Transform:
   - {fileID: 8002412290218515964}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5478081683536605519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981927399482211082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17027219b202dbd43bf8e39065ea28da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mugSocket: {fileID: 1285888999057751462}
+  frothInterval: 0.5
+  frothAmount: 1
 --- !u!1001 &1173910822374825156
 PrefabInstance:
   m_ObjectHideFlags: 0

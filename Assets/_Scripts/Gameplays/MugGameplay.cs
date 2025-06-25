@@ -81,6 +81,12 @@ public class MugGameplay : MonoBehaviour
         _temperature = Mathf.Min(_temperature, maxTemperature);
         CoffeeStateUpdated?.Invoke(this);
     }
+    
+    public void Froth(float amount)
+    {
+        liquid.FrothMilk(amount);
+        CoffeeStateUpdated?.Invoke(this);
+    }
 
     public float GetCoffeeAmount()
     {

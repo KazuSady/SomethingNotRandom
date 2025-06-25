@@ -21,6 +21,7 @@ public class LiquidBehaviour : MonoBehaviour
     [SerializeField] private TMP_Text liquidText;
     [SerializeField] private TMP_Text coffeeText;
     [SerializeField] private TMP_Text milkText;
+    [SerializeField] private TMP_Text cremeText;
     
     [Header("Materials")]
     [SerializeField] private Material coffeeMaterial;
@@ -49,6 +50,7 @@ public class LiquidBehaviour : MonoBehaviour
     private float _liquidAmount;
     private float _milkAmount;
     private float _coffeeAmount;
+    private float _cremeAmount;
     private float _time = 0.5f;
     private Vector3 _lastPos;
     private Vector3 _lastRot;
@@ -63,6 +65,7 @@ public class LiquidBehaviour : MonoBehaviour
     public float LiquidAmount => _liquidAmount;
     public float MilkAmount => _milkAmount;
     public float CoffeeAmount => _coffeeAmount;
+    public float CremeAmount => _cremeAmount;
 
     private void Awake()
     {
@@ -137,6 +140,27 @@ public class LiquidBehaviour : MonoBehaviour
         StartCoroutine(SimulateDisappearingLiquid(disappearingDuration));
     }
 
+    public void FrothMilk(float amount)
+    {
+        if (_milkAmount < amount)
+        {
+            amount = _milkAmount;
+        }
+
+        if (amount <= 0.0f)
+        {
+            return;
+        }
+
+        _cremeAmount += amount;
+        _milkAmount -= amount;
+
+        // TODO: update mesh/material
+
+        milkText.text = $"Milk: {_milkAmount} ml";
+        cremeText.text = $"Creme: {_milkAmount} ml";
+    }
+
     private void HandleNewDroplet(LiquidDroplet droplet)
     {
         if (noMilk && droplet.LiquidType == DropletType.Milk)
@@ -147,7 +171,7 @@ public class LiquidBehaviour : MonoBehaviour
         {
             if (_coffeeAmount == 0.0f && _coffeeAmount + droplet.AmountOfLiquid > 0.0f)
             {
-               CoffeeIn?.Invoke();
+                CoffeeIn?.Invoke();
             }
             _coffeeAmount += droplet.AmountOfLiquid;
             coffeeText.text = $"Coffee: {_coffeeAmount.ToString(CultureInfo.InvariantCulture)} g";
@@ -160,7 +184,7 @@ public class LiquidBehaviour : MonoBehaviour
                 liquidObject.SetActive(true);
                 CanAddLiquid = true;
             }
-        
+
             if (_liquidAmount >= 210.0f || _liquidAmount + _milkAmount >= 210.0f)
             {
                 return;
