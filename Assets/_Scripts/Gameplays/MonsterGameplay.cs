@@ -34,17 +34,13 @@ public class MonsterGameplay : MonoBehaviour
 
     public string GetHappinessText()
     {
-        switch (_monsterHappiness)
+        return _monsterHappiness switch
         {
-            case MonsterHappiness.Angry:
-                return GetRandomResponse(angryResponses);
-            case MonsterHappiness.Medium:
-                return GetRandomResponse(mediumResponses);
-            case MonsterHappiness.Happy:
-                return GetRandomResponse(happyResponses);
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+            MonsterHappiness.Angry => GetRandomResponse(angryResponses),
+            MonsterHappiness.Medium => GetRandomResponse(mediumResponses),
+            MonsterHappiness.Happy => GetRandomResponse(happyResponses),
+            _ => throw new ArgumentOutOfRangeException(),
+        };
     }
 
     private string GetRandomResponse(string[] responses)
