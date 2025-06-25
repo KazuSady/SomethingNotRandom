@@ -46,6 +46,7 @@ public class MugGameplay : MonoBehaviour
 
     private void OnDestroy()
     {
+        _pressGameplay.Pressing -= HandlePressedCoffee;
         _grabInteractable.selectEntered.RemoveListener(OnGrabbed);
     }
 
@@ -69,6 +70,7 @@ public class MugGameplay : MonoBehaviour
     public void AeropressPlaced()
     {
         var aeropress = aeropressSocket.GetOldestInteractableSelected();
+        Debug.Log($"[MugGameplay] <{gameObject.name}> Setting aeropress to {aeropress.transform.gameObject} from AeropressPlaced");
         _aeropress = aeropress.transform.gameObject;
         var tubeGameplay = _aeropress.GetComponent<TubeGameplay>();
         tubeGameplay.PressAttached += SubscribeToPress;
@@ -89,6 +91,7 @@ public class MugGameplay : MonoBehaviour
         Physics.IgnoreCollision(mainCollider, tubeGameplay.Strainer.GetComponentInChildren<BoxCollider>(), false);
         var strainerGameplay = tubeGameplay.Strainer.GetComponentInChildren<StrainerGameplay>();
         Physics.IgnoreCollision(mainCollider, strainerGameplay.Filter.GetComponentInChildren<BoxCollider>(), false);
+        Debug.Log($"[MugGameplay] <{gameObject.name}> Setting aeropress to null from AeropressRemoved");
         _aeropress = null;
         if (liquid.LiquidAmount < 0.5f)
         {
@@ -165,6 +168,8 @@ public class MugGameplay : MonoBehaviour
         {
             liquid.NoLiquidLeft -= ResetProgress;
         }
+        
+        Debug.Log($"[MugGameplay] <{gameObject.name}> Setting aeropress to null from ResetProgress");
         _aeropress = null;
         _pressGameplay = null;
         aeropressSocket.gameObject.SetActive(true);
@@ -181,6 +186,7 @@ public class MugGameplay : MonoBehaviour
 
     private void HandlePressedCoffee()
     {
+        Debug.Log($"[MugGameplay] <{gameObject.name}> Handle Pressed Coffee, aeropress: {_aeropress}");
         var liquidPress = _aeropress.GetComponentInChildren<LiquidBehaviour>();
         liquidPress.PressedAll += FinishPressing;
         liquidPress.StartDisappearingLiquid(3.5f);

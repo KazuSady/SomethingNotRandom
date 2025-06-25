@@ -189,7 +189,7 @@ public class LiquidBehaviour : MonoBehaviour
                 liquidObject.SetActive(true);
             }
 
-            if (_liquidAmount >= 210.0f || _liquidAmount + _milkAmount >= 210.0f)
+            if (_liquidAmount >= 280.0f || _liquidAmount + _milkAmount >= 280.0f)
             {
                 return;
             }
@@ -250,7 +250,7 @@ public class LiquidBehaviour : MonoBehaviour
 
     private void HandleChangeInAmount()
     {
-        var proportion = _liquidAmount / 200.0f;
+        var proportion = _liquidAmount / 280.0f;
         liquidRenderer.material.SetFloat(Cutoff, proportion);
         var colliderSize = liquidCollider.size;
         var colliderCenter = liquidCollider.center;
@@ -261,7 +261,7 @@ public class LiquidBehaviour : MonoBehaviour
     }
     private IEnumerator SimulateLiquid(float amountToSimulate, float coffeeAmount)
     {
-        var top = amountToSimulate / 210.0f;
+        var top = amountToSimulate / 280.0f;
         var time = 0.0f;
         while (time < duration)
         {
@@ -306,7 +306,7 @@ public class LiquidBehaviour : MonoBehaviour
         var totalSteps = Mathf.CeilToInt(disappearingDuration / 0.28f);
         var currentStep = 0;
 
-        var start = _liquidAmount / 210.0f;
+        var start = _liquidAmount / 280.0f;
         var cutoff = start;
 
         while (cutoff > minCutoff)

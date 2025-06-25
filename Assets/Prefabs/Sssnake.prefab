@@ -148,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mugSocket: {fileID: 1285888999057751462}
   tongue: {fileID: 2238793189272909102}
-  frothInterval: 0.5
+  frothInterval: 0.1
   frothAmount: 1
 --- !u!1001 &7711216642508677163
 PrefabInstance:
